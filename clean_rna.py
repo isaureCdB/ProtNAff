@@ -5,7 +5,7 @@
 Modify rna/dna pdb writen by interface_pdb.py
 All chain identifiers are removed from the chain
 Nucleotide-like cofactors and incompatible bases had been excised
-Within nucleic acid chains, PSU/7AT are also canonized (special since it involves atom re-mapping)
+Within nucleic acid chains, PSU/7AT residues are also canonized (special since it involves atom re-mapping)
 """
 
 import sys, os, json, copy, argparse

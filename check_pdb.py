@@ -116,15 +116,14 @@ def check_alternate(filename, nachains):
                 alternates.add(l[16])
     return alternates
 
-
 for l in open(args.inplist):
-    #try:
+    try:
         struc = l.strip()
         filename = "%s/%s.pdb"%(args.inpdir, struc)
         if struc in done:
             print('%s done'%struc)
             continue
-        if not os.path.exists(filename):
+        if not os.path.exists(filename) or os.stat(path).st_size==0:
             print("ERROR: %s/%s.pdb does not exist"%(args.inpdir, struc))
             continue
         print('-------------------------------' + struc, file=sys.stderr)
@@ -163,11 +162,11 @@ for l in open(args.inplist):
                 print('%s%s'%(struc, a), file = checked)
         else:
             print(struc, file = checked)
-    #except:
-    #    print(struc, file = tofix)
-    #    print("##################################")
-    #    print("unknown error in %s"%struc)
-    #    print("##################################")
+    except:
+        print(struc, file = tofix)
+        print("##################################")
+        print("unknown error in %s"%struc)
+        print("##################################")
 
 checked.close()
 tofix.close()

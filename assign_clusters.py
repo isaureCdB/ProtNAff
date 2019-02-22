@@ -9,7 +9,7 @@ parser =argparse.ArgumentParser(description=__doc__,
 formatter_class=argparse.RawDescriptionHelpFormatter)
 parser.add_argument('fragments', help="fragments_ori.json")
 parser.add_argument('na', help="rna or dna")
-parser.add_argument('outp', help="fragments_clust.json")
+#parser.add_argument('outp', help="fragments_clust.json")
 parser.add_argument('--clustfiles', nargs="+")
 parser.add_argument('--clustnames', nargs="+")
 args = parser.parse_args()
@@ -79,4 +79,4 @@ for (a, b, c) in [("A", "A", "A")]:
                 for frag in d:
                     fragments[motif][frag][name2] = nc2+1
 
-json.dump(fragments, open(args.outp,'w'), indent = 2)
+json.dump(fragments, open(args.fragments,'w'), indent = 2)

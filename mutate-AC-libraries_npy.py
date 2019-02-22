@@ -57,19 +57,19 @@ for sequence in sequences:
         for i in range(3):
             execute("sed -i 's/%s%s     %i/%s%s     %i/' /tmp/%s.pdb" \
                     %(x, seq[i], i+1, x, mutant[i], i+1, mutant))
-        execute('%s/splitmodel.py /tmp/%s.pdb /tmp/%s/conf-aa > /tmp/%s.list' \
+        execute('%s/splitmodel.py /tmp/%s.pdb /tmp/%s/conf-aa > /tmp/%s-aa.list' \
                  %(dirname, mutant, mutant, name))
-        execute("sed 's/\/tmp\///' /tmp/%s.list > %s.list" \
+        execute("sed 's/\/tmp\///' /tmp/%s-aa.list > %s-aa.list" \
                 %(name,  name))
-        execute('%s/pdbcompletion.py /tmp/%s.list %s.list \
+        execute('%s/pdbcompletion.py /tmp/%s-aa.list %s-aa.list \
                 --batch --heavy --%s --patch None 1 None > /dev/null 2> /dev/null' \
                 %(dirname, name, name, na))
         #reduce
-        execute("sed 's/\-aa/r/' %s.list > %s\r.list "\
+        execute("sed 's/\-aa/r/' %s-aa.list > %sr.list "\
                 %(name, name))
-        execute('%s/pdb2npy.py %s.list --list --outp %s-aa.npy'\
+        execute('%s/pdb2npy.py %s-aa.list --list --outp %s-aa.npy'\
                 %(dirname, name, mutant))
-        execute('%s/reduce-npy.py %s-aa.npy templates/%s.pdb %s.npy' \
+        execute('%s/reduce-npy.py %s-aa.npy templates/%s.pdb %sr.npy' \
                  %(dirname, mutant, mutant, mutant))
         #cleanup
-        #execute("rm -rf /tmp/%s*"%mutant)
+        execute("rm -rf /tmp/%s*"%mutant)

@@ -5,18 +5,6 @@ import sys
 import os, json, argparse
 import numpy as np
 
-def run(command):
-    sys.stdout.flush()
-    os.system(command)
-
-def pp(*x):
-    for i in x[:-1]:
-        print(i, file=sys.stderr, end=' ')
-    print(x[-1])
-
-'''
-ATOM     63  P    DG     4       8.352 -38.065-100.532   90   0.780 0 1.00
-'''
 def get_coor(l):
     if len(l)<54:
         raise
@@ -33,38 +21,14 @@ def check_breaks(index, d, cc):  #19/09/18
     else:
         return breaks, 0
 
-def OLD_check_breaks(index, d, cc): #19/09/18
-    breaks = d['breaks'][cc]
-    try:
-        mapp = d['mapping'][cc]
-    except:
-        print((d.keys(), cc))
-        raise
-    miss = d['missing_atoms'][cc]
-    if mapp[str(index+3)] in breaks or mapp[str(index+2)] in breaks:
-        return 1
-    else:
-        return 0
-
-def check_breaks_from_coor(pdb, struc, cc ):
-    ll = open(pdb,'r').readlines()
-    P = np.array([ get_coor[l] for l in ll if l[13]=="P" ][1:])
-    O = [ get_coor[l] for l in ll if l[13]=="O3'" ][1:]
-    X = zip(O,P)
-    ss = [ sum([(b[i]-a[i])**2 for i in range(3)]) for a, b in X]
-    broken = [n for n, s in enumerate(ss) if s > 3 ]
-    breaks_all[struc][cc] = broken
-
-#$RNAFRAG3/fragmt-from-AC.py x3dna.json fragments_ori.json $na listofseq
 #################################################################################
 a = argparse.ArgumentParser(prog="fragmt-from-AC.py")
 a.add_argument("x3dna")          # x3dna.json
 a.add_argument("frags")          # fragments_ori.json
-a.add_argument("outp")          # structures.json
-a.add_argument("na")             #
-a.add_argument("listofseq")      #
+a.add_argument("outp")           # structures.json
+a.add_argument("na")             # dna / rna
+a.add_argument("listofseq")      # motifs.list
 a.add_argument("directory")      # cleanPDB
-
 args = a.parse_args()
 #################################################################################
 directory = args.directory
@@ -103,7 +67,7 @@ for struct in sorted(x3dna.keys()):
     #if struct == '1FLJA': prog=1
     #if not prog: continue
     ################################
-    pp(struct)
+    print(struct, file=sys.stderr)
     d = x3dna[struct]
     d['fragments'] = {}
     for m in range(1, d['Nmodels']+1):
@@ -162,7 +126,6 @@ for struct in sorted(x3dna.keys()):
                 all_frag[s][ind]['resid'] = (mapp[str(i+1)], mapp[str(i+2)], mapp[str(i+3)])
                 all_frag[s][ind]['seq'] = oriseq
                 count[s]+=1
-
 
 json.dump(all_frag, open(args.frags, 'w'), indent = 2)
 json.dump(x3dna, open(args.outp, 'w'), indent = 2)

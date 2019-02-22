@@ -1,14 +1,6 @@
-#run this from the data directory!
 pdbcodes=$1
 na=$2
-export NAFRAG=/home/isaure/Scripts/nafrag
-export ATTRACTTOOLS=/home/isaure/git-attract/tools
-export ATTRACTDIR=/home/isaure/git-attract/bin
 wd=`pwd`
-
-rd=R
-if [ "$na" == "dna" ];then rd=D; fi
-echo $rd
 
 set -u -e
 #if false;then
@@ -18,7 +10,6 @@ echo "---------------------------- Download PDBs"
 if [ ! -d brutPDBs ];then mkdir brutPDBs; fi
 cd brutPDBs
 for i in `cat ../$pdbcodes|awk '{print toupper($0)}'`; do
-    #if [ ! -s $i.pdb ] && [ ! -s $i.pdb.bz2 ] && [ ! -s ../interface/$i-1.pdb ];then
     if [ ! -s $i.pdb ] && [ ! -s $i.pdb.bz2 ] ;then
       echo "downloading $i"
       pdb_download $i > /dev/null 2> /dev/null
@@ -75,12 +66,17 @@ $NAFRAG/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
 sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list
 
 ##########################################################################
-#echo "--------------------------------- build monolib"
+echo "---------------------------- build mononucleotide library"
 ##########################################################################
-#$NAFRAG/build_monolib.py templates clean-iniparse.list monolib
-#for a in A C G $ut ; do
-#  cluster_monolib.sh monolib/$rd$a-fit.npy 0.3 templates/$rd$a.pdb
-#done
+$NAFRAG/build_monolib.py templates clean-iniparse.list monolib
+
+rd=R
+ut=U
+if [ "$na" == "dna" ];then rd=D; ut=T; fi
+
+for a in A C G $ut ; do
+  cluster_monolib.sh monolib/$rd$a-fit.npy 0.3 templates/$rd$a.pdb
+done
 
 ##########################################################################
 echo "--------------------------------- Fill-up missing atoms "
@@ -141,7 +137,7 @@ d=`dirname "$0"`
 $NAFRAG/create_templates.py templates $na
 
 ##########################################################################
-echo "------------------- fragments clustering"
+echo "-------------------------------- fragments clustering"
 ##########################################################################
 dr=0.2 # redundancy cutoff
 c1=1.0 # tight clustering cutoff
@@ -166,16 +162,11 @@ for m in `cat motifs.list`; do
 done
 
 # Assign each fragment to its clusters in the json file
-$NAFRAG/assign_clusters.py fragments_ori.json $na fragments_clust.json \
+$NAFRAG/assign_clusters.py fragments.json $na \
   --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
   --clustnames "clust$dr" "clust$c1" "clust$c2"
 
 ##########################################################################
-echo "------------------- expansion to all sequences"
+echo "-------------------------------- mutate back into all sequences"
 ##########################################################################
-$NAFRAG/mutate-AC-libraries_npy.py $na "dr${dr}r-clust$cut1"
-
-# Creates fragments_demut.json
-$NAFRAG/demutate.sh motifs.list
-
-#$NAFRAG/copy-trilib.sh ../trilib
+$NAFRAG/mutate-AC-libraries_npy.py $na "dr${dr}r-clust$c1"
