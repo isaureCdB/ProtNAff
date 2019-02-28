@@ -1,6 +1,13 @@
+# provide a list of PDB codes of structures to parse
 pdbcodes=$1
+
+# provide the type of nucleic acids (dna or rna)
 na=$2
+
 wd=`pwd`
+d=`dirname "$0"`
+NAFRAG="$d/scripts"
+DATA="$d/data/"
 
 set -u -e
 #if false;then
@@ -31,7 +38,7 @@ mkdir -p 3dna/
 echo "-------------------------- check pdb"
 ##########################################################################
 $NAFRAG/check_pdb.py brutPDBs/ $pdbcodes corrupted_pdb_files.list \
-  tofix.list checked.list splitted.list $ATTRACTDIR/../allatom/$na-mutate.list \
+  tofix.list checked.list splitted.list $DATA/${na}lib/mutate.list \
    $na > log
 sort -u checked.list > bi; mv -f bi checked.list
 
@@ -42,8 +49,8 @@ echo "-------------------------- detect NA - protein interface "
   #   - chainsmodels/xxxxX-y.pdb
   #   - chainsmodels.json
   #!!! It deletes pdb if already present in chainsmodels.json !!
-python3 $NAFRAG/interface_pdb_contacts.py 5 brutPDBs chainsmodels checked.list \
-  $ATTRACTTOOLS/../allatom/$na-mutate.list chainsmodels.json $na \
+$NAFRAG/interface_pdb_contacts.py 5 brutPDBs chainsmodels checked.list \
+  $DATA/${na}lib/mutate.list chainsmodels.json $na \
    > interface_pdb_contacts.log
 
 ##########################################################################
@@ -55,7 +62,7 @@ echo "---------------------------------  parse initial pdb"
   # Also checks that every chain has " " or "A" in column 17 (alternative conformations)
   # TODO: remove clashing atoms
 $NAFRAG/clean_rna.py 'chainsmodels/' 'cleanPDB/' cleanPDB.list \
-  $ATTRACTDIR/../allatom/$na-mutate.list chainsmodels.json \
+  $DATA/${na}lib/mutate.list chainsmodels.json \
   clean_rna.json $na > clean.err
 
   ### Applies aareduce to remove non-NA. Creates:
@@ -65,6 +72,12 @@ $NAFRAG/clean_rna.py 'chainsmodels/' 'cleanPDB/' cleanPDB.list \
 $NAFRAG/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
 sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list
 
+# if False;then
+
+# This section is to create a library of mono-nucleotide, to be used by the
+# pdbcompletion.py script to add missing atoms.
+# A mono-nucleotide library created in 2018 is already provided, but you might
+# want to update/customise it (e.g. change the resolution = the clustering cutoff)
 ##########################################################################
 echo "---------------------------- build mononucleotide library"
 ##########################################################################
@@ -77,6 +90,7 @@ if [ "$na" == "dna" ];then rd=D; ut=T; fi
 for a in A C G $ut ; do
   cluster_monolib.sh monolib/$rd$a-fit.npy 0.3 templates/$rd$a.pdb
 done
+#fi
 
 ##########################################################################
 echo "--------------------------------- Fill-up missing atoms "
@@ -88,7 +102,7 @@ echo "--------------------------------- Fill-up missing atoms "
   ### Adds entries in chainsmodels.json:
       #   - 'missings' : residues with missing atoms (if too many => deleted)
       #   - 'sequence'
-python3 $NAFRAG/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
+$NAFRAG/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
   excised.list $na
 
   ### Fill-up missing atoms
@@ -102,7 +116,7 @@ python3 $NAFRAG/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
 $NAFRAG/parse_pdb-missings.sh excised.list $na
 
 ### retrieve missing (always clashing) 5PHO
-python3 $NAFRAG/excise-still-missing.py cleanPDB still_missing.list \
+$NAFRAG/excise-still-missing.py cleanPDB still_missing.list \
   clean-iniparse-aa.list excise.json $na
 sort -u clean-iniparse-aa.list > bi; mv -f bi clean-iniparse-aa.list
 
@@ -117,7 +131,7 @@ $NAFRAG/3dna_parse_json.py excise.json x3dna.json $na
 ##########################################################################
 echo "-------------------------------- parse pdb files"
 ##########################################################################
-### Mutate G -> A and U/T -> C to increase the number of conformers
+### Mutate G -> A and U/T -> C to increase the number of conformers per purine-pyrimidine motif
 $NAFRAG/parse_pdb_AC.sh clean-iniparse-aa.list $na >> pdbfiles-AC.list
 sort -u pdbfiles-AC.list > bi; mv -f bi pdbfiles-AC.list
 

@@ -38,7 +38,7 @@ parser = argparse.ArgumentParser(description=__doc__,
 parser.add_argument("inpdir",help="chainsmodels")
 parser.add_argument("outdir",help="cleanPDB")
 parser.add_argument("outlist",help="outp: cleanPDB.list")
-parser.add_argument("mutatelist",help="$ATTRACTTOOLS/..//allatoms/$na-mutate.list")
+parser.add_argument("mutatelist",help="list of modified residue and their equivalent")
 parser.add_argument("inpjson",help="chainsmodels.json")
 parser.add_argument("outjson",help="clean_rna.json")
 parser.add_argument("na",help="dna or rna")
@@ -48,7 +48,7 @@ parser.add_argument("--replace", help="replace entries already in outp", action=
 args = parser.parse_args()
 
 js = json.load(open(args.inpjson))
-modified = [l.split()[0] for l in open(args.mutatelist).readlines() if len(l.strip())] #$na-mutate.list
+modified = [l.split()[0] for l in open(args.mutatelist).readlines() if len(l.strip())]
 
 out_init = testpathjson(args.outjson)
 if args.delete:
@@ -56,7 +56,7 @@ if args.delete:
 else:
     out = out_init
 
-base = ["N1","C2","N2","O2","N3","N4","C4","O4","C5","N6","C6","O6",'C7',"N7","C8","N9"]
+base = ["N1","C2","N2","O2","N3","N4","C4","O4","C5","N6","C6","O6","C7","N7","C8","N9"]
 ### ADD OTHER MUTATIONS
 modif = {
     'BZG': [{ 'rna':'G', 'dna':'G'},

@@ -70,13 +70,13 @@ parser.add_argument("corrupted",help="corrupted_pdb_files.list")
 parser.add_argument("tofix",help="tofix.list")
 parser.add_argument("checked",help="checked.list")
 parser.add_argument("splitted",help="splitted.list")
-parser.add_argument("mutatelist",help="$ATTRACTTOOLS/..//allatoms/$na-mutate.list")
+parser.add_argument("mutatelist",help="[d/r]nalib/mutate.list")
 parser.add_argument("na",help="dna or rna")
 args = parser.parse_args()
 
 parser = PDBParser()
 
-modified = set([l.split()[0] for l in open(args.mutatelist)]) # $ATTRACTTOOLS/../allatom/rna-mutate.list
+modified = set([l.split()[0] for l in open(args.mutatelist)])
 canonical = set(["DT", "DC", "DG", "DA", "C", "T", "A", "G", "PSU", "7AT",
                  "RU", "RC", "RG", "RA", "U"])
 included = canonical | modified

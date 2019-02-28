@@ -42,7 +42,7 @@ fi
 #   $m-dr${dr}r.npy : coarse-grained coordinates of non-redundant fitted fragments
 if [ ! -s $m-dr${dr}r.npy ];then
   echo "reduce fit-clust${dr}.npy $m"
-  python $ATTRACTTOOLS/reduce-npy.py $m-aa-fit-clust${dr}.npy templates/$m.pdb $m-dr${dr}r.npy > /dev/null
+  $d/reduce-npy.py $m-aa-fit-clust${dr}.npy templates/$m.pdb $m-dr${dr}r.npy > /dev/null
 fi
 
 rm $m-aa-fit-clust${dr}.npy

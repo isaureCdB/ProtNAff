@@ -152,6 +152,7 @@ parser.add_argument("--nter", "--nterm" , dest="nter", help="Add N-ter/5'-ter to
                     action="append", type=int, default=[])
 parser.add_argument("--cter","--cterm", dest="cter", help="Add C-ter/3'-ter to the specified residue number",
                     action="append", type=int, default=[])
+parser.add_argument("--startres", help="Set residue number of first residue", type=int, default=1)
 parser.add_argument("--manual",help="""Enables manual mode.
     In automatic mode (default), in case of missing atoms, a number of last-resort fixes are attempted that add pseudo-hydrogens
     at the position of its connected heavy atom. If there too many missing atoms, the residue is discarded and a warning is given.

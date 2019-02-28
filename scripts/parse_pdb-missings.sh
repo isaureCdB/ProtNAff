@@ -1,6 +1,10 @@
 #TODO: remove --heavy option
+
 filelist=$1 # missings.list
 na=$2
+
+d=`dirname "$0"`
+
 set -u -e
 cat /dev/null > clean-iniparse-aa.list
 cat /dev/null > parse_pdb.errors
@@ -21,22 +25,14 @@ for i in `cat  $filelist`; do
   resn=`head -1 $i | awk '{print substr($0,23,4)}'`
   chain=`echo $i|awk -F "-" '{print substr($1,length($1),1)}'`
 
-  python2 $ATTRACTDIR/../allatom/aareduce.py $i $outf --$na --heavy --nalib \
-  --chain $chain --modbase --mutate $ATTRACTDIR/../allatom/$na-mutate.list \
-  --patch $resn None --manual > $name-aa.mapping
+  $d/pdbcompletion.py $i $outf --$na --heavy \
+  --chain $chain --modbase --mutate $d/../data/${na}lib/mutate.list \
+  --patch None $resn None --manual > $name-aa.mapping
 
-#  a=`grep XXX $outf|wc -l`
-#  if [ "$a" -gt 0 ]; then
-#    mv $outf $name-aa-miss5PHO.pdb
-#    echo $name-aa-miss5PHO.pdb >> still_missing.list
-#  else
   echo $outf >> clean-iniparse-aa.list
-#  fi
 
   if [ ! -f $outf ]; then
       touch $outf
       echo "missing $outf"
   fi
 done
-
-#5I4AD
