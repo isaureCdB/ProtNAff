@@ -62,11 +62,6 @@ all_templates = 0
 prog=0
 x3dna = json.load(open(args.x3dna))
 for struct in sorted(x3dna.keys()):
-    #for struct in ['5HCH']:
-    ################################
-    #if struct == '1FLJA': prog=1
-    #if not prog: continue
-    ################################
     print(struct, file=sys.stderr)
     d = x3dna[struct]
     d['fragments'] = {}
