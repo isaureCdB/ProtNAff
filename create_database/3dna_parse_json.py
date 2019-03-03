@@ -5,15 +5,13 @@ import sys, json, os
 from collections import defaultdict
 import copy
 '''
-"is_broken" in "nts" of 3dna json indicates a break in the chain
-=> could be used instead of distance-based script for break detection
-(But use distance-based if the user skips 3dna-analysis)
+"is_broken" in "nts" of 3dna jsonoutput indicates a break in the chain
+=> This could be used instead of distance-based script for break detection
+(But use distance-based if you skip 3dna-analysis)
 
-!!! Compatible with x3dna-dssr version before 2018oct09
+!!! Compatible with x3dna-dssr version before 2018oct09 !!!
 '''
 #TODO: add bulges and intraloop
-
-print("save the kakapo", file=sys.stderr)
 
 def pp(*x):
     for i in x[:-1]:
@@ -91,8 +89,7 @@ def initialise_all(d, js):
         if k not in js:
             js[k] = []
     #
-    outputs = ["bptype", "intraRNA_hb", "stacking", "ss", "RNAprot_hb",\
-    "DNApairing"] # +"breaks"
+    outputs = ["bptype", "intraRNA_hb", "stacking", "ss", "RNAprot_hb"] # +"breaks"
     for k in outputs:
         if k not in d:
             d[k] = { "chain_"+c:{} for c in chains}
@@ -325,12 +322,8 @@ def get_ss(js_ssSegments, d_ss):
             nr = 0
             d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
 
-#def check_ss(d_ss):
-#    for k in d_ss:
-
-#dssrlist = open(sys.argv[1]).readlines()  #list of "3dna/xxxX-y.json"
-chainsmodels = json.load(open(sys.argv[1])) # chainsmodels.json
-outfile = sys.argv[2]                       # x3dna.json
+chainsmodels = json.load(open(sys.argv[1])) # excise.json
+outfile = sys.argv[2]                       # structures.json
 out = testpathjson(outfile)
 na = sys.argv[3]                            # "rna" or "dna"
 
@@ -353,7 +346,6 @@ if True: # for editing purpose
         }
     neighbors = ["n-2", "n-1", "other", "n+1", "n+2"]
 
-
 dictcode = defaultdict(lambda: 0)
 for a in range(1,4):
     for b in code[a]:
@@ -367,7 +359,7 @@ for a in range(1,4):
     # position in the 5-nb vector of the nucleotide:
     # {1: {"base": [0, 0, 1, 0, 0], "ph": [0, 0, 0, 0, 0], "sug": [0, 0, 0, 0, 0]},
 
-# Nb of interactions with nt at [i-2, i-1, other, i+1, i+2]
+# Nb of interactions with nt at  position [i-2, i-1, other, i+1, i+2]
 vect = list(range(5))
 for struct in sorted(chainsmodels.keys()):
     if struct in out.keys(): # structure already in the output
@@ -401,5 +393,3 @@ for struct in sorted(chainsmodels.keys()):
 
 json.dump(out, open(outfile, "w"), indent = 2)
 print("done", file=sys.stderr)
-
-#((((((((((((((((((((((((((..((((....))))....))))))..(((..).)).......((((....)))).((((((...)))))).

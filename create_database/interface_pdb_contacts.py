@@ -39,8 +39,10 @@ class MySelect(Select):
         else:
             return 1
 
-def pp(s):
-    print(s, file=sys.stderr)
+def pp(*x):
+    for i in x[:-1]:
+        print(i, file=sys.stderr, end=' ')
+    print(x[-1])
 
 def testpathjson(jsonfile):
     if os.path.exists(jsonfile):

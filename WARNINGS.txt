@@ -1,0 +1,16 @@
+
+WARNING
+create_database/3dna_parse_json.py  is compatible with versions of x3dna until 2018oct09.
+At that date, the output format (atoms codes) of x3dna was changed.
+
+WARNING
+There is no option (yet) to select non-redundant structures.
+This can biase the statistics made on the databse/library.
+
+TODO:
+_ Add entries in the structure.json file: organism, protein family, RNA type,
+SCOP domains ...
+_ Extract more 2D structure types from x3dna output (bulges, loops)
+_ Extract NA-protein stackings
+_ Detail which amino-acid in each NA-prot H-bonds
+_ Extract water bridges

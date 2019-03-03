@@ -92,15 +92,8 @@ if args.replace:
     replaces = [l.split()[0] for l in open(args.replace)]
 
 resn_list = ["RA","RC","RG","RU"]
-mutations = {'A': 'G',
-             'G': 'G',
-             'U': 'U',
-             'C': 'U',
-            }
 if args.na=='dna':
     resn_list = ["DA","DC","DG","DT"]
-    mutations['T'] = 'T'
-    mutations['C'] = 'T'
 
 ph = ["P","O1P","O2P","OP1", "OP2","O5'"]
 sug = ["C5'", "C4'", "C3'", "C2'", "C1'", "O3'", "O2'", "O4'"]
@@ -176,15 +169,11 @@ for struc in sorted(chainsmodels.keys()):
             outf.close()
             ########################
             if m == 1:
-                mu = [mutations[i] for i in seq]
                 if 'sequence' not in d.keys():
                     d['sequence'] = {}
-                    d['mut_sequence'] = {}
                 d['sequence']["chain_%s"%c] = "".join(seq)
-                d['mut_sequence']["chain_%s"%c] = "".join(mu)
         if delstruc:
             continue
-    #print(d['sequence'], file=sys.stderr)
 
 json.dump(out, open(args.outjson, "w"), indent = 2)
 

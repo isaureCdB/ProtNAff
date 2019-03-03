@@ -123,7 +123,7 @@ for l in open(args.inplist):
         if struc in done:
             print('%s done'%struc)
             continue
-        if not os.path.exists(filename) or os.stat(path).st_size==0:
+        if not os.path.exists(filename) or os.stat(filename).st_size==0:
             print("ERROR: %s/%s.pdb does not exist"%(args.inpdir, struc))
             continue
         print('-------------------------------' + struc, file=sys.stderr)
@@ -164,9 +164,9 @@ for l in open(args.inplist):
             print(struc, file = checked)
     except:
         print(struc, file = tofix)
-        print("##################################")
-        print("unknown error in %s"%struc)
-        print("##################################")
+        print("##################################", file=sys.stderr)
+        print("unknown error in %s"%struc, file=sys.stderr)
+        print("##################################", file=sys.stderr)
 
 checked.close()
 tofix.close()
