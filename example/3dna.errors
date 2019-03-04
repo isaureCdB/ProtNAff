@@ -1,0 +1,14 @@
+
+Processing file '/tmp/1B7F-1-3dna.pdb'
+invalid PDB atomic symbol at 77-78: <  >
+    total number of base pairs: 1
+    total number of non-pairing interactions: 15
+    total number of atom-base capping interactions: 2
+    total number of splayed-apart dinucleotides: 12
+    total number of 	consolidated into units: 8
+
+boundary for lvector(): [1 to 0]
+    total number of phosphate interactions: 12
+    total number of non-loop single-stranded segments: 2
+
+Time used: 00:00:00:00

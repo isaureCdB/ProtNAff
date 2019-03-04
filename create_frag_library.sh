@@ -7,29 +7,28 @@ na=$1
 
 wd=`pwd`
 d=`dirname "$0"`
-SCRIPTS="$d/create_frag_library/"
+SCRIPTS="$wd/$d/create_frag_library/"
+
+set -u -e
 
 ##########################################################################
 echo "-------------------------------- mutate pdb files"
 ##########################################################################
 ### Mutate G -> A and U/T -> C to increase the number of conformers per purine-pyrimidine motif
-$SCRIPTS/parse_pdb_AC.sh clean-iniparse-aa.list $na >> pdbfiles-AC.list
-sort -u pdbfiles-AC.list > bi; mv -f bi pdbfiles-AC.list
+$SCRIPTS/parse_pdb_AC.sh clean-iniparse-aa.list $na $d/data/mutate-AC.list
 
 ##########################################################################
 echo "-------------------------------- cut into fragments"
 ##########################################################################
-mkdir -p PDBs
 mkdir -p trilib
-$SCRIPTS/fragmt-from-AC.py structures.json fragments.json structures_AC.json $na motifs.list 'cleanPDB'
+mkdir -p PDBs
+$SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
 
 cd trilib
+mv ../motifs.list .
+mv ../*all-aa.npy .
 mkdir -p templates/
-ln -sf ../fragments.json
-ln -s ../motifs.list
-
-d=`dirname "$0"`
-$SCRIPTS/create_templates.py templates $na
+$SCRIPTS/create_templates.py ../data/${na}lib templates $na
 
 ##########################################################################
 echo "-------------------------------- fragments clustering"
@@ -57,7 +56,7 @@ for m in `cat motifs.list`; do
 done
 
 # Assign each fragment to its clusters in the json file
-$SCRIPTS/assign_clusters.py fragments.json $na \
+$SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
   --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
   --clustnames "clust$dr" "clust$c1" "clust$c2"
 

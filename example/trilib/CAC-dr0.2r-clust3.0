@@ -1,0 +1,5 @@
+cluster 1 => 2  4  5  8  9  10  11  12  13  16  17  18  19  
+cluster 2 => 1  3  
+cluster 3 => 20  21  
+cluster 4 => 6  14  
+cluster 5 => 7  15  
