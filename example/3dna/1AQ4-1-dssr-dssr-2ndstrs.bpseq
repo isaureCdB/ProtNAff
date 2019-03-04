@@ -1,0 +1,30 @@
+    1 A    15 # name=.R.RA.1., pairedNt=.R.RU.15.
+    2 U    14 # name=.R.RU.2., pairedNt=.R.RA.14.
+    3 G    13 # name=.R.RG.3., pairedNt=.R.RC.13.
+    4 A     0 # name=.R.RA.4.
+    5 G    12 # name=.R.RG.5., pairedNt=.R.RC.12.
+    6 G    11 # name=.R.RG.6., pairedNt=.R.RC.11.
+    7 A     0 # name=.R.RA.7.
+    8 U     0 # name=.R.RU.8.
+    9 U     0 # name=.R.RU.9.
+   10 A     0 # name=.R.RA.10.
+   11 C     6 # name=.R.RC.11., pairedNt=.R.RG.6.
+   12 C     5 # name=.R.RC.12., pairedNt=.R.RG.5.
+   13 C     3 # name=.R.RC.13., pairedNt=.R.RG.3.
+   14 A     2 # name=.R.RA.14., pairedNt=.R.RU.2.
+   15 U     1 # name=.R.RU.15., pairedNt=.R.RA.1.
+   16 G     0 # name=.R.RG.16.
+   17 A     0 # name=.S.RA.1.
+   18 U    30 # name=.S.RU.2., pairedNt=.S.RA.14.
+   19 G    29 # name=.S.RG.3., pairedNt=.S.RC.13.
+   20 A     0 # name=.S.RA.4.
+   21 G    28 # name=.S.RG.5., pairedNt=.S.RC.12.
+   22 G    27 # name=.S.RG.6., pairedNt=.S.RC.11.
+   23 A     0 # name=.S.RA.7.
+   24 U     0 # name=.S.RU.8.
+   25 U     0 # name=.S.RU.9.
+   26 A     0 # name=.S.RA.10.
+   27 C    22 # name=.S.RC.11., pairedNt=.S.RG.6.
+   28 C    21 # name=.S.RC.12., pairedNt=.S.RG.5.
+   29 C    19 # name=.S.RC.13., pairedNt=.S.RG.3.
+   30 A    18 # name=.S.RA.14., pairedNt=.S.RU.2.

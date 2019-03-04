@@ -1,0 +1,12 @@
+cluster 1 ->  2 4 
+cluster 2 ->  1 
+cluster 3 ->  3 
+cluster 4 ->  5 
+cluster 5 ->  6 
+cluster 6 ->  7 
+cluster 7 ->  8 
+cluster 8 ->  9 
+cluster 9 ->  10 
+cluster 10 ->  11 
+cluster 11 ->  12 
+cluster 12 ->  13 

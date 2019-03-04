@@ -14,7 +14,7 @@ set -u -e
 if [ ! -s $m-aa-noclash.npy ];then
   echo '#discard clashing fragments $m'
   n=`awk 'BEGIN{j=1}$3=="P"&&NR>1{print NR-j; j=NR}END{print NR-j+1}' templates/$m.pdb`
-  $d/discard_clashing_fragments.py ../$m-all-aa.npy $n 2 /tmp/$m-aa-noclash.npy $m-aa.noclash
+  $d/discard_clashing_fragments.py $m-all-aa.npy $n 2 /tmp/$m-aa-noclash.npy $m-aa.noclash
 fi
 
 # Fit all conformers on the first one

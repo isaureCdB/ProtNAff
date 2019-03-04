@@ -23,9 +23,8 @@ def check_breaks(index, d, cc):  #19/09/18
 
 #################################################################################
 a = argparse.ArgumentParser(prog="fragmt-from-AC.py")
-a.add_argument("x3dna")          # x3dna.json
+a.add_argument("inp")            # structures.json
 a.add_argument("frags")          # fragments_ori.json
-a.add_argument("outp")           # structures.json
 a.add_argument("na")             # dna / rna
 a.add_argument("listofseq")      # motifs.list
 a.add_argument("directory")      # cleanPDB
@@ -60,22 +59,18 @@ for s in sequences:
     templates[s] = 0
 all_templates = 0
 prog=0
-x3dna = json.load(open(args.x3dna))
-for struct in sorted(x3dna.keys()):
+inp = json.load(open(args.inp))
+for struct in sorted(inp.keys()):
     print(struct, file=sys.stderr)
-    d = x3dna[struct]
-    d['fragments'] = {}
+    d = inp[struct]
     for m in range(1, d['Nmodels']+1):
         mm = "model_%i"%m
-        d['fragments'][mm] = {}
         for c in d['nachains']:
             cc = "chain_"+c
             pdb = '%s/%s%s-%i-iniparse-aa-AC.pdb'%(directory, struct,c,m)
             if not os.path.exists(pdb):
                 print('%s does not exist'%pdb)
                 continue
-            d['fragments'][mm][cc] = []
-            fragments = d['fragments'][mm][cc]
             seq = d['sequence'][cc]
             mu = [mutations[i] for i in seq]
             museq = "".join(mu)
@@ -111,7 +106,6 @@ for struct in sorted(x3dna.keys()):
                     all_templates = min([templates[s] for s in sequences])
                 coordinates = [c for cc in coors[i:i+3] for c in cc]
                 coor_bases[s].append(coordinates)
-                fragments.append((s, count[s]))
                 ind = str(count[s])
                 all_frag[s][ind] = {}
                 all_frag[s][ind]['structure'] = struct
@@ -123,7 +117,6 @@ for struct in sorted(x3dna.keys()):
                 count[s]+=1
 
 json.dump(all_frag, open(args.frags, 'w'), indent = 2)
-json.dump(x3dna, open(args.outp, 'w'), indent = 2)
 
 for s in sequences:
     if not len(coor_bases[s]): continue

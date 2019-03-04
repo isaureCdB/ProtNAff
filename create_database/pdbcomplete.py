@@ -171,7 +171,7 @@ def load_nalib(libname):
     lib.pho5 = {}
     ph = {
         # !!! keep the order of atoms in the library!
-        "all_atoms":     ["P", "O1P", "O2P", "O5'", "C5'", "C4'", "N3", "C5", "C3'"], # for masking (corresponds to "coor")
+        "all_atoms": ["P", "O1P", "O2P", "O5'", "C5'", "C4'", "N3", "C5", "C3'"], # for masking (corresponds to "coor")
         "atoms":     ["P", "O1P", "O2P", "O5'"], # for completion
         "fit_atoms": ["P", "O1P", "O2P", "O5'", "C5'", "C4'", "C3'"], #atoms to fit on
         "rmsd_atoms": ["P", "O1P", "O2P", "O5'", "C5'", "C4'", "N3", "C5", "C3'"], # to compute best RMSD (avoid base-phosphate clashes),
@@ -211,6 +211,7 @@ def load_nalib(libname):
         #lib.base[nuc]["coor"] = np.array([(float(l[30:38]),float(l[38:46]),float(l[46:54])) for l in open(base) if l.startswith("ATOM")])
         lib.base[nuc]["coor"] = np.load(lib.dir + "/base%s.npy" % nuc)[None]
         baseatoms = [l[12:16].strip() for l in open(lib.dir + "/base%s.pdb" % nuc) if l.startswith("ATOM")]
+        lib.base[nuc]["all_atoms"] = baseatoms
         lib.base[nuc]["atoms"] = baseatoms
         lib.base[nuc]["fit_atoms"] = baseatoms
         lib.base[nuc]["rmsd_atoms"] = baseatoms
@@ -353,6 +354,8 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                     #if fixmode == "sugar": continue
                     sublib = getattr(lib, fixmode) # lib.ph or lib.sugar or ...
                     atoms = sublib[nuc]["atoms"]
+                    print(sublib[nuc].keys())
+                    print(nuc, fixmode)
                     all_atoms = sublib[nuc]["all_atoms"]
                     fit_atoms = sublib[nuc]["fit_atoms"]
                     rmsd_atoms = sublib[nuc]["rmsd_atoms"]
