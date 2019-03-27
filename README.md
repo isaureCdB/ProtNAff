@@ -26,6 +26,9 @@ _ If you need a specific feature that you can't find or don't know how to add in
 _ If you added some feature that you think can be usefull to others, please fill free to add a new branch in this repository.
 
 --------------------------------------------------------------------------
+Steps description
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 1. Creation of the NA-protein database
 --------------------------------------------------------------------------
 The creation of the database is done by:
@@ -79,3 +82,4 @@ _ the chainschema (see make_chainschena.py) that describes the format of the dat
 _ the query "variables" dictionnary (see query.py), that contains description of the subdata we are interested in
 
 For details on the data formats, see make_chainschena.py
+For an example of query, see the jupyter-notebook exemple_stats.ipynb
