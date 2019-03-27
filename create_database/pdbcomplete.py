@@ -17,6 +17,9 @@ class nalib(object):pass
 
 class FixError(Exception):pass
 
+#TODO : fix bug:
+#when the first residue is muted, the mapping of all residues is shifted 
+
 # pdb2pqr returns another atom name for that RNA atom than the opls ff.
 # check_pdb will chock on it.
 map_atnames = {"HO2'": "H2''"}
@@ -226,7 +229,6 @@ def load_nalib(libname):
         lib.pho5[nuc] = pho5
     return lib
 
-
 def check_missing(pdb):
     for nr, res in enumerate(pdb):
         top = res.topology
@@ -311,7 +313,6 @@ def rank_library(res, libcoor, fit_atoms, rmsd_atoms, all_atoms):
     libcoor_fitted_sorted = libcoor_fitted[lib_indices]
     return libcoor_fitted_sorted
 
-
 def apply_nalib(pdb, lib, manual, heavy=True):
     """
     Adds missing atoms using a nucleotides lib
@@ -354,8 +355,8 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                     #if fixmode == "sugar": continue
                     sublib = getattr(lib, fixmode) # lib.ph or lib.sugar or ...
                     atoms = sublib[nuc]["atoms"]
-                    print(sublib[nuc].keys())
-                    print(nuc, fixmode)
+                    #print(sublib[nuc].keys())
+                    #print(nuc, fixmode)
                     all_atoms = sublib[nuc]["all_atoms"]
                     fit_atoms = sublib[nuc]["fit_atoms"]
                     rmsd_atoms = sublib[nuc]["rmsd_atoms"]
@@ -400,7 +401,6 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                 raise
         for a in new_at:
             new_at_all.append(a)
-
 
 def pdb_lastresort(pdb, heavy=True):
     """
@@ -664,7 +664,7 @@ def write_pdb(pdbres, args, patches={}, heavy = False,
                 resid = rescounter
             if pdb2pqr:
                 if res.chainfirst and res.resid in patches:
-                    print(patches[res.resid]) #####################
+                    #print(patches[res.resid]) #####################
                     if None in patches[res.resid] or "5pho" in patches[res.resid]:
                         if aa in x5pho:
                             mutations_5ter['PHO'] = resname
@@ -829,13 +829,7 @@ def run_pdbcomplete(pdbfile, args):
     if is_prot or not args.heavy:
         print('apply_pdb2pqr', file=sys.stderr)
         pdblines, mapping, mutations_5ter = write_pdb(pdb, args, patches, write_missing=False, pdb2pqr=True)
-        with open("/tmp/kakapo", "w") as kakapo:
-            for l in pdblines:
-                print(l,file=kakapo)
         pqrlines = run_pdb2pqr(pdblines)
-        with open("/tmp/orca", "w") as orca:
-            for l in pqrlines:
-                print(l,end='',file=orca)
         pqr, ter_indices = read_pdb(pqrlines, "<PDB2PQR output from %s>" % pdbfile, top_residues,
                             args.dna, args.rna, args.heavy, mutations=mutations_5ter)
         pdbcomplete(pdb, pqr)
