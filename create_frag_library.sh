@@ -63,4 +63,9 @@ $SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
 ##########################################################################
 echo "-------------------------------- mutate back into all sequences"
 ##########################################################################
+# Example :
+# You have to be located on the dna/rna lib folder
+# with the 8 bases 3-mers (GGG, GGT, GTG, GTT, TGG, TGT, TTG, TTT)
+# dr0.2r-clust1.0 is a reference to the xxx-dr0.2r-clust1.0.npy files
+# $SCRIPTS/mutate-GT-libraries_npy.py dna dr0.2r-clust1.0
 $SCRIPTS/mutate-AC-libraries_npy.py $na "dr${dr}r-clust$c1"
