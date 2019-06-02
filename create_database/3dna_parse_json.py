@@ -50,11 +50,7 @@ def map_indices(struct, c):
     for l in open("cleanPDB/%s%s-1-iniparse-aa.mapping"%(struct, c)): #outp from aareduce.py in parse_*.sh
         ll = l.split()
         dict_n2to3[ll[0]] = ll[1]
-        try:
-            dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
-        except:
-            pp(c)
-            raise
+        dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
     #
     nind = [int(i) for i in dict_n3to1]
     firstres, lastres = min(nind), max(nind)
@@ -145,7 +141,6 @@ def hb_sum(d_hb):
             for part in d_hb[c][res]:
                 s = 0
                 for d in d_hb[c][res][part]:
-                    print(d)
                     dist = float(d[2])
                     AccDonn = d[3]
                     s += weight_hbond(d[2], d[3], AccDonn)
@@ -231,20 +226,24 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
                     if abs(dist_nucl) <= 2:
                         n = neighbors[dist_nucl + 2]
                 d_intraNA_hb[cc[a]] = update_intraNA(d_intraNA_hb[cc[a]], rr[a], code, n, j["distance"], j["donAcc_type"])
-        else:
-            #"nt:aa" or "aa:nt":
-            print(j)
-            print(atoms)
-            print(aa_indices)
+        # !!! can be j["residue_pair"] == "nt:misc" (unknown?)
+        elif j["residue_pair"] == "nt:aa" or j["residue_pair"] == "aa:nt":
             at = atoms[nt_indices[0]]
             cc, rr = "chain_"+res[0][1], "res_"+res[0][3]
             atname = at[0]
             part = dictcode[atname]
             code = codenames[part]
-            aa_at = atoms[aa_indices[0]]
-            aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
-            aa_name = aa_at[1].split(".")[2]
-            d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
+            try:
+                aa_at = atoms[aa_indices[0]]
+                aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
+                aa_name = aa_at[1].split(".")[2]
+                d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
+            except:
+                print(j)
+                print(j["residue_pair"])
+                print(atoms)
+                print(aa_indices)
+                raise
     return d_NAprot_hb, d_intraNA_hb
 
 def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
@@ -288,10 +287,9 @@ def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
                     update_stacking(d["stacking"][cc[0]], rr[0], neighbors[pos[0]])
                     update_stacking(d["stacking"][cc[1]], rr[1], neighbors[pos[1]])
             else:
-                for c,r in zip(cc, rr):
-                    update_stacking(d["stacking"][c], r, "other")
+                for x in ind_in_chains:
+                    update_stacking(d["stacking"][cc[x]], rr[x], "other")
     return d_intraNA_hb, d_stacking
-
 
 def get_pairs(js_pairs, d_ss, d_bptype):
     for j in js_pairs:
@@ -308,13 +306,7 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                 # per default, if a base makes a basepair,
                 # the structure is "D" for undetermined double-stranded.
                 # It can be detailed further in the code (stem, helix, junction ...)
-                try:
-                    d_ss[cc][rr][0] = "D"
-                except:
-                    pp(cc)
-                    pp(j['nt1'])
-                    pp(j['nt2'])
-                    raise
+                d_ss[cc][rr][0] = "D"
     return d_ss, d_bptype
 
 def get_hairpins(js_hairpins, d_ss):
@@ -417,7 +409,6 @@ for struct in sorted(chainsmodels.keys()):
     js = json.load(open(inp))
     # initialise dictionary for the current structure
     chains = d["nachains"]  #list of IDs for NA/dna chains
-    print(d.keys())
     protchains = d["protchains"]
     d, js = initialise_all(d, js)
     for c in chains:
