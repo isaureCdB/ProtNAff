@@ -42,7 +42,7 @@ def map_indices(struct, c):
     # convert residues indexing:
     # n1 = original PDB
     # n2 = in "interface_protein" and in xxxX-1.mapping
-    # n3 = in 3dna and in xxxX-1iniparse-aa.mapping
+    # n3 = in 3dna and in xxxX-1-iniparse-aa.mapping
     dict_n3to1, dict_n2to3, dict_n2to1 = {}, {}, {}
     for l in open("cleanPDB/%s%s-1.mapping"%(struct, c)):   #outp from aareduce.py in parse_*.sh
         ll = l.split()
@@ -50,11 +50,7 @@ def map_indices(struct, c):
     for l in open("cleanPDB/%s%s-1-iniparse-aa.mapping"%(struct, c)): #outp from aareduce.py in parse_*.sh
         ll = l.split()
         dict_n2to3[ll[0]] = ll[1]
-        try:
-            dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
-        except:
-            pp(c)
-            raise
+        dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
     #
     nind = [int(i) for i in dict_n3to1]
     firstres, lastres = min(nind), max(nind)
@@ -85,7 +81,6 @@ def map_interf(d, cc, dict_n3to1):
 
 def initialise_all(d, js):
     d["mapping"] = {"chain_"+c:{} for c in chains}
-    d["breaks"] = {}
     d["ss"] = {"chain_"+c:{} for c in chains}
     #
     keys = ["hbonds","nonPairs","pairs","stems","hairpins","junctions","ssSegments"]
@@ -136,6 +131,18 @@ def update_NAprot(d_cc, rr, code, aa_name, aa_atname, dist, AccDonn):
     d_cc[rr][code].append((aa_name, aa_atname, dist, q))
     return d_cc
 
+
+def update_NAprot_sum(d_cc, rr, code, dist, AccDonn):
+    value = weight_hbond(dist, AccDonn)
+    if rr not in d_cc :
+        d_cc[rr] = {}
+    if code not in d_cc[rr]:
+        d_cc[rr][code] = []
+    #questionable AccDonn/acceptor ?
+    q = 1 if AccDonn == "questionable" else 0
+    d_cc[rr][code].append((aa_name, aa_atname, dist, q))
+    return d_cc
+
 def hb_sum(d_hb):
     d_sum = {}
     for c in d_hb:
@@ -145,15 +152,13 @@ def hb_sum(d_hb):
             for part in d_hb[c][res]:
                 s = 0
                 for d in d_hb[c][res][part]:
-                    print(d)
                     dist = float(d[2])
                     AccDonn = d[3]
                     s += weight_hbond(d[2], d[3], AccDonn)
                 d_sum[c][res][part] = s
     return d_sum
 
-def check_breaks(js, c):
-    breaks = []
+def check_breaks(js, c, breaks):
     cc = "chain_"+c
     if "dbn" not in js.keys(): return breaks
     if cc not in js["dbn"].keys(): return breaks
@@ -233,18 +238,22 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
                 d_intraNA_hb[cc[a]] = update_intraNA(d_intraNA_hb[cc[a]], rr[a], code, n, j["distance"], j["donAcc_type"])
         else:
             #"nt:aa" or "aa:nt":
-            print(j)
-            print(atoms)
-            print(aa_indices)
-            at = atoms[nt_indices[0]]
-            cc, rr = "chain_"+res[0][1], "res_"+res[0][3]
-            atname = at[0]
-            part = dictcode[atname]
-            code = codenames[part]
-            aa_at = atoms[aa_indices[0]]
-            aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
-            aa_name = aa_at[1].split(".")[2]
-            d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
+            try:
+                at = atoms[nt_indices[0]]
+                cc, rr = "chain_"+res[0][1], "res_"+res[0][3]
+                atname = at[0]
+                part = dictcode[atname]
+                code = codenames[part]
+                aa_at = atoms[aa_indices[0]]
+                aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
+                aa_name = aa_at[1].split(".")[2]
+                d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
+            except:
+                print(protchains)
+                print(j)
+                print(atoms)
+                print(aa_indices)
+                raise
     return d_NAprot_hb, d_intraNA_hb
 
 def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
@@ -265,6 +274,7 @@ def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
             #codenames = {1:"ph", 2:"sug", 3:"base"}
             d_intraNA_hb[cc] = update_intraNA(d_cc, rr, code, neighbors[pos[x]], 1, 0)
     return d_intraNA_hb
+
 
 def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
     # stacking and nonpairing H-bonds:
@@ -288,8 +298,8 @@ def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
                     update_stacking(d["stacking"][cc[0]], rr[0], neighbors[pos[0]])
                     update_stacking(d["stacking"][cc[1]], rr[1], neighbors[pos[1]])
             else:
-                for c,r in zip(cc, rr):
-                    update_stacking(d["stacking"][c], r, "other")
+                for x in ind_in_chains:
+                    update_stacking(d["stacking"][cc[x]], rr[x], "other")
     return d_intraRNA_hb, d_stacking
 
 
@@ -308,13 +318,7 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                 # per default, if a base makes a basepair,
                 # the structure is "D" for undetermined double-stranded.
                 # It can be detailed further in the code (stem, helix, junction ...)
-                try:
-                    d_ss[cc][rr][0] = "D"
-                except:
-                    pp(cc)
-                    pp(j['nt1'])
-                    pp(j['nt2'])
-                    raise
+                d_ss[cc][rr][0] = "D"
     return d_ss, d_bptype
 
 def get_hairpins(js_hairpins, d_ss):
@@ -416,8 +420,7 @@ for struct in sorted(chainsmodels.keys()):
         continue
     js = json.load(open(inp))
     # initialise dictionary for the current structure
-    chains = d["nachains"]  #list of IDs for NA/dna chains
-    print(d.keys())
+    chains = d["nachains"]  #list of IDs for rna/dna chains
     protchains = d["protchains"]
     d, js = initialise_all(d, js)
     for c in chains:
@@ -427,7 +430,8 @@ for struct in sorted(chainsmodels.keys()):
         for m in range(1, d["Nmodels"]+1): # for each model
             d = map_missing(d, cc, dict_n2to3)
             d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
-            d["breaks"][cc] = check_breaks(js, c)
+            breaks = d["breaks"][cc]
+            d["breaks"][cc] = check_breaks(js, c, breaks)
             d = initialise_chain(d, c, m, dict_n3to1)
     d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
     d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])

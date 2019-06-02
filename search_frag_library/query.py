@@ -37,6 +37,8 @@ def _query(data, schema, variables):
         if optional:
             subkey = variables[starkey[2:]] #select "res" in "?*res"
         else:
+            print >> sys.stderr, starkey[1:]
+            print >> sys.stderr, variables
             subkey = variables[starkey[1:]] #select "res" in "*res"
         try:
             subdata = data[subkey]

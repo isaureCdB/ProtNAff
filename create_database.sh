@@ -9,8 +9,9 @@ pdbcodes=$1
 na=$2
 
 wd=`pwd`
-d=`dirname "$0"`
-SCRIPTS="$d/create_database/"
+x=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+echo $x
+d="$x/create_database/"
 
 set -u -e
 ###############################################################
@@ -40,8 +41,8 @@ mkdir -p 3dna/
 ##########################################################################
 echo "-------------------------- check pdb"
 ##########################################################################
-$SCRIPTS/check_pdb.py brutPDBs/ $pdbcodes corrupted_pdb_files.list \
-  tofix.list checked.list splitted.list $SCRIPTS/${na}lib/mutate.list \
+$d/check_pdb.py brutPDBs/ $pdbcodes corrupted_pdb_files.list \
+  tofix.list checked.list splitted.list $d/${na}lib/mutate.list \
    $na
 sort -u checked.list > bi; mv -f bi checked.list
 
@@ -53,10 +54,11 @@ echo "-------------------------- detect NA - protein interface "
   #   - chainsmodels.json
   # options:
   #    --delete : delete from output json the pdbcode entries not in input list
-  #    --replace: delete in output json the entries also in input list
+  #    --replace: replace in output json the entries also in input list
+  #    --files: process entries for which the output PDB does not exist
   #    defaults: update output json with new entries in input
-$SCRIPTS/interface_pdb_contacts.py 5 brutPDBs chainsmodels checked.list \
-  $SCRIPTS/${na}lib/mutate.list chainsmodels.json $na \
+$d/interface_pdb_contacts.py 5 brutPDBs chainsmodels checked.list \
+  $d/${na}lib/mutate.list chainsmodels.json $na \
    > interface_pdb_contacts.log
 
 ##########################################################################
@@ -67,15 +69,19 @@ echo "---------------------------------  parse initial pdb"
       #   - cleanPDB.list
   # Also checks that every chain has " " or "A" in column 17 (alternative conformations)
   # TODO: remove clashing atoms
-$SCRIPTS/clean_rna.py 'chainsmodels/' 'cleanPDB/' cleanPDB.list \
-  $SCRIPTS/${na}lib/mutate.list chainsmodels.json \
+$d/clean_rna.py 'chainsmodels/' 'cleanPDB/' cleanPDB.list \
+  $d/${na}lib/mutate.list chainsmodels.json \
   clean_rna.json $na > clean.err
+
+if [ -s cleanPDB/4RZRB-1.pdb ];then
+  $d/modif_atnames_4RZRB.sh
+fi
 
   ### Applies aareduce to remove non-NA. Creates:
   #    - parse_pdb_initial.errors
   #    - cleanPDB/xxxxX-y-iniparse.pdb
   # Marks missing atoms by XXX coordinates
-$SCRIPTS/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
+$d/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
 sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list
 
 
@@ -83,15 +89,15 @@ sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list
 # pdbcompletion.py script to add missing atoms.
 # A mono-nucleotide library created in 2018 is already provided, but you might
 # want to update/customise it (e.g. change the resolution = the clustering cutoff)
-if False;then
+if false;then
     ##########################################################################
     echo "---------------------------- update mononucleotide library"
     ##########################################################################
-    $SCRIPTS/build_monolib.py data/${na}lib clean-iniparse.list data/${na}lib
+    $d/build_monolib.py data/${na}lib clean-iniparse.list data/${na}lib
 
     ut=U; if [ "$na" == "dna" ];then ut=T; fi
     for a in A C G $ut ; do
-      $SCRIPTS/cluster_monolib_npy.sh data/${na}lib/$a-fit.npy data/${na}lib/$a.pdb 0.3
+      $d/cluster_monolib_npy.sh data/${na}lib/$a-fit.npy data/${na}lib/$a.pdb 0.3
       mv data/${na}lib/$a-fit-clust$cut-sel.npy data/${na}lib/$a.npy
     done
     rm data/${na}lib/$a-fit*.npy
@@ -108,7 +114,7 @@ echo "--------------------------------- Fill-up missing atoms "
   ### Add entries in clean_rna.json:
       #   - 'missings' : residues with missing atoms (if too many => deleted)
       #   - 'sequence'
-$SCRIPTS/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
+$d/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
   excised.list $na
 
   ### Fill-up missing atoms
@@ -119,10 +125,10 @@ $SCRIPTS/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
       # Add 5'-Phosphate group (5PHO) to 5'-termini.
       # Some 5PHO can still be missing because all conf in nalib clash
       # Those are written as XXX, and should be indicated in a json file
-$SCRIPTS/parse_pdb-missings.sh excised.list $na
+$d/parse_pdb-missings.sh excised.list $na
 
 ### retrieve missing (always clashing) 5PHO
-$SCRIPTS/excise-still-missing.py cleanPDB still_missing.list \
+$d/excise-still-missing.py cleanPDB still_missing.list \
   clean-iniparse-aa.list excise.json $na
 sort -u clean-iniparse-aa.list > bi; mv -f bi clean-iniparse-aa.list
 
@@ -131,6 +137,6 @@ echo "-------------------------------- apply 3dna"
 ##########################################################################
 mkdir -p 3dna
 ### concatenate protein and RNA chains for each model###
-$SCRIPTS/3dna.py excise.json $SCRIPTS/3dna.sh
+$d/3dna.py excise.json $d/3dna.sh
 # Convert data per structure into data per nucleotide
-$SCRIPTS/3dna_parse_json.py excise.json structures.json $na
+$d/3dna_parse_json.py excise.json structures.json $na
