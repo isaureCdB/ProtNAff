@@ -8,19 +8,21 @@ d=`dirname "$0"`
 set -u -e
 
 # Cluster fragments by RMSD.
-a=`echo $cut1 + 2|bc`
+a=`echo $cut1 + 1|bc`
 >&2 echo "-------------------------------------------------"
 >&2 echo "Cluster $m large ($a A); then tight ($cut1 A)"
 >&2 echo "-------------------------------------------------"
 
 # Hierarchical clustering (for speed & memory):
-#   first cluster at a = (cut + 2) A,
+#   first cluster at a = (cut + 1) A,
 >&2 echo "cluster $m large $m ($a A)"
 python3 $d/fastcluster_npy.py $name.npy $a --chunk 200
+# concatenate small clusters in one, to diminish edge effect
+python3 $d/concatenate_clusters.py $name-clust$a > $name-clust$a-concat
 
 #   then sub-cluster each ${a}A-cluster members at $cut A
 >&2 echo "cluster $m tight $m ($cut1 A)"
-python3 $d/subcluster-npy.py $name.npy $name-clust${a} $cut1 > /dev/null
+python3 $d/subcluster-npy.py $name.npy $name-clust${a}-concat $cut1 > /dev/null
 
 # Extract coordinates of cluster-centers
 awk '{print $4}' $name-clust$cut1 > $name-clust$cut1.centers
