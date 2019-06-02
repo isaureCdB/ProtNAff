@@ -10,14 +10,6 @@ import re, os, json
 from collections import defaultdict
 import argparse
 
-'''
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    TODO:
-    Distinguish between NA and protein chains to compute interface !!!
-    Now it does not distinguish contacts with protein or with another NA chain
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-'''
-
 class MySelect(Select):
     def __init__(self, model_toselect, res_toselect):
         self.res_toselect = set([id(r) for r in res_toselect])
@@ -139,7 +131,7 @@ def process_nachain(chain, struc, nuclpart, naatoms):
             nuclpart.append(part_code[a.get_name()])
     return nuclpart, naatoms, NA_c
 
-def process_protchain(chain, hetatoms, protatoms):
+def process_protchains(chain, hetatoms, protatoms):
     global exclude
     for res in chain:
         #discarde ions, water and hetatoms
@@ -155,7 +147,7 @@ def process_protchain(chain, hetatoms, protatoms):
     return hetatoms, protatoms
 
 def get_chains(model, na):
-    nachains, protchain = [], []
+    nachains, protchains = [], []
     for chain in model:
         c = chain.get_id()[0]
         countna = 0
@@ -171,9 +163,9 @@ def get_chains(model, na):
                     nachains.append(c)
                     break
             if r.has_id("CA"):
-                protchain.append(c)
+                protchains.append(c)
                 break
-    return nachains, protchain
+    return nachains, protchains
 
 def process_prot_interf(nuclpart, protmin, resid_c, indexres_c):
     assert 2 * len(resid_c) == len(indexres_c), (len(resid_c), len(indexres_c))
@@ -276,7 +268,7 @@ for struc in inlist:
         d['interface_protein'] = {}
         d['interface_hetatoms'] = {}
         d['hetnames'] = {}
-        nachains, protchain = get_chains(structure[0], args.na)
+        nachains, protchains = get_chains(structure[0], args.na)
         Nmodels = len(structure)
         indexres, resid = get_indexres_resid(structure[0], nachains)
         m = 0
@@ -292,7 +284,7 @@ for struc in inlist:
                     if NA_c is None: continue
                     NA[c] = NA_c
                 else:
-                    hetatoms, protatoms = process_protchain(chain, hetatoms, protatoms)
+                    hetatoms, protatoms = process_protchains(chain, hetatoms, protatoms)
             naarray = np.array([a.get_coord() for a in naatoms])
             natree = KDTree(naarray)
             protmin, _ , prot_interf = get_interf_res(protatoms, natree, model)
@@ -320,7 +312,7 @@ for struc in inlist:
                         hetnames = [ r.get_resname() for r in het_interf ]
                         d['hetnames'][mm] = hetnames
         d['nachains'] = nachains
-        d['protchain'] = protchain
+        d['protchains'] = protchains
         d['Nmodels'] = m
     except:
         print('ERROR')

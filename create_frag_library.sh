@@ -22,12 +22,13 @@ echo "-------------------------------- cut into fragments"
 ##########################################################################
 mkdir -p trilib
 mkdir -p PDBs
+mkdir -p templates/
 $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
 
 cd trilib
 mv ../motifs.list .
 mv ../*all-aa.npy .
-mkdir -p templates/
+ln -s  ../templates/
 $SCRIPTS/create_templates.py ../data/${na}lib templates $na
 
 ##########################################################################
@@ -39,7 +40,7 @@ c2=2.0 # large clustering cutoff
 
 # Deredundant fragments at $dr A RMSD
 for m in `cat motifs.list`; do
-  $SCRIPTS/deredundant.sh $m $dr > deredundant-$m.log &
+  $SCRIPTS/deredundant_fast.sh $m $dr $c2 > deredundant-$m.log &
 done
 wait
 
