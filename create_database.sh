@@ -90,11 +90,11 @@ if False;then
     $SCRIPTS/build_monolib.py data/${na}lib clean-iniparse.list data/${na}lib
 
     ut=U; if [ "$na" == "dna" ];then ut=T; fi
-
     for a in A C G $ut ; do
       $SCRIPTS/cluster_monolib_npy.sh data/${na}lib/$a-fit.npy data/${na}lib/$a.pdb 0.3
       mv data/${na}lib/$a-fit-clust$cut-sel.npy data/${na}lib/$a.npy
     done
+    rm data/${na}lib/$a-fit*.npy
 fi
 
 

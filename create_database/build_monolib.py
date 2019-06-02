@@ -4,9 +4,9 @@ import numpy as np
 sys.path.insert(0, os.environ["ATTRACTTOOLS"])
 import rmsdlib
 
-refedir = sys.argv[1]   # templates
+refedir = sys.argv[1]   # data/${na}lib
 filelist = sys.argv[2]  # clean-iniparse.list
-outpdir = sys.argv[3]   # monolib/
+outpdir = sys.argv[3]   # data/${na}lib
 
 assert os.path.exists(refedir)
 assert os.path.exists(filelist), filelist
@@ -67,7 +67,7 @@ def get_coor(filelist):
             resi = resid
             resn = l[19]
             if resn not in res_coor:
-                refe = np.load("%s/%s.npy"%(refedir, resn))
+                refe = np.load("%s/%s-refe.npy"%(refedir, resn))
                 res_coor[resn] =  np.zeros((500000, refe.shape[1], 3))
                 count[resn] = 0
             x = float(l[30:38])
@@ -90,7 +90,7 @@ nsug = 0
 fitted = {}
 for resn in res_coor:
     # parse reference
-    refnpy = np.load("%s/%s.npy"%(refedir, resn))
+    refnpy = np.load("%s/%s-refe.npy"%(refedir, resn))
     refpdb = "%s/%s.pdb"%(refedir, resn)
     refatoms = [l[13:16].strip() for l in open(refpdb)]
     #fit nucleotide to reference
