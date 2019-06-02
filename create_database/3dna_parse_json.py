@@ -81,6 +81,7 @@ def map_interf(d, cc, dict_n3to1):
 
 def initialise_all(d, js):
     d["mapping"] = {"chain_"+c:{} for c in chains}
+    d["breaks"] = {"chain_"+c:[] for c in chains}
     d["ss"] = {"chain_"+c:{} for c in chains}
     #
     keys = ["hbonds","nonPairs","pairs","stems","hairpins","junctions","ssSegments"]
@@ -131,18 +132,6 @@ def update_NAprot(d_cc, rr, code, aa_name, aa_atname, dist, AccDonn):
     d_cc[rr][code].append((aa_name, aa_atname, dist, q))
     return d_cc
 
-
-def update_NAprot_sum(d_cc, rr, code, dist, AccDonn):
-    value = weight_hbond(dist, AccDonn)
-    if rr not in d_cc :
-        d_cc[rr] = {}
-    if code not in d_cc[rr]:
-        d_cc[rr][code] = []
-    #questionable AccDonn/acceptor ?
-    q = 1 if AccDonn == "questionable" else 0
-    d_cc[rr][code].append((aa_name, aa_atname, dist, q))
-    return d_cc
-
 def hb_sum(d_hb):
     d_sum = {}
     for c in d_hb:
@@ -158,7 +147,8 @@ def hb_sum(d_hb):
                 d_sum[c][res][part] = s
     return d_sum
 
-def check_breaks(js, c, breaks):
+def check_breaks(js, c):
+    breaks = []
     cc = "chain_"+c
     if "dbn" not in js.keys(): return breaks
     if cc not in js["dbn"].keys(): return breaks
@@ -171,7 +161,7 @@ def check_breaks(js, c, breaks):
             if len(bseq) > nr:
                 bseq = bseq[:nr] + bseq[nr+1:]
                 if len(breaks) > 0 : pp((c, "breaks", breaks))
-                return breaks
+    return breaks
 
 def EX_check_breaks(js, c): #changed on 18/09/2018
     # those are breaks in the backbone. Does not account for missing residues
@@ -236,8 +226,8 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
                     if abs(dist_nucl) <= 2:
                         n = neighbors[dist_nucl + 2]
                 d_intraNA_hb[cc[a]] = update_intraNA(d_intraNA_hb[cc[a]], rr[a], code, n, j["distance"], j["donAcc_type"])
-        else:
-            #"nt:aa" or "aa:nt":
+        elif j["residue_pair"] == "nt:aa" or j["residue_pair"] == "aa:nt":
+            # !!! can be j["residue_pair"] == "nt:misc" (unknown?)
             try:
                 at = atoms[nt_indices[0]]
                 cc, rr = "chain_"+res[0][1], "res_"+res[0][3]
@@ -249,7 +239,6 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
                 aa_name = aa_at[1].split(".")[2]
                 d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
             except:
-                print(protchains)
                 print(j)
                 print(atoms)
                 print(aa_indices)
@@ -275,7 +264,6 @@ def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
             d_intraNA_hb[cc] = update_intraNA(d_cc, rr, code, neighbors[pos[x]], 1, 0)
     return d_intraNA_hb
 
-
 def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
     # stacking and nonpairing H-bonds:
     # TODO: check the chain of the stacking residue. Cf 1CVJ chainsP_res5 - chainM_res7
@@ -300,8 +288,7 @@ def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
             else:
                 for x in ind_in_chains:
                     update_stacking(d["stacking"][cc[x]], rr[x], "other")
-    return d_intraRNA_hb, d_stacking
-
+    return d_intraNA_hb, d_stacking
 
 def get_pairs(js_pairs, d_ss, d_bptype):
     for j in js_pairs:
@@ -430,8 +417,7 @@ for struct in sorted(chainsmodels.keys()):
         for m in range(1, d["Nmodels"]+1): # for each model
             d = map_missing(d, cc, dict_n2to3)
             d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
-            breaks = d["breaks"][cc]
-            d["breaks"][cc] = check_breaks(js, c, breaks)
+            d["breaks"][cc] += check_breaks(js, c)
             d = initialise_chain(d, c, m, dict_n3to1)
     d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
     d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
