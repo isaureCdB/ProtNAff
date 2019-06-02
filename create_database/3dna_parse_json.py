@@ -89,7 +89,7 @@ def initialise_all(d, js):
         if k not in js:
             js[k] = []
     #
-    outputs = ["bptype", "intraRNA_hb", "stacking", "ss", "RNAprot_hb"] # +"breaks"
+    outputs = ["bptype", "intraNA_hb", "stacking", "ss", "NAprot_hb"] # +"breaks"
     for k in outputs:
         if k not in d:
             d[k] = { "chain_"+c:{} for c in chains}
@@ -102,15 +102,17 @@ def initialise_chain(d, c, m, dict_n3to1):
         d["ss"][cc][rr] = ["S", l+1, len(dict_n3to1)]
     return d
 
-def update_intraRNA(d_cc, rr, code, n, value):
-    # distinguish hbond of nucl n1 with nucl n2 in [n-2, n-1, other, n+1, n+2]
+def update_intraNA(d_cc, rr, code, n, dist, AccDonn):
+    # distinguish hbond of nucl n1 with nucl n2 at position [n1-2, n1-1, other, n1+1, n1+2]
     if rr not in d_cc :
         d_cc[rr] = {}
     if code not in d_cc[rr]:
         d_cc[rr][code] = {}
     if n not in d_cc[rr][code]:
-        d_cc[rr][code][n] = 0
-    d_cc[rr][code][n] += value
+        d_cc[rr][code][n] = []
+    #questionable AccDonn/acceptor according to x3dna ?
+    q = 1 if AccDonn == "questionable" else 0
+    d_cc[rr][code][n].append((dist, q))
     return d_cc
 
 def update_stacking(d_cc, rr, n):
@@ -120,13 +122,31 @@ def update_stacking(d_cc, rr, n):
     d_cc[rr][n] = 1
     return d_cc
 
-def update_RNAprot(d_cc, rr, code, value):
+def update_NAprot(d_cc, rr, code, aa_name, aa_atname, dist, AccDonn):
     if rr not in d_cc :
         d_cc[rr] = {}
     if code not in d_cc[rr]:
-        d_cc[rr][code] = 0
-    d_cc[rr][code] += value
+        d_cc[rr][code] = []
+    #questionable AccDonn/acceptor ?
+    q = 1 if AccDonn == "questionable" else 0
+    d_cc[rr][code].append((aa_name, aa_atname, dist, q))
     return d_cc
+
+def hb_sum(d_hb):
+    d_sum = {}
+    for c in d_hb:
+        d_sum[c] = {}
+        for res in d_hb[c]:
+            d_sum[c][res] = {}
+            for part in d_hb[c][res]:
+                s = 0
+                for d in d_hb[c][res][part]:
+                    print(d)
+                    dist = float(d[2])
+                    AccDonn = d[3]
+                    s += weight_hbond(d[2], d[3], AccDonn)
+                d_sum[c][res][part] = s
+    return d_sum
 
 def check_breaks(js, c):
     breaks = []
@@ -145,41 +165,45 @@ def check_breaks(js, c):
                 return breaks
 
 def EX_check_breaks(js, c): #changed on 18/09/2018
-                    # those are breaks in the backbone. Does not account for missing residues
-                    # such as those excised by aareduce
-                    nts = [ jj for jj in js["nts"] if jj["chain_name"] == c]
-                    breaks = [n["nt_resnum"] for n in nts if n["is_broken"]]
-                    if len(breaks) > 0 : pp((c, "breaks", breaks))
-                    return breaks
+    # those are breaks in the backbone. Does not account for missing residues
+    # such as those excised by aareduce
+    nts = [ jj for jj in js["nts"] if jj["chain_name"] == c]
+    breaks = [n["nt_resnum"] for n in nts if n["is_broken"]]
+    if len(breaks) > 0 : pp((c, "breaks", breaks))
+    return breaks
 
-def weight_hbond(js):
-    # weight the Hbond by its atom-atom distance
-    # shorter = more probable
-    dist = float(js["distance"])
-    donnor = js["donAcc_type"]
-    value = 0.5
-    if dist < 3.5:
-        value = 0.75
-        if dist < 3.0:
-            value = 1.0
-    if donnor == "questionable":
+def weight_hbond(dist, bydist=True, AccDonn=0):
+    # Weight the Hbond by its atom-atom distance
+    # shorter <=> more probable
+    # Count half if acceptor/donnor
+    # noted as "questionable" by 3dna
+    # dist = float(js["distance"])
+    # AccDonn = 1 if js["donAcc_type"] == "questionable"
+    value = 1
+    if bydist:
+        if dist > 3.0:
+            value = 0.75
+        if dist > 3.5:
+            value = 0.5
+    if AccDonn:
         value *= 0.5
     return value
 
-def get_hbonds(js_hbond, d_RNAprot_hb, d_intraRNA_hb):
-    global chains
+def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
+    global chains, protchains
     for j in js_hbond:
         if j["residue_pair"] == "aa:aa":
             # ignore prot-prot hbonds
             continue
-        value = weight_hbond(j)
         # !!! some nt are not in the main chains (e.g mono-nucleotides) !!!
         # Then they are not in residues, as j[x].split("@")[1][2] != "R"
         # Ex of atom description by x3dna: "atom2_id": "N6@.M.RA.8.",
         atoms = [ j[x].split("@") for x in ["atom1_id", "atom2_id"]]
         residues = [ at[1].split(".") for at in atoms]
         nt_indices = [ xr for (xr, x) in enumerate(residues) if x[2][0] == prefix and x[1] in chains]
+        aa_indices = [ xr for (xr, x) in enumerate(residues) if x[1] in protchains ]
         res = [ residues[i] for i in nt_indices]
+        aa = [ residues[i] for i in aa_indices]
         if len(res) == 0: continue
         if j["residue_pair"] == "nt:nt":
             if len(res) != 2: #hbond with another nucleic acid type
@@ -202,18 +226,24 @@ def get_hbonds(js_hbond, d_RNAprot_hb, d_intraRNA_hb):
                     dist_nucl = resint[b]-resint[a]
                     if abs(dist_nucl) <= 2:
                         n = neighbors[dist_nucl + 2]
-                d_intraRNA_hb[cc[a]] = update_intraRNA(d_intraRNA_hb[cc[a]], rr[a], code, n, value)
+                d_intraNA_hb[cc[a]] = update_intraNA(d_intraNA_hb[cc[a]], rr[a], code, n, j["distance"], j["donAcc_type"])
         else:
             #"nt:aa" or "aa:nt":
-            at = [ atoms[i] for i in nt_indices][0]
+            print(j)
+            print(atoms)
+            print(aa_indices)
+            at = atoms[nt_indices[0]]
             cc, rr = "chain_"+res[0][1], "res_"+res[0][3]
-            atname = at[0].split(".")[0]
+            atname = at[0]
             part = dictcode[atname]
             code = codenames[part]
-            d_RNAprot_hb[cc] = update_RNAprot(d_RNAprot_hb[cc], rr, code, value)
-    return d_RNAprot_hb, d_intraRNA_hb
+            aa_at = atoms[aa_indices[0]]
+            aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
+            aa_name = aa_at[1].split(".")[2]
+            d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
+    return d_NAprot_hb, d_intraNA_hb
 
-def get_nonPairs_hbonds(j_nonPairs, d_intraRNA_hb):
+def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
     # the interaction is an H-bond
     # Ex: "hbonds_desc": "OP1*OP2[2.77],OP2*N7[3.33]",
     hbonds = j_nonPairs["hbonds_desc"]
@@ -227,18 +257,18 @@ def get_nonPairs_hbonds(j_nonPairs, d_intraRNA_hb):
             code = codenames[part]
             cc = "chain_"+c[x]
             rr = "res_"+resid[x]
-            #intraRNA_hb[resid[a]-1].keys() = ["sug", "ph", "base"]
+            #intraNA_hb[resid[a]-1].keys() = ["sug", "ph", "base"]
             #codenames = {1:"ph", 2:"sug", 3:"base"}
-            d_intraRNA_hb[cc] = update_intraRNA(d_cc, rr, code, neighbors[pos[x]], 1)
-    return d_intraRNA_hb
+            d_intraNA_hb[cc] = update_intraNA(d_cc, rr, code, neighbors[pos[x]], 1, 0)
+    return d_intraNA_hb
 
-def get_nonPairs(js_nonPairs, d_intraRNA_hb, d_stacking):
+def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
     # stacking and nonpairing H-bonds:
     # TODO: check the chain of the stacking residue. Cf 1CVJ chainsP_res5 - chainM_res7
     for j in js_nonPairs:
         # non-paired interacting pairs of nt
         #if "hbonds_desc" in list(j.keys()):
-        #   d_intraRNA_hb = get_nonPairs_hbonds(j, d_intraRNA_hb)
+        #   d_intraNA_hb = get_nonPairs_hbonds(j, d_intraNA_hb)
         if "stacking" in list(j.keys()):
             nts, resid, resint, c = parse_nts(j)
             ind_in_chains = [ x for x in range(2) if c[x] in chains]
@@ -256,7 +286,7 @@ def get_nonPairs(js_nonPairs, d_intraRNA_hb, d_stacking):
             else:
                 for x in ind_in_chains:
                     update_stacking(d["stacking"][cc[x]], rr[x], "other")
-    return d_intraRNA_hb, d_stacking
+    return d_intraNA_hb, d_stacking
 
 def get_pairs(js_pairs, d_ss, d_bptype):
     for j in js_pairs:
@@ -300,7 +330,7 @@ def get_junctions(js_junctions, d_ss):
     return d_ss
 
 def get_ss(js_ssSegments, d_ss):
-    #TODO : distinguish T from full-ss RNA
+    #TODO : distinguish T from full-ss NA
     for j in js_ssSegments:
         nts = [ x.split(".") for x in j["nts_long"].split(",") ]
         c = nts[0][1]
@@ -325,7 +355,7 @@ def get_ss(js_ssSegments, d_ss):
 chainsmodels = json.load(open(sys.argv[1])) # excise.json
 outfile = sys.argv[2]                       # structures.json
 out = testpathjson(outfile)
-na = sys.argv[3]                            # "rna" or "dna"
+na = sys.argv[3]                            # "NA" or "dna"
 
 if True: # for editing purpose
     ph = ["P","O1P", "O2P","OP1", "OP2", "O5'", "C5'"]
@@ -351,9 +381,10 @@ for a in range(1,4):
     for b in code[a]:
         dictcode[b] = a
 #
-    #intraRNA_hb  = Nb of RNA-NA H-bond for each nmap part (sug, ph, base)
-    #RNAprot_hb  = Nb of RNA-NA/prot Hb for each nmap part
-    #intraRNA_hb["res_"+resid[a]].keys() = ["sug", "ph", "base"]
+    #intraNA_hb  = Nb of NA-NA H-bond for each nmap part (sug, ph, base)
+    #NAprot_hb_sum = Nb of NA-NA/prot Hb for each nmap part
+    #NAprot_hb  = list of NA-NA/prot Hb for each nmap part
+    #intraNA_hb["res_"+resid[a]].keys() = ["sug", "ph", "base"]
     #loops: {L : hairpinloop, J : jonction, B : Bulge, I : intraloop}
     #
     # position in the 5-nb vector of the nucleotide:
@@ -374,7 +405,9 @@ for struct in sorted(chainsmodels.keys()):
         continue
     js = json.load(open(inp))
     # initialise dictionary for the current structure
-    chains = d["nachains"]  #list of IDs for rna/dna chains
+    chains = d["nachains"]  #list of IDs for NA/dna chains
+    print(d.keys())
+    protchains = d["protchains"]
     d, js = initialise_all(d, js)
     for c in chains:
         cc="chain_"+c
@@ -385,11 +418,12 @@ for struct in sorted(chainsmodels.keys()):
             d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
             d["breaks"][cc] = check_breaks(js, c)
             d = initialise_chain(d, c, m, dict_n3to1)
-    d["RNAprot_hb"], d["intraRNA_hb"] = get_hbonds(js["hbonds"], d["RNAprot_hb"], d["intraRNA_hb"])
-    d["intraRNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraRNA_hb"], d["stacking"])
+    d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
+    d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
+    d["intraNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraNA_hb"], d["stacking"])
     d["ss"], d["bptype"] = get_pairs(js["pairs"], d["ss"], d["bptype"])
     d["ss"] = get_hairpins(js["hairpins"], d["ss"])
     d["ss"] = get_junctions(js["junctions"], d["ss"])
 
-json.dump(out, open(outfile, "w"), indent = 2)
+json.dump(out, open(outfile, "w"), indent = 2, sort_keys = "True")
 print("done", file=sys.stderr)
