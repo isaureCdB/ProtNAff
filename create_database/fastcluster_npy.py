@@ -156,6 +156,7 @@ if args.chunk:
 clustnpy = args.npy.split(".npy")[0]+"-clust"+str(threshold)+".npy"
 
 reassign = (not args.no_reassign)
+print(reassign)
 c, clustids = cluster(structures, threshold, args.skip, chunksize, reassign, args.centers)
 csort = sorted(c, key=lambda k: len(c[k]), reverse=True)
 npclust = structures[csort]

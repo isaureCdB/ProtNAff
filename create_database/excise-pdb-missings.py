@@ -107,15 +107,14 @@ for a in [1, 2, 4]:
 
 
 for struc in sorted(chainsmodels.keys()):
-    #for struc in ['4ED5']:
     if struc in out_init and not struc in replace:
         out[struc] = out_init[struc]
         continue
     d = chainsmodels[struc]
-    out[struc] = d
     chains = copy.deepcopy(d['nachains'])
-    assert len(chains), struc
+    if len(chains) == 0: continue
     assert d['Nmodels']
+    out[struc] = d
     d['missing_atoms'] = {"chain_%s"%c:{} for c in d['nachains']}
     d['breaks'] = {"chain_%s"%c:[] for c in d['nachains']}
     delstruc = 0
