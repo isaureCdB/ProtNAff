@@ -14,3 +14,5 @@ _ Extract more 2D structure types from x3dna output (bulges, loops)
 _ Extract NA-protein stackings
 _ Detail which amino-acid in each NA-prot H-bonds
 _ Extract water bridges
+_ add the H-bond angles in their weightening, in 3dna_parse_json.npy
+_ add option to update mononucl library (= add new clusters) instead of doing from scratch

@@ -50,7 +50,11 @@ def map_indices(struct, c):
     for l in open("cleanPDB/%s%s-1-iniparse-aa.mapping"%(struct, c)): #outp from aareduce.py in parse_*.sh
         ll = l.split()
         dict_n2to3[ll[0]] = ll[1]
-        dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
+        try:
+            dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
+        except:
+            pp(c)
+            raise
     #
     nind = [int(i) for i in dict_n3to1]
     firstres, lastres = min(nind), max(nind)
@@ -284,9 +288,10 @@ def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
                     update_stacking(d["stacking"][cc[0]], rr[0], neighbors[pos[0]])
                     update_stacking(d["stacking"][cc[1]], rr[1], neighbors[pos[1]])
             else:
-                for x in ind_in_chains:
-                    update_stacking(d["stacking"][cc[x]], rr[x], "other")
-    return d_intraNA_hb, d_stacking
+                for c,r in zip(cc, rr):
+                    update_stacking(d["stacking"][c], r, "other")
+    return d_intraRNA_hb, d_stacking
+
 
 def get_pairs(js_pairs, d_ss, d_bptype):
     for j in js_pairs:
@@ -303,7 +308,13 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                 # per default, if a base makes a basepair,
                 # the structure is "D" for undetermined double-stranded.
                 # It can be detailed further in the code (stem, helix, junction ...)
-                d_ss[cc][rr][0] = "D"
+                try:
+                    d_ss[cc][rr][0] = "D"
+                except:
+                    pp(cc)
+                    pp(j['nt1'])
+                    pp(j['nt2'])
+                    raise
     return d_ss, d_bptype
 
 def get_hairpins(js_hairpins, d_ss):

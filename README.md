@@ -26,12 +26,15 @@ _ If you need a specific feature that you can't find or don't know how to add in
 _ If you added some feature that you think can be usefull to others, please fill free to add a new branch in this repository.
 
 --------------------------------------------------------------------------
+Steps description
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 1. Creation of the NA-protein database
 --------------------------------------------------------------------------
-The creation of the 3D library is done by:
-./nalib.sh [pdbcodes.list] ["dna"/"rna"]
+The creation of the database is done by:
+./create_database.sh [pdbcodes.list] ["dna"/"rna"]
 
-The steps of ./nalib are to:
+The steps performed by create_database.sh are the following:
 
 _ download all protein-NA structures from the PDB
 
@@ -45,22 +48,38 @@ _ use the 3DNA program [1] for NA structure description that gives exhaustive da
 
 _ rearrange the data per nucleotide (eg. “nucl 5 to 15 make a stem-loop” → “nucl 5 is at position 1 in an 11-nucl stem-loop”)
 
-_ optionaly: cut the NA structures into fragments (trinucleotides in our example)
-
 [1] X-J Lu & WK Olson. 3DNA: a software package for the analysis, rebuilding and visualization of three‐dimensional nucleic acid structures. Nucleic Acids Research (2003) 31(17), 5108-21
 
-The output is a description, at both the structural and (tri)nucleotide levels, of the full set of protein-bound NAs from the PDB, in a single Json file.
+The output is a description, at the PDB structure levels, of the full set of protein-bound NAs from the PDB, in a single Json file.
+
 
 --------------------------------------------------------------------------
 2. Requests to select (parts of) structures from the database
 --------------------------------------------------------------------------
 [to be written in march 2019]
 
+
 --------------------------------------------------------------------------
 3. Create a fragment library
 --------------------------------------------------------------------------
+./create_frag_library.sh ["dna"/"rna"]
+
+The protein-bound NA structures are cut into fragments (here trinucleotides), that are pooled by sequence and clustered by pairwise RMSD.
+
+To increase the number of fragments per sequence motif, the full structures are mutated T/U > C and G > A (ex. AGU becomes AAC), and the representative fragments after clustering are mutated back into the 8 possible "de-mutated" sequence (AAC => AAC, GAC, GGC, GGU, AGC, AGU, AAU, GAU).
+
+To accelerate clustering, the fragments are first converted into ATTRACT's coarse-grained representation. The resulting clustering scheme is then applied to the all-atom fragments.
+
 
 --------------------------------------------------------------------------
 4. Requests to compute statistics on a fragments library
 --------------------------------------------------------------------------
-[to be written in march 2019]
+The fragment library is converted into a flat table for quick search.
+
+Queries on the fragment library use 3 dictionaries:
+_ the data dictionnary, provided by structures.json (written when creating the database, at step 1)
+_ the chainschema (see make_chainschena.py) that describes the format of the data and how it can be queried
+_ the query "variables" dictionnary (see query.py), that contains description of the subdata we are interested in
+
+For details on the data formats, see make_chainschena.py
+For an example of query, see the jupyter-notebook exemple_stats.ipynb
