@@ -290,7 +290,7 @@ def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
             else:
                 for c,r in zip(cc, rr):
                     update_stacking(d["stacking"][c], r, "other")
-    return d_intraRNA_hb, d_stacking
+    return d_intraNA_hb, d_stacking
 
 
 def get_pairs(js_pairs, d_ss, d_bptype):
