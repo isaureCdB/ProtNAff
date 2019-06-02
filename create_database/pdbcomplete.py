@@ -18,7 +18,7 @@ class nalib(object):pass
 class FixError(Exception):pass
 
 #TODO : fix bug:
-#when the first residue is muted, the mapping of all residues is shifted 
+#when the first residue is muted, the mapping of all residues is shifted
 
 # pdb2pqr returns another atom name for that RNA atom than the opls ff.
 # check_pdb will chock on it.
@@ -355,8 +355,6 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                     #if fixmode == "sugar": continue
                     sublib = getattr(lib, fixmode) # lib.ph or lib.sugar or ...
                     atoms = sublib[nuc]["atoms"]
-                    #print(sublib[nuc].keys())
-                    #print(nuc, fixmode)
                     all_atoms = sublib[nuc]["all_atoms"]
                     fit_atoms = sublib[nuc]["fit_atoms"]
                     rmsd_atoms = sublib[nuc]["rmsd_atoms"]
@@ -371,7 +369,7 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                     print(missing, file=sys.stderr)
                     break
                     #raise FixError(msg)
-                print("fixing %s"%fixmode, file=sys.stderr)
+                #print("fixing %s"%fixmode, file=sys.stderr)
                 libcoor_fitted_sorted = rank_library(res, libcoor, fit_atoms, rmsd_atoms, all_atoms)
                 lib_complete_indices = []
                 for anr, a in enumerate(all_atoms):
@@ -426,6 +424,7 @@ def get_atomcode_resname(l, mutations, mapnuc, is_dna, is_rna):
     if resname=="MSE" and atomcode=='SE':atomcode='SD'
     if resname=="MSE":  resname="MET"
     if resname in mutations:
+        print("replaces %s by %s"%(resname, mutations[resname]), file=sys.stderr)
         resname = mutations[resname]
     if resname in mapnuc:
         if is_dna:
@@ -513,6 +512,8 @@ def read_pdb(pdblines, pdbname, top_residues, is_dna, is_rna, heavy,
     atomlines = []
     ter_indices = []
     pdblines = list(pdblines)
+    print("read_pdb", file=sys.stderr) ###
+
     if (modbase or modres):
         # check for each residue containing some HETATM if it is a base/aa
         # !!! HETATM with any missing C/CA/N or C[1-5]' is discarded !!!
@@ -548,7 +549,6 @@ def read_pdb(pdblines, pdbname, top_residues, is_dna, is_rna, heavy,
     atlines = [l for l in pdblines if l.split()[0]!="TER"]
     if len(atlines) == 0:
         raise ValueError("PDB '%s' contains no atoms" % pdbname )
-    #
     curr_res = None
     ter_indices = []
     pdbres = []
@@ -564,8 +564,9 @@ def read_pdb(pdblines, pdbname, top_residues, is_dna, is_rna, heavy,
         if l[30:38] == " XXXXXXX": continue #missing atom from --manual mode
         atomcode, resname = get_atomcode_resname(l, mutations, mapnuc, is_dna, is_rna)
         chain = l[21]
+        #pp("chain %s"%chain)
         resid = l[22:27]
-        x, y, z = [float(x) for x in [l[30:38], l[38:46], l[46:54]]]
+        x, y, z = [float(x) for x in [l[29:37], l[37:45], l[45:53]]]
         newres = False
         nter = False
         chainfirst = False
@@ -660,7 +661,7 @@ def write_pdb(pdbres, args, patches={}, heavy = False,
                 resname = mapnucrev[resname]
             chain = res.chain
             resid = res.resid
-            if args.renum_res is not None:
+            if not args.no_renum_res:
                 resid = rescounter
             if pdb2pqr:
                 if res.chainfirst and res.resid in patches:
@@ -791,13 +792,15 @@ def run_pdbcomplete(pdbfile, args):
 
     for p in args.patches:
         chain, resid = p[0], p[1]
-        print(chain, file=sys.stderr)
+        print("chain %s"%chain, file=sys.stderr)
         if chain != "None":
+            ###print([ (r.resid.strip(),r.chain.strip() )for r in pdb], file=sys.stderr)
             resindices = [ri for ri,r in enumerate(pdb) if r.resid.strip() == resid and r.chain.strip() == chain]
         else:
             resindices = [ri for ri,r in enumerate(pdb) if r.resid.strip() == resid]
         if len(resindices) == 0:
-            raise ValueError("No residues have chain %s resid %s" %(chain, resid))
+            print("WARNING: No residues have chain %s resid %s" %(chain, resid),file=sys.stderr)
+            continue ####
         elif len(resindices) > 1:
             raise ValueError("Multiple residues have resid %s" % resid)
         resid2 = pdb[resindices[0]].resid

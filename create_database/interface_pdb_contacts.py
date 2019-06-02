@@ -252,7 +252,7 @@ else:
 pdbcodes = set(out_init.keys())        # already processed PDBs
 
 for struc in inlist:
-    if struc in out_init and not args.replace and args.delete:
+    if struc in out_init and not args.replace:
         out[struc] = out_init[struc]
         continue
     print(struc, file=sys.stderr)

@@ -107,7 +107,7 @@ def read_models(pdb):
     pdbs_list = []
     for l in open(pdb):
         ll = l.split()
-        if not pdbs and ll[0] == "ATOM":
+        if not pdbs and ll[0] != "MODEL":
             # there are no MODEL statements
             return [pdb]
         if ll[0] == "MODEL":
@@ -118,7 +118,10 @@ def read_models(pdb):
             outp = open(outp_name, "w")
             pdbs.append([])
         if ll[0] not in ["ATOM","TER","HETATM"]: continue
-        #if l0 == "HETATM" and not args.modres and not args.modbase: continue
+        if l0 == "HETATM" and not args.modres and not args.modbase:
+            print("discarde %s"%l, file=sys.stderr) ###
+            continue
+        print(l, file=sys.stderr) ###
         outp.write(l)
         pdbs[-1].append(l)
     outp.close()
@@ -162,7 +165,7 @@ parser.add_argument("--top", "--topfile",dest="topfile",help="Additional topolog
 parser.add_argument("--patch", help="Provide a chain, a residue number and a patch name to apply (ex: [A 1 Nter], [None 1 None])",
                     dest="patches", nargs=3, action="append",default=[])
 #parser.add_argument("--keepchains", help="Keep the chain IDs of the input PDB", default=" ")
-parser.add_argument("--renum_res", help="renumber residues from 1", type=int, default=1)
+parser.add_argument("--no_renum_res", help="renumber residues from 1", action="store_true")
 parser.add_argument("--mutate", help="Provide a 2-column residue mutation file",
                     dest="mutatefiles", action="append",default=[])
 parser.add_argument("--modres", help="Interpret HETATM records as ATOM if they have a protein backbone", action="store_true")

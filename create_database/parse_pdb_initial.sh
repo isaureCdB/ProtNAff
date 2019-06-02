@@ -9,7 +9,12 @@ cat /dev/null > parse_pdb_initial.err
 for inp in `cat $filelist`; do
   name=${inp%%.pdb}
   outf=$name-iniparse.pdb
-  if [ -s $outf ] || [ ! -s $inp ]; then
+  mapping=$name.mapping
+  if [ -s $outf ] && [ -s $mapping ]; then
+    #echo "skip $name" >> /dev/stderr
+    continue
+  fi
+  if [ ! -s $inp ]; then
     #echo "skip $name" >> /dev/stderr
     continue
   fi
@@ -19,8 +24,8 @@ for inp in `cat $filelist`; do
   first=`awk '$1=="ATOM"||$1=="HETATM"{printf "%i", substr($0,23,4); exit}' $inp`
 
   $d/pdbcompletion.py $inp $outf --$na --heavy \
-  --manual --modbase --patch None $first None --startres $first \
-  --mutate $d/../data/${na}lib/mutate.list > $name.mapping
+  --manual --modbase --patch $chain $first None \
+  --mutate $d/../data/${na}lib/mutate.list --${na}_chain $chain > $mapping
 
   if [ -s $outf ]; then
     echo $outf

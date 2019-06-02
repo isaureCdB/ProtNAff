@@ -9,7 +9,8 @@ from collections import defaultdict
 import argparse
 
 '''
-Check resolution, presence of DNA/RNA, if models have the same atoms ...
+Check resolution, presence of DNA/RNA, if all models have the same atoms...
+If alternative atomic positions => subdivide in several chains.
 '''
 
 def select_alternate_conf(pdb):

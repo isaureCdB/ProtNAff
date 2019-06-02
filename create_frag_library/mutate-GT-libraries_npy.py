@@ -22,7 +22,7 @@ s = ['G','T']
 sequences = [a+b+c for a in s for b in s for c in s ]
 m = [0,1]
 mutations = [(a, b, c) for a in m for b in m for c in m ]
-mutations = mutations[2:]
+mutations = mutations[1:]
 
 diffatoms={
  'A':["N6 "],
