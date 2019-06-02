@@ -566,7 +566,7 @@ def read_pdb(pdblines, pdbname, top_residues, is_dna, is_rna, heavy,
         chain = l[21]
         #pp("chain %s"%chain)
         resid = l[22:27]
-        x, y, z = [float(x) for x in [l[29:37], l[37:45], l[45:53]]]
+        x, y, z = [float(x) for x in [l[30:38], l[38:46], l[46:54]]]
         newres = False
         nter = False
         chainfirst = False
