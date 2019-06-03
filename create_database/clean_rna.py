@@ -68,7 +68,7 @@ def process_struc(struc, out, args):
                     if atomname.strip() in dict_at:
                         atomname = dict_at[atomname.strip()]
                     l = "%s%4.4s   %s%s" % (l[:12], atomname, base, l[20:])
-                elif resn == "H2U" and atomname in base: continue
+                elif resn == "H2U" and atomname in ["C2", "C4", "C5", "C6", "N3"]: continue
                 elif resn == "CMU" and atomname in ["C5", "C6", "C5M"]: continue
                 if resn in modified or resn in modif.keys():
                     if cc not in d['canonized']:
