@@ -25,7 +25,8 @@ for inp in `cat $filelist`; do
 
   $d/pdbcompletion.py $inp $outf --$na --heavy \
   --manual --modbase --patch $chain $first None \
-  --mutate $d/../data/${na}lib/mutate.list --${na}_chain $chain > $mapping
+  --mutate $d/../data/${na}lib/mutate.list --${na}_chain $chain \
+  | awk 'NF==2' > $mapping
 
   if [ -s $outf ]; then
     echo $outf
