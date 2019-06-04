@@ -85,7 +85,6 @@ fi
 $d/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
 sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list
 
-
 # This section is to create a library of mononucleotide, to be used by the
 # pdbcompletion.py script to add missing atoms.
 # A mono-nucleotide library created in 2018 is already provided, but you might

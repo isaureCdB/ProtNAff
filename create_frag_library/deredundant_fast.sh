@@ -1,7 +1,7 @@
 #!/bin/bash
 m=$1
 dr=$2 # RMSD cutoff for redundancy
-a=$3
+c2=$3
 
 >&2 echo "Discarde redundant fragments of $m with RMSD < $dr A toward another fragment"
 
@@ -34,9 +34,11 @@ fi
 #if [ ! -s $m-aa-fit-clust${dr} ];then
   echo "Deredundant the fitted conformers at ${dr}A $m"
   f=$m-aa-fit
-  $d/fastcluster_npy.py $f.npy $a 2> fastcluster-$m-$a.log
-  $d/concatenate_clusters.py $f-clust$a.0 > $f-clust$a.0-concat
-  $d/fastsubcluster_npy.py $f.npy $f-clust$a.0-concat $dr $f-noclash-clust$dr /dev/null 2> fastsubcluster-$m-$dr.log
+if [ ! -s $f-clust$c2 ];then
+  $d/fastcluster_npy.py $f.npy $c2 2> fastcluster-$m-$c2.log
+fi
+  $d/concatenate_clusters.py $f-clust$c2 > $f-clust$c2-concat
+  $d/fastsubcluster_npy.py $f.npy $f-clust$c2-concat $dr $f-noclash-clust$dr /dev/null 2> fastsubcluster-$m-$dr.log
   $d/select-struct-npy.py $f.npy $f-clust${dr}.npy --structures `awk '{print $4}' $f-noclash-clust${dr}`
   $d/map_cluster.py $f-noclash-clust$dr $m-aa.noclash > $f-clust$dr
   awk '{print $4}' $f-clust${dr} > $m-dr${dr}r.list

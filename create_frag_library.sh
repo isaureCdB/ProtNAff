@@ -11,25 +11,30 @@ SCRIPTS="$wd/$d/create_frag_library/"
 
 set -u -e
 
-##########################################################################
-echo "-------------------------------- mutate pdb files"
-##########################################################################
-### Mutate G -> A and U/T -> C to increase the number of conformers per purine-pyrimidine motif
-$SCRIPTS/parse_pdb_AC.sh clean-iniparse-aa.list $na $d/data/mutate-AC.list
+if [ ! -s fragments.json ];then
+  ##########################################################################
+  echo "-------------------------------- mutate pdb files"
+  ##########################################################################
+  ### Mutate G -> A and U/T -> C to increase the number of conformers per purine-pyrimidine motif
+  $SCRIPTS/parse_pdb_AC.sh clean-iniparse-aa.list $na $d/data/mutate-AC.list
 
-##########################################################################
-echo "-------------------------------- cut into fragments"
-##########################################################################
-mkdir -p trilib
-mkdir -p PDBs
-mkdir -p templates/
-$SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
+  ##########################################################################
+  echo "-------------------------------- cut into fragments"
+  ##########################################################################
+  mkdir -p trilib
+  mkdir -p PDBs
+  mkdir -p templates/
+  $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
+fi
 
 cd trilib
-mv ../motifs.list .
-mv ../*all-aa.npy .
-ln -s  ../templates/
-$SCRIPTS/create_templates.py ../data/${na}lib templates $na
+
+if [ ! -d ../templates/ ];then
+  mv ../motifs.list .
+  mv ../*all-aa.npy .
+  ln -s  ../templates/
+  $SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
+fi
 
 ##########################################################################
 echo "-------------------------------- fragments clustering"

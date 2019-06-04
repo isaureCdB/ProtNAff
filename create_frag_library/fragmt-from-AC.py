@@ -24,7 +24,7 @@ def check_breaks(index, d, cc):  #19/09/18
 #################################################################################
 a = argparse.ArgumentParser(prog="fragmt-from-AC.py")
 a.add_argument("inp")            # structures.json
-a.add_argument("frags")          # fragments_ori.json
+a.add_argument("frags")          # fragments.json
 a.add_argument("na")             # dna / rna
 a.add_argument("listofseq")      # motifs.list
 a.add_argument("directory")      # cleanPDB

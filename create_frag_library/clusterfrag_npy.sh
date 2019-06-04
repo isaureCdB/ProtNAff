@@ -1,7 +1,7 @@
 name=$1 # $m-dr${dr}r
 m=$2  # sequence motif
-cut1=$3 # Tight clustering cutoff
-cut2=$4 # Large clustering cutoff
+cut1=$3 # Tight clustering cutoff (1.0)
+cut2=$4 # Large clustering cutoff (2.0)
 
 d=`dirname "$0"`
 
@@ -28,14 +28,15 @@ python3 $d/subcluster-npy.py $name.npy $name-clust${a}-concat $cut1 > /dev/null
 awk '{print $4}' $name-clust$cut1 > $name-clust$cut1.centers
 $d/select-struct-npy.py $name.npy $name-clust$cut1.npy --structure `cat $name-clust$cut1.centers`
 
-# !!!!! $name.list is in absolute indexing, before removing clashes !!!!!!!!!!!!!
+# !!!!! $name.list is in absolute indexing, before removing clashes !!!!!
 $d/select-lines.py $name.list $name-clust$cut1.centers > $name-clust$cut1.list
 
-$d/select-struct-npy.py $m-aa-fit.npy $name-clust$cut1-aa.npy  --structure `cat $name-clust$cut1.list`
+# get indices of cluster centers in $m-aa.noclash
+$d/select-lines.py $m-aa.noclash $name-clust$cut1.list --indices --lines > $name-clust$cut1-noclash.list
 
-# get gobal indices of cluster centers
+$d/select-struct-npy.py $m-aa-fit.npy $name-clust$cut1-aa.npy  --structure `cat $name-clust$cut1-noclash.list`
 
 # Super-cluster the cluster-centers
 python3 $d/cluster-npy.py $name-clust$cut1.npy $cut2 > /dev/null
 
-#rm $name-clust$a $name-clust$a.npy $name-superclust${cut1} $name-clust$cut1.centers
+rm $name-clust$a $name-clust$a.npy $name-superclust${cut1} $name-clust$cut1.centers
