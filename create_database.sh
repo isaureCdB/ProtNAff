@@ -80,6 +80,7 @@ fi
   ### Applies aareduce to remove non-NA. Creates:
   #    - parse_pdb_initial.errors
   #    - cleanPDB/xxxxX-y-iniparse.pdb
+  #    - cleanPDB/xxxxX-y.mapping
   # Marks missing atoms by XXX coordinates
 $d/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
 sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list

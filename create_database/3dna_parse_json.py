@@ -29,7 +29,6 @@ def dump_indiv(f, struct):
     json.dump(f, open("3dna/3dna_%s.json"%struct, "w"), indent = 2, sort_keys=True)
 
 def testpathjson(jsonfile):
-    pp(jsonfile)
     if os.path.exists(jsonfile):
             #print >> sys.stderr, dictname +" = json.load(open(""+jsonfile+""))"
         dictname = json.load(open(jsonfile))
@@ -397,34 +396,42 @@ vect = list(range(5))
 for struct in sorted(chainsmodels.keys()):
     if struct in out.keys(): # structure already in the output
         continue
-    pp(struct)
-    d = chainsmodels[struct]
-    out[struct] = d
-    # get data from x3dna output
-    inp = "3dna/%s-1-dssr.json"%struct #output from 3dna-dssr
-    if not os.path.exists(inp):
-        print("%s does not exist"%inp)
-        continue
-    js = json.load(open(inp))
-    # initialise dictionary for the current structure
-    chains = d["nachains"]  #list of IDs for rna/dna chains
-    protchains = d["protchains"]
-    d, js = initialise_all(d, js)
-    for c in chains:
-        cc="chain_"+c
-        firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
-        d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
-        for m in range(1, d["Nmodels"]+1): # for each model
-            d = map_missing(d, cc, dict_n2to3)
-            d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
-            d["breaks"][cc] += check_breaks(js, c)
-            d = initialise_chain(d, c, m, dict_n3to1)
-    d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
-    d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
-    d["intraNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraNA_hb"], d["stacking"])
-    d["ss"], d["bptype"] = get_pairs(js["pairs"], d["ss"], d["bptype"])
-    d["ss"] = get_hairpins(js["hairpins"], d["ss"])
-    d["ss"] = get_junctions(js["junctions"], d["ss"])
+    #pp(struct)
+    try:
+        d = chainsmodels[struct]
+        # get data from x3dna output
+        inp = "3dna/%s-1-dssr.json"%struct #output from 3dna-dssr
+        if not os.path.exists(inp):
+            print("%s does not exist"%inp)
+            continue
+        js = json.load(open(inp))
+        # initialise dictionary for the current structure
+        chains = d["nachains"]  #list of IDs for rna/dna chains
+        protchains = d["protchains"]
+        d, js = initialise_all(d, js)
+        for c in chains:
+            try:
+                pp("%s_%s"%(struct, c))
+                cc="chain_"+c
+                firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
+                d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
+                for m in range(1, d["Nmodels"]+1): # for each model
+                    d = map_missing(d, cc, dict_n2to3)
+                    d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
+                    d["breaks"][cc] += check_breaks(js, c)
+                    d = initialise_chain(d, c, m, dict_n3to1)
+            except:
+                pp("ERROR in %s_%s"%(struct, c))
+        d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
+        d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
+        d["intraNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraNA_hb"], d["stacking"])
+        d["ss"], d["bptype"] = get_pairs(js["pairs"], d["ss"], d["bptype"])
+        d["ss"] = get_hairpins(js["hairpins"], d["ss"])
+        d["ss"] = get_junctions(js["junctions"], d["ss"])
+        out[struct] = d
+    except:
+        pp("ERROR in %s"%struct)
+        pass
 
 json.dump(out, open(outfile, "w"), indent = 2, sort_keys = "True")
 print("done", file=sys.stderr)

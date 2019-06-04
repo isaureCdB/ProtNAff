@@ -78,7 +78,7 @@ parser.add_argument("na",help="dna or rna")
 parser.add_argument("--delete", help="remove from outp entries not in inp", action="store_true")
 parser.add_argument("--replace", help="list of entries to replace in outp")
 parser.add_argument("--list", help="force processing all and only entries in list")
-parser.add_argument("--files", help="don't add entries for which pdb files do not exist", action="store_true")
+parser.add_argument("--checkinp", help="remove entries for which input pdb doesn't exist", action="store_true")
 
 args = parser.parse_args()
 
@@ -114,7 +114,8 @@ else:
     list = sorted(chainsmodels.keys())
 
 for struc in list:
-    if struc in out_init and not struc in replace and args.list is None and not args.files:
+    if struc in out_init and not struc in replace and args.list is None \
+        and not args.checkinp:
         out[struc] = out_init[struc]
         continue
     print(struc, file=sys.stderr)
@@ -133,7 +134,7 @@ for struc in list:
                 inp = "%s/%s%s-%i-iniparse.pdb"%(args.inpdir, struc, c, m)
                 if not os.path.exists(inp):
                     print('%s does not exist'%inp, file=sys.stderr)
-                    if args.files:
+                    if args.checkinp:
                         delstruc = del_chain(struc, c)
                     continue
                 outfile = "%s/%s%s-%i-iniparse-excise.pdb"%(args.inpdir, struc, c, m)

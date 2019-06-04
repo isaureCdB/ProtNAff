@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # Copyright 2017 - 2018 Isaure Chauvot de Beauchene (CNRS)
 
+'''
+Detect NA chains based on canonical nucleotides.
+Exclude non-NA residues from NA chains.
+Extract and write protein/hetatom interface in PDB
+'''
+
 from Bio.PDB import *
 import numpy as np
 import sys
