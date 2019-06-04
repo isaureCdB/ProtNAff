@@ -670,7 +670,7 @@ def write_pdb(pdbres, args, patches={}, heavy = False,
                         if aa in x5pho:
                             mutations_5ter['PHO'] = resname
                             resname = "PHO"
-            pdblines.append("ATOM%7d %4s%4s %s%4s   %s%7.3f 1.00" % \
+            pdblines.append("ATOM%7d %4s%4s %s%4s    %s%7.3f 1.00" % \
               (atomcounter, atomname, resname, res.chain, resid, xyz, atom["charge"]))
             atomcounter += 1
         mapping.append((res.resid, rescounter))
