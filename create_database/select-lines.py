@@ -11,7 +11,7 @@ parser.add_argument('selection')
 parser.add_argument("--dataorder",help="order along data file", action="store_true")
 parser.add_argument("--reverse",help="take absent lines", action="store_true")
 parser.add_argument("--indices",help="print line indices instead of lines", action="store_true")
-parser.add_argument("--lines",help="selection is lines instead of indices", action="store_true")
+parser.add_argument("--lines",help="input is lines instead of indices", action="store_true")
 parser.add_argument("--npy",help="use numpy", action="store_true")
 args = parser.parse_args()
 #######################
