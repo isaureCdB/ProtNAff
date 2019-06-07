@@ -159,8 +159,9 @@ parser.add_argument("--startres", help="Set residue number of first residue", ty
 parser.add_argument("--manual",help="""Enables manual mode.
     In automatic mode (default), in case of missing atoms, a number of last-resort fixes are attempted that add pseudo-hydrogens
     at the position of its connected heavy atom. If there too many missing atoms, the residue is discarded and a warning is given.
-    In manual mode, last-resort fixes are disabled, and missing atoms are simply printed with XXXXXXX in their coordinates.
-    """, action="store_true")
+    In manual "all" mode, missing atoms are simply printed with XXXXXXX in their coordinates.
+    In manual "residual" mode, last-resort fixes are disabled and missing atoms after trying to fix are simply printed with XXXXXXX in their coordinates.
+    """)
 parser.add_argument("--top", "--topfile",dest="topfile",help="Additional topology file in CNS format that contains additional user-defined atom types (e.g. modified amino acids)", action="append",default=[])
 parser.add_argument("--patch", help="Provide a chain, a residue number and a patch name to apply (ex: [A 1 Nter], [None 1 None])",
                     dest="patches", nargs=3, action="append",default=[])

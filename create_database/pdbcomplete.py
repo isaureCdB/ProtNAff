@@ -315,9 +315,9 @@ def rank_library(res, libcoor, fit_atoms, rmsd_atoms, all_atoms):
 
 def apply_nalib(pdb, lib, manual, heavy=True):
     """
-    Adds missing atoms using a nucleotides lib
+    Add missing atoms using a nucleotides lib
     """
-    print("apply_nalib", file=sys.stderr)
+    print("apply_nalib  NAfragDB", file=sys.stderr)
     #assert heavy == True #TODO: remove this when the rna library has hydrogens
     syspath = list(sys.path)
     if "ATTRACTTOOLS" in os.environ:
@@ -392,7 +392,7 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                         new_at.append([x,y,z])
                 if fixmode == "nucleotide" : break
         except FixError as err:
-            if manual:
+            if manual is not None:
                 e = "\n" + "!"*60 + "\n"
                 print(e + "WARNING: " + err.args[0] + e, file=sys.stderr)
             else:
@@ -622,7 +622,7 @@ def eval_moltype(pdbres):
     return is_prot, is_na
 
 def write_pdb(pdbres, args, patches={}, heavy = False,
-            one_letter_na = False, write_missing=True, pdb2pqr=False):
+            one_letter_na = False, manual=None, pdb2pqr=False):
     pdblines = []
     mapping = []
     mutations_5ter = {}
@@ -649,7 +649,7 @@ def write_pdb(pdbres, args, patches={}, heavy = False,
             y = x; z = x
             if at in res.coords:
                 x,y,z = ("%8.3f" % v for v in res.coords[at])
-            elif not write_missing:
+            elif manual is None:
                 continue
             xyz = x + y + z
             a0 = aa
@@ -819,19 +819,19 @@ def run_pdbcomplete(pdbfile, args):
             update_patches(refe, top_patches)
         set_reference(pdb, refe)
 
-    if is_na:
+    if is_na and args.manual != "all":
         libname = "rnalib"
         if args.dna:
             libname = "dnalib"
         nalib = load_nalib(libname)
-        print('apply_nalib', file=sys.stderr)
+        print('apply_nalib NAfragDB, manual %s'%args.manual, file=sys.stderr)
         apply_nalib(pdb, nalib, args.manual)
 
     # If hydrogen must be added to DNA/RNA, pdb2pqr must be used after nalib
     # If protein in input, apply pdb2pqr
     if is_prot or not args.heavy:
         print('apply_pdb2pqr', file=sys.stderr)
-        pdblines, mapping, mutations_5ter = write_pdb(pdb, args, patches, write_missing=False, pdb2pqr=True)
+        pdblines, mapping, mutations_5ter = write_pdb(pdb, args, patches, manual=args.manual, pdb2pqr=True)
         pqrlines = run_pdb2pqr(pdblines)
         pqr, ter_indices = read_pdb(pqrlines, "<PDB2PQR output from %s>" % pdbfile, top_residues,
                             args.dna, args.rna, args.heavy, mutations=mutations_5ter)
@@ -842,9 +842,9 @@ def run_pdbcomplete(pdbfile, args):
     if args.refe:
         pdbfix(pdb, refe)
 
-    if not args.manual:
+    if args.manual is None:
         pdb_lastresort(pdb, args.heavy)
         check_pdb(pdb, heavy=args.heavy)
 
-    pdblines, _ , _ = write_pdb(pdb, args, patches, heavy=args.heavy, write_missing=False)
+    pdblines, _ , _ = write_pdb(pdb, args, patches, heavy=args.heavy, manual=args.manual)
     return pdblines, mapping, pdb
