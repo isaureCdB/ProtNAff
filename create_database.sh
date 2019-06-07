@@ -111,7 +111,7 @@ echo "--------------------------------- Fill-up missing atoms "
       #    - excise-pdb-missings.err
       #    - excised.list  : List of files checked for missing atoms
       #                      Some chains are discarded
-  ### Add entries in clean_rna.json:
+  ### Add entries from clean_rna.json to excise.json:
       #   - 'missings' : residues with missing atoms (if too many => deleted)
       #   - 'sequence'
 $d/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \

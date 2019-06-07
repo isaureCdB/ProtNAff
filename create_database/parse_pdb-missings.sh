@@ -25,9 +25,9 @@ for i in `cat  $filelist`; do
   resn=`head -1 $i | awk '{print substr($0,23,4)}'`
   chain=`echo $i|awk -F "-" '{print substr($1,length($1),1)}'`
 
-  $d/pdbcompletion.py $i $outf --$na --heavy \
-  --${na}_chain $chain --modbase --mutate $d/../data/${na}lib/mutate.list \
-  --patch None $resn None --manual > $name-aa.mapping
+$d/pdbcompletion.py $i $outf --$na --heavy \
+--${na}_chain $chain --modbase --mutate $d/../data/${na}lib/mutate.list \
+--patch None $resn None --manual residual > $name-aa.mapping
 
   echo $outf >> clean-iniparse-aa.list
 
