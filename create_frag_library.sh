@@ -44,17 +44,21 @@ c1=1.0 # tight clustering cutoff
 c2=2.0 # large clustering cutoff
 
 # Deredundant fragments at $dr A RMSD
-for m in `cat motifs.list`; do
-  $SCRIPTS/deredundant_fast.sh $m $dr $c2 > deredundant-$m.log &
-done
-wait
+if [ ! -s  AAA-dr0.2r.npy ];then
+  for m in `cat motifs.list`; do
+    $SCRIPTS/deredundant_fast.sh $m $dr $c2 > deredundant-$m.log &
+  done
+  wait
+fi
 
 # Cluster fragments at $c1 A RMSD
 # Clustering the $c1\A-cluster centers at $c2 A
-for m in `cat motifs.list`; do
-  $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &
-done
-wait
+if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
+  for m in `cat motifs.list`; do
+    $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &
+  done
+  wait
+fi
 
 for m in `cat motifs.list`; do
   $SCRIPTS/create_libraries.sh $m $dr $c1 # Write PDB for each cluster center
