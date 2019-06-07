@@ -56,7 +56,17 @@ The output is a description, at the PDB structure levels, of the full set of pro
 --------------------------------------------------------------------------
 2. Requests to select (parts of) structures from the database
 --------------------------------------------------------------------------
-[to be written in march 2019]
+To use querries you need to use ./create_benchmark/get_benchmark.sh script
+
+The idea is to create an architecture of folders in which you will have for each pdb if in the Json file the result of the query.
+
+The query can ask questions on all informations of the Json file :
+
+_ if nucleotides are in contact with protein
+_ if nucleotides have a specific secondary structure
+_ etc
+
+You can use exemple of queries which are in ./create_benchmark/queries or construct your own queries.
 
 
 --------------------------------------------------------------------------
