@@ -50,13 +50,10 @@ listofseq.close()
 coor_bases = {}
 count = {}
 all_frag = {}
-templates = {}
 for s in sequences:
     coor_bases[s] = []
     count[s] = 1
     all_frag[s] = {}
-    templates[s] = 0
-all_templates = 0
 prog=0
 inp = json.load(open(args.inp))
 for struct in sorted(inp.keys()):
@@ -78,7 +75,7 @@ for struct in sorted(inp.keys()):
             missings = d['missing_atoms'][cc]
             miss = []
             #print(missings, file=sys.stderr)
-            res, ll, coors, seqpdb = 0, [], [], []
+            res, coors, seqpdb = 0, [], []
             for l in open(pdb,'r').readlines():
                 coor = get_coor(l)
                 if l[13]=='P':
@@ -87,9 +84,7 @@ for struct in sorted(inp.keys()):
                     seqpdb.append(l[19])
                     res+=1
                     coors.append([])
-                    if not all_templates: ll.append([])
                 coors[-1].append(coor)
-                if not all_templates: ll[-1].append(l)
             for i in range(len(coors)-2):
                 try:
                     breaks, val = check_breaks(i, d, cc)
@@ -101,14 +96,6 @@ for struct in sorted(inp.keys()):
                 ss = "".join(seqpdb[i:i+3])
                 assert s == ss, (struct, m, c, i, s, ss)
                 oriseq = seq[i:i+3]
-                if not templates[s]:
-                    out = open('templates/%s.pdb'%s, 'w')
-                    for res in ll[i:i+3]:
-                        for l in res:
-                            print(l[:-1], file=out),
-                    out.close()
-                    templates[s] = 1
-                    all_templates = min([templates[s] for s in sequences])
                 coordinates = [c for cc in coors[i:i+3] for c in cc]
                 coor_bases[s].append(coordinates)
                 ind = str(count[s])
