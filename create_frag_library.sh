@@ -9,6 +9,7 @@ wd=`pwd`
 d=`dirname "$0"`
 SCRIPTS="$wd/$d/create_frag_library/"
 
+rm -rf templates
 set -u -e
 
 if [ ! -s fragments.json ];then
@@ -23,19 +24,24 @@ if [ ! -s fragments.json ];then
   ##########################################################################
   mkdir -p trilib
   mkdir -p PDBs
-  mkdir -p templates/
   $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
 fi
 
 cd trilib
+\cp ../motifs.list .
+for m in `cat motifs.list`; do
+    if [ ! -f $m-all-aa.npy ];then
+        ln -s ../$m-all-aa.npy
+    fi
+done
 
-if [ ! -d ../templates/ ];then
-  mv ../motifs.list .
-  mv ../*all-aa.npy .
-  ln -s  ../templates/
-  $SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
+echo "create_template"
+mkdir -p templates
+$SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
+
+if [ ! -d templates/ ];then
+    ln -s  ../templates/
 fi
-
 ##########################################################################
 echo "-------------------------------- fragments clustering"
 ##########################################################################
