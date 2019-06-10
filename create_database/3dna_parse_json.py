@@ -96,6 +96,7 @@ def initialise_all(d, js):
 
 def initialise_chain(d, c, m, dict_n3to1):
     global codenames
+    pp("initialise_chain %c"%c)
     for l, r in enumerate(dict_n3to1):
         cc, rr = "chain_"+c, "res_"+r
         d["ss"][cc][rr] = ["S", l+1, len(dict_n3to1)]
@@ -433,5 +434,5 @@ for struct in sorted(chainsmodels.keys()):
         pp("ERROR in %s"%struct)
         pass
 
-json.dump(out, open(outfile, "w"), indent = 2, sort_keys = "True")
+json.dump(out, open(outfile, "w"), indent = 2, sort_keys = True)
 print("done", file=sys.stderr)
