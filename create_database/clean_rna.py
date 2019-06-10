@@ -186,5 +186,5 @@ for struct in out:
             print(outfile, file=outlist)
 outlist.close()
 
-json.dump(out, open(args.outjson, "w"), indent = 4)
+json.dump(out, open(args.outjson, "w"), indent = 4, sort_keys = True )
 print('%s dumped'%args.outjson, file=sys.stderr)

@@ -74,4 +74,4 @@ for filename in [l.strip() for l in open(inplist)]:
         print(l, end='', file = outf)
     outf.close()
 
-json.dump(js, open(jsonfile, "w"), indent = 2)
+json.dump(js, open(jsonfile, "w"), indent = 2, sort_keys = True)

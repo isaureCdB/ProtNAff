@@ -194,7 +194,7 @@ for struc in list:
     except:
         continue
 
-json.dump(out, open(args.outjson, "w"), indent = 2)
+json.dump(out, open(args.outjson, "w"), indent = 2, sort_keys = True)
 
 outlist = open(args.outlist, 'w')
 for struct in out:

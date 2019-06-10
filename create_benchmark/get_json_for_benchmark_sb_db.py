@@ -36,4 +36,4 @@ for k in js:
             break
 
 with open("{}_test.json".format(json_file.split(".")[0]), 'w') as outfile:
-    json.dump(js_dict, outfile, indent=2)
+    json.dump(js_dict, outfile, indent=2, sort_keys = True)

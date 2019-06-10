@@ -88,4 +88,4 @@ chainschema = {
         ]
 }
 
-json.dump(chainschema, open("chainschema.json", "w"))
+json.dump(chainschema, open("chainschema.json", "w"), sort_keys = True)
