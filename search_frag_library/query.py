@@ -14,7 +14,7 @@ def query_schema_leaf(schema):
 # ? = optional
 def query_schema_star(schema):
     if isinstance(schema, dict):
-        assert len(schema.keys()) == 1, schema.keys()
+        assert len(list(schema.keys())) == 1, list(schema.keys())
         key = list(schema.keys())[0]
         if key[:2] == "?*":
             return key, True
@@ -38,8 +38,8 @@ def _query(data, schema, variables):
         if optional:
             subkey = variables[starkey[2:]] #select "res" in "?*res"
         else:
-            print >> sys.stderr, starkey[1:]
-            print >> sys.stderr, variables
+            print(starkey[1:], file=sys.stderr)
+            print(variables, file=sys.stderr)
             subkey = variables[starkey[1:]] #select "res" in "*res"
         try:
             subdata = data[subkey]
@@ -71,9 +71,9 @@ def query_one_res(chaindata, chainschema, variables):
 def query_one_frag(chaindata, chainschema, frag, default, name, result, part=None, pos=None):
     variables = {
         "name": name,
-        "model": frag["model"],
+        "model": "model_" + str(frag["model"]),
         "pdbcode": frag["structure"].decode(),
-        "chain": frag["chain"].decode(),
+        "chain": "chain_" + frag["chain"].decode(),
     }
     if part is not None:
         variables["part"] = part
@@ -81,7 +81,7 @@ def query_one_frag(chaindata, chainschema, frag, default, name, result, part=Non
         variables["pos"] = pos
     for n in range(3):
         variables.update({
-            "res": str(frag["indices"][n]),
+            "res": "res_" + str(frag["indices"][n]),
         })
         q = query_one_res(chaindata, chainschema, variables)
         if q is None:
