@@ -139,4 +139,5 @@ mkdir -p 3dna
 ### concatenate protein and RNA chains for each model###
 $d/3dna.py excise.json $d/3dna.sh
 # Convert data per structure into data per nucleotide
-$d/3dna_parse_json.py excise.json structures.json $na
+$d/3dna_parse_json.py excise.json structures.json $na > 3dna_parse_json.log \
+    2> 3dna_parse_json.err
