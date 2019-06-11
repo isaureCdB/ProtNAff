@@ -167,7 +167,6 @@ for struc in list:
                         missing = missingcode[atomname] | missing
                         continue
                     lines.append(l)
-                print("orca")
                 #### parse last residue
                 seq, newL, missings = process(Nmissings, missing, resi, lines, seq)
                 L += newL
@@ -175,10 +174,7 @@ for struc in list:
                     d["missing_atoms"][cc]["res_%s"%resi] = missing
                     if missings == 7:
                         d["breaks"][cc].append(resi)
-                seq.append(resname[1])
                 ########################
-                print("kakapo")
-                print(len(L))
                 outf = open(outfile, "w")
                 print(outfile)
                 for l in L:
