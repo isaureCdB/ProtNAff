@@ -6,6 +6,10 @@ Detect NA chains based on canonical nucleotides.
 Exclude non-NA residues from NA chains.
 Extract and write protein/hetatom interface in PDB
 '''
+import Bio
+if print(Bio.__version__) != '1.70':
+    print("ERROR: you need Biopython version 1.70")
+    raise
 
 from Bio.PDB import *
 import numpy as np
