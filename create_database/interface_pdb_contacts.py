@@ -7,18 +7,17 @@ Exclude non-NA residues from NA chains.
 Extract and write protein/hetatom interface in PDB
 '''
 import Bio
-if print(Bio.__version__) != '1.70':
-    print("ERROR: you need Biopython version 1.70")
-    raise
-
 from Bio.PDB import *
 import numpy as np
-import sys
 from scipy.spatial import cKDTree as KDTree
 from scipy.sparse import dok_matrix
-import re, os, json
+import re, os, json, sys
 from collections import defaultdict
 import argparse
+
+if Bio.__version__ != '1.70':
+    print("ERROR: you need Biopython version 1.70", file=sys.stderr)
+    sys.exit()
 
 class MySelect(Select):
     def __init__(self, model_toselect, res_toselect):
