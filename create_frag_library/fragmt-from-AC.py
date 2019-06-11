@@ -75,14 +75,15 @@ for struct in sorted(inp.keys()):
             missings = d['missing_atoms'][cc]
             miss = []
             #print(missings, file=sys.stderr)
-            res, coors, seqpdb = 0, [], []
+            resid, res, coors, seqpdb = 0, "", [], []
             for l in open(pdb,'r').readlines():
                 coor = get_coor(l)
                 if l[13]=='P':
                     if res in missings:
                         miss.append(missings[res])
                     seqpdb.append(l[19])
-                    res+=1
+                    resid += 1
+                    res = 'res_%i'%resid
                     coors.append([])
                 coors[-1].append(coor)
             for i in range(len(coors)-2):
