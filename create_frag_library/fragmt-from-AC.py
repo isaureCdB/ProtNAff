@@ -14,7 +14,6 @@ def check_breaks(index, d, cc):  #19/09/18
     breaks = d['breaks'][cc]
     if breaks is None:
         return breaks, 0
-    print(breaks)
     if (index+3) in breaks or (index+2) in breaks:
         return breaks, 1
     else:
@@ -59,7 +58,6 @@ inp = json.load(open(args.inp))
 for struct in sorted(inp.keys()):
     print(struct, file=sys.stderr)
     d = inp[struct]
-    print(d['missing_atoms'], file=sys.stderr)
     for m in range(1, d['Nmodels']+1):
         mm = "model_%i"%m
         for c in d['nachains']:
@@ -74,13 +72,14 @@ for struct in sorted(inp.keys()):
             mapp = d['mapping'][cc]
             missings = d['missing_atoms'][cc]
             miss = []
-            #print(missings, file=sys.stderr)
             resid, res, coors, seqpdb = 0, "", [], []
             for l in open(pdb,'r').readlines():
                 coor = get_coor(l)
                 if l[13]=='P':
                     if res in missings:
                         miss.append(missings[res])
+                    else:
+                        miss.append(0)
                     seqpdb.append(l[19])
                     resid += 1
                     res = 'res_%i'%resid
@@ -111,7 +110,7 @@ for struct in sorted(inp.keys()):
                 count[s]+=1
 
 json.dump(all_frag, open(args.frags, 'w'), indent = 2)
-
+sys.exit()
 for s in sequences:
     if not len(coor_bases[s]): continue
     nat = len(coor_bases[s][0])
