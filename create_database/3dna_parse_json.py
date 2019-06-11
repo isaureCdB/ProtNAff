@@ -96,7 +96,7 @@ def initialise_all(d, js):
 
 def initialise_chain(d, c, m, dict_n3to1):
     global codenames
-    pp("initialise_chain %c"%c)
+    #pp("initialise_chain %c"%c)
     for l, r in enumerate(dict_n3to1):
         cc, rr = "chain_"+c, "res_"+r
         d["ss"][cc][rr] = ["S", l+1, len(dict_n3to1)]
@@ -160,7 +160,7 @@ def check_breaks(js, c):
             breaks.append(n)
             if len(bseq) > nr:
                 bseq = bseq[:nr] + bseq[nr+1:]
-                if len(breaks) > 0 : pp((c, "breaks", breaks))
+                #if len(breaks) > 0 : pp((c, "breaks", breaks))
     return breaks
 
 def EX_check_breaks(js, c): #changed on 18/09/2018
@@ -168,7 +168,7 @@ def EX_check_breaks(js, c): #changed on 18/09/2018
     # such as those excised by aareduce
     nts = [ jj for jj in js["nts"] if jj["chain_name"] == c]
     breaks = [n["nt_resnum"] for n in nts if n["is_broken"]]
-    if len(breaks) > 0 : pp((c, "breaks", breaks))
+    #if len(breaks) > 0 : pp((c, "breaks", breaks))
     return breaks
 
 def weight_hbond(dist, bydist=True, AccDonn=0):
@@ -302,10 +302,11 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                 if rr not in d_bptype[cc]:
                     d_bptype[cc][rr] = []
                 d_bptype[cc][rr].append(j["name"])
-                # per default, if a base makes a basepair,
+                # per default, if a base makes a non-"Platform" basepair,
                 # the structure is "D" for undetermined double-stranded.
                 # It can be detailed further in the code (stem, helix, junction ...)
-                d_ss[cc][rr][0] = "D"
+                if j["name"] != "Platform" and j["name"] != "--":
+                    d_ss[cc][rr][0] = "D"
     return d_ss, d_bptype
 
 def get_hairpins(js_hairpins, d_ss):
