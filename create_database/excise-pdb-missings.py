@@ -136,7 +136,7 @@ for struc in list:
                     print('%s already exists'%outfile, file=sys.stderr)
                     if m > 1 or ("sequence" in d and c in d["sequence"]):
                         continue
-                print("processing %s %s"%(struc, c), file=sys.stderr)
+                #print("processing %s %s"%(struc, c), file=sys.stderr)
                 L, lines, seq = [], [], []
                 resi = -999
                 Nmissings, missing = 0, 0

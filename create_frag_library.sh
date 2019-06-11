@@ -22,11 +22,10 @@ if [ ! -s fragments.json ];then
   ##########################################################################
   echo "-------------------------------- cut into fragments"
   ##########################################################################
-  mkdir -p trilib
-  mkdir -p PDBs
   $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
 fi
 
+mkdir -p trilib
 cd trilib
 \cp ../motifs.list .
 for m in `cat motifs.list`; do
@@ -39,9 +38,6 @@ echo "create_template"
 mkdir -p templates
 $SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
 
-if [ ! -d templates/ ];then
-    ln -s  ../templates/
-fi
 ##########################################################################
 echo "-------------------------------- fragments clustering"
 ##########################################################################
@@ -58,7 +54,7 @@ if [ ! -s  AAA-dr0.2r.npy ];then
 fi
 
 # Cluster fragments at $c1 A RMSD
-# Clustering the $c1\A-cluster centers at $c2 A
+# Clustering the ${c1}A-cluster centers at $c2 A
 if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
   for m in `cat motifs.list`; do
     $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &

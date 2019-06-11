@@ -81,11 +81,11 @@ chainschema = {
             ("fragments", {"*model": {"*chain": [[]] }}),
             ("hetnames", {}),
             "sequence",
-            ("ss", {"*chain": {"*res": {"*pos":None}} }),
+            ("ss", {"*chain": {"*res": []} }),
             ("missing_atoms", {"?*chain": [] }),
             ("stacking", {"?*chain": {"?*res":{"?*pos":None}} }),
             ("=>", "name")
         ]
 }
 
-json.dump(chainschema, open("chainschema.json", "w"), sort_keys = True)
+json.dump(chainschema, open("chainschema.json", "w"), sort_keys = True, indent = 2)
