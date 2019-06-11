@@ -12,7 +12,6 @@ print((na, pattern), file=sys.stderr)
 dirname = os.path.dirname(os.path.abspath(__file__))
 
 def execute(command):
-    print("%s\n"%command)
     check_call(command, shell = True)
 
 x = "R"
