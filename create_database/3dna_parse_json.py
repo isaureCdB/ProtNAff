@@ -16,7 +16,7 @@ import copy
 def pp(*x):
     for i in x[:-1]:
         print(i, file=sys.stderr, end=' ')
-    print(x[-1])
+    print(x[-1], file=sys.stderr)
 
 def parse_nts(j):
     nts = [ j[x].split(".") for x in ["nt1","nt2"] ]
@@ -59,8 +59,12 @@ def map_indices(struct, c):
 def map_missing(d, cc, dict_n2to3):
     if "missing_atoms" in d:
         if cc in d["missing_atoms"]:
-            missings = d["missing_atoms"][cc]
-            new = { dict_n2to3[i]: missings[i] for i in missings.keys() if i in dict_n2to3.keys() }
+            m = d["missing_atoms"][cc]
+            new = {}
+            for resi in m.keys():       # resi = "res_1"
+                i = resi.split("_")[1]    # i = "1"
+                if i in dict_n2to3.keys():
+                    new["res_%s"%dict_n2to3[i]] = m[resi]
             d["missing_atoms"][cc] = new
     return d
 
@@ -274,8 +278,8 @@ def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
         if "stacking" in list(j.keys()):
             nts, resid, resint, c = parse_nts(j)
             ind_in_chains = [ x for x in range(2) if c[x] in chains]
-            cc = ["chain_"+c[x] for x in ind_in_chains]
-            rr = ["res_" + resid[x] for x in ind_in_chains]
+            cc = ["chain_"+x for x in c]
+            rr = ["res_" + x for x in resid]
             # position in the 5-nb vector of the nucleotide
             # pos = 2 : per default, it is not a neighbors
             pos = [2, 2]
@@ -397,43 +401,43 @@ for a in range(1,4):
 vect = list(range(5))
 for struct in sorted(chainsmodels.keys()):
     if struct in out.keys(): # structure already in the output
+        pp("%s already in outp"%struct)
         continue
-    #pp(struct)
-    try:
-        d = chainsmodels[struct]
-        # get data from x3dna output
-        inp = "3dna/%s-1-dssr.json"%struct #output from 3dna-dssr
-        if not os.path.exists(inp):
-            print("%s does not exist"%inp)
-            continue
-        js = json.load(open(inp))
-        # initialise dictionary for the current structure
-        chains = d["nachains"]  #list of IDs for rna/dna chains
-        protchains = d["protchains"]
-        d, js = initialise_all(d, js)
-        for c in chains:
-            try:
-                pp("%s_%s"%(struct, c))
-                cc="chain_"+c
-                firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
-                d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
-                for m in range(1, d["Nmodels"]+1): # for each model
-                    d = map_missing(d, cc, dict_n2to3)
-                    d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
-                    d["breaks"][cc] += check_breaks(js, c)
-                    d = initialise_chain(d, c, m, dict_n3to1)
-            except:
-                pp("ERROR in %s_%s"%(struct, c))
-        d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
-        d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
-        d["intraNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraNA_hb"], d["stacking"])
-        d["ss"], d["bptype"] = get_pairs(js["pairs"], d["ss"], d["bptype"])
-        d["ss"] = get_hairpins(js["hairpins"], d["ss"])
-        d["ss"] = get_junctions(js["junctions"], d["ss"])
-        out[struct] = d
-    except:
-        pp("ERROR in %s"%struct)
-        pass
+    #try:
+    d = chainsmodels[struct]
+    # get data from x3dna output
+    inp = "3dna/%s-1-dssr.json"%struct #output from 3dna-dssr
+    if not os.path.exists(inp):
+        print("%s does not exist"%inp)
+        continue
+    js = json.load(open(inp))
+    # initialise dictionary for the current structure
+    chains = d["nachains"]  #list of IDs for rna/dna chains
+    protchains = d["protchains"]
+    d, js = initialise_all(d, js)
+    for c in chains:
+        try:
+            pp("%s_%s"%(struct, c))
+            cc="chain_"+c
+            firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
+            d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
+            for m in range(1, d["Nmodels"]+1): # for each model
+                d = map_missing(d, cc, dict_n2to3)
+                d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
+                d["breaks"][cc] += check_breaks(js, c)
+                d = initialise_chain(d, c, m, dict_n3to1)
+        except:
+            pp("ERROR1 in %s_%s"%(struct, c))
+    d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
+    d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
+    d["intraNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraNA_hb"], d["stacking"])
+    d["ss"], d["bptype"] = get_pairs(js["pairs"], d["ss"], d["bptype"])
+    d["ss"] = get_hairpins(js["hairpins"], d["ss"])
+    d["ss"] = get_junctions(js["junctions"], d["ss"])
+    out[struct] = d
+    #except:
+    #    pp("ERROR2 in %s"%struct)
+    #    pass
 
 json.dump(out, open(outfile, "w"), indent = 2, sort_keys = True)
 print("done", file=sys.stderr)
