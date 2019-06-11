@@ -121,7 +121,6 @@ def read_models(pdb):
         if l0 == "HETATM" and not args.modres and not args.modbase:
             print("discarde %s"%l, file=sys.stderr) ###
             continue
-        print(l, file=sys.stderr) ###
         outp.write(l)
         pdbs[-1].append(l)
     outp.close()
