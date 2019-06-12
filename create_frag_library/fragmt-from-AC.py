@@ -14,8 +14,6 @@ def check_breaks(index, d, cc):  #19/09/18
     breaks = d['breaks'][cc]
     if breaks is None:
         return breaks, 0
-    #miss = d['missing_atoms'][cc]
-    print(breaks)
     if (index+3) in breaks or (index+2) in breaks:
         return breaks, 1
     else:
@@ -51,13 +49,10 @@ listofseq.close()
 coor_bases = {}
 count = {}
 all_frag = {}
-templates = {}
 for s in sequences:
     coor_bases[s] = []
     count[s] = 1
     all_frag[s] = {}
-    templates[s] = 0
-all_templates = 0
 prog=0
 inp = json.load(open(args.inp))
 for struct in sorted(inp.keys()):
@@ -75,16 +70,21 @@ for struct in sorted(inp.keys()):
             mu = [mutations[i] for i in seq]
             museq = "".join(mu)
             mapp = d['mapping'][cc]
-            res, ll, coors, seqpdb = 0, [], [], []
+            missings = d['missing_atoms'][cc]
+            miss = []
+            resid, res, coors, seqpdb = 0, "", [], []
             for l in open(pdb,'r').readlines():
                 coor = get_coor(l)
                 if l[13]=='P':
+                    if res in missings:
+                        miss.append(missings[res])
+                    else:
+                        miss.append(0)
                     seqpdb.append(l[19])
-                    res+=1
+                    resid += 1
+                    res = 'res_%i'%resid
                     coors.append([])
-                    if not all_templates: ll.append([])
                 coors[-1].append(coor)
-                if not all_templates: ll[-1].append(l)
             for i in range(len(coors)-2):
                 try:
                     breaks, val = check_breaks(i, d, cc)
@@ -96,14 +96,6 @@ for struct in sorted(inp.keys()):
                 ss = "".join(seqpdb[i:i+3])
                 assert s == ss, (struct, m, c, i, s, ss)
                 oriseq = seq[i:i+3]
-                if not templates[s]:
-                    out = open('templates/%s.pdb'%s, 'w')
-                    for res in ll[i:i+3]:
-                        for l in res:
-                            print(l[:-1], file=out),
-                    out.close()
-                    templates[s] = 1
-                    all_templates = min([templates[s] for s in sequences])
                 coordinates = [c for cc in coors[i:i+3] for c in cc]
                 coor_bases[s].append(coordinates)
                 ind = str(count[s])
@@ -114,10 +106,11 @@ for struct in sorted(inp.keys()):
                 all_frag[s][ind]['indices'] = (i+1, i+2, i+3)
                 all_frag[s][ind]['resid'] = (mapp[str(i+1)], mapp[str(i+2)], mapp[str(i+3)])
                 all_frag[s][ind]['seq'] = oriseq
+                all_frag[s][ind]['missing_atoms'] = miss[i:i+3]
                 count[s]+=1
 
 json.dump(all_frag, open(args.frags, 'w'), indent = 2)
-
+sys.exit()
 for s in sequences:
     if not len(coor_bases[s]): continue
     nat = len(coor_bases[s][0])

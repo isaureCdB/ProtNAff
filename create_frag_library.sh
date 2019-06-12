@@ -9,6 +9,7 @@ wd=`pwd`
 d=`dirname "$0"`
 SCRIPTS="$wd/$d/create_frag_library/"
 
+rm -rf templates
 set -u -e
 
 if [ ! -s fragments.json ];then
@@ -21,20 +22,21 @@ if [ ! -s fragments.json ];then
   ##########################################################################
   echo "-------------------------------- cut into fragments"
   ##########################################################################
-  mkdir -p trilib
-  mkdir -p PDBs
-  mkdir -p templates/
   $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
 fi
 
+mkdir -p trilib
 cd trilib
+\cp ../motifs.list .
+for m in `cat motifs.list`; do
+    if [ ! -f $m-all-aa.npy ];then
+        ln -s ../$m-all-aa.npy
+    fi
+done
 
-if [ ! -d ../templates/ ];then
-  mv ../motifs.list .
-  mv ../*all-aa.npy .
-  ln -s  ../templates/
-  $SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
-fi
+echo "create_template"
+mkdir -p templates
+$SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
 
 ##########################################################################
 echo "-------------------------------- fragments clustering"
@@ -44,17 +46,21 @@ c1=1.0 # tight clustering cutoff
 c2=2.0 # large clustering cutoff
 
 # Deredundant fragments at $dr A RMSD
-for m in `cat motifs.list`; do
-  $SCRIPTS/deredundant_fast.sh $m $dr $c2 > deredundant-$m.log &
-done
-wait
+if [ ! -s  AAA-dr0.2r.npy ];then
+  for m in `cat motifs.list`; do
+    $SCRIPTS/deredundant_fast.sh $m $dr $c2 > deredundant-$m.log &
+  done
+  wait
+fi
 
 # Cluster fragments at $c1 A RMSD
-# Clustering the $c1\A-cluster centers at $c2 A
-for m in `cat motifs.list`; do
-  $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &
-done
-wait
+# Clustering the ${c1}A-cluster centers at $c2 A
+if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
+  for m in `cat motifs.list`; do
+    $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &
+  done
+  wait
+fi
 
 for m in `cat motifs.list`; do
   $SCRIPTS/create_libraries.sh $m $dr $c1 # Write PDB for each cluster center
@@ -73,5 +79,4 @@ echo "-------------------------------- mutate back into all sequences"
 # You have to be located on the dna/rna lib folder
 # with the 8 bases 3-mers (GGG, GGT, GTG, GTT, TGG, TGT, TTG, TTT)
 # dr0.2r-clust1.0 is a reference to the xxx-dr0.2r-clust1.0.npy files
-# $SCRIPTS/mutate-GT-libraries_npy.py dna dr0.2r-clust1.0
 $SCRIPTS/mutate-AC-libraries_npy.py $na "dr${dr}r-clust$c1"

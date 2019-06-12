@@ -24,7 +24,7 @@ for inp in `cat $filelist`; do
   first=`awk '$1=="ATOM"||$1=="HETATM"{printf "%i", substr($0,23,4); exit}' $inp`
 
   $d/pdbcompletion.py $inp $outf --$na --heavy \
-  --manual --modbase --patch $chain $first None \
+  --manual all --modbase --patch $chain $first None \
   --mutate $d/../data/${na}lib/mutate.list --${na}_chain $chain \
   | awk 'NF==2' > $mapping
 
