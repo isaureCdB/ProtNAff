@@ -1,0 +1,49 @@
+#!/bin/bash
+
+source activate attract
+
+directory=$1
+runName=$2
+cd $directory
+
+name_file_list="file_to_reduce_$runName.list"
+
+filelist="$directory$name_file_list"
+
+set -u -e
+
+for i in $(cat $filelist); do
+  name=${i%%.pdb}
+  IFS='_' read -r -a array <<< "$name"
+  type="${array[0]}"
+  chain="${array[1]}"
+  outf=$name-aa.pdb
+  if [ ! -s $i ] ; then
+    echo "$i does not exist "
+    continue
+  fi
+  #echo $i $outf
+  resn=`head -1 $i | awk '{print substr($0,23,4)}'`
+
+  if [ $type = "RNA" ]; then
+
+    python $ATTRACTDIR/../allatom/aareduce.py $i $outf --rna --heavy \
+    --chain $chain --modbase --mutate $ATTRACTDIR/../allatom/rna-mutate.list \
+    --startres $resn --nalib --manual --patch $resn None > $name-aa.mapping
+
+    python $SCRIPTS/delete_nucleotide_from_pdb.py $outf
+
+    python $ATTRACTTOOLS/reduce.py $name-aa.pdb --rna --chain $chain --startres $resn> /dev/null
+
+  else
+
+    python $ATTRACTDIR/../allatom/aareduce.py $i $outf --heavy \
+    --chain $chain --modbase \
+    --patch $resn None --pdb2pqr > $name-aa.mapping
+
+    python $ATTRACTTOOLS/reduce.py $name-aa.pdb --chain $chain > /dev/null
+
+  fi
+
+
+done

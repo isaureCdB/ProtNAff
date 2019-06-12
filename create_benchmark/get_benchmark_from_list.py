@@ -38,7 +38,7 @@ for pdb_id in open(listPDB, 'r'):
         dirList = [ dir for dir in os.listdir(dirPDB) if not os.path.isfile(os.path.join(dirPDB,dir)) ]
 
         for dir in dirList:
-            
+
 
 
         with open("{}/query_successful.txt".format(outpdir), 'a') as f:
