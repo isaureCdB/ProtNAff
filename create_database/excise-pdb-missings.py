@@ -46,27 +46,21 @@ def del_chain(struc, c):
     return 0
 
 d={}
-def process(Nmissings, missing, resi, L, lines, seq):
-    global struc, c, d
-    cc="chain_%s"%c
+def process(Nmissings, missing, resi, lines, seq):
+    newL = []
     if missing in [2, 3, 6] and Nmissings > 5:
         missing = 7
     if missing != 7:
         for ll in lines:
-            L.append(ll)
+            newL.append(ll)
     if missing == 7:
-        d["breaks"][cc].append(resi)
         if len(seq):
             seq = seq[:-1]
         else:
             seq = []
-        #print('------------------------------------------', file=sys.stderr)
-        #print('missing 7 in res %s in %s-%s'%(resi, struc, c), file=sys.stderr)
-        #print('------------------------------------------', file=sys.stderr)
-    if missing != 0:
-        d["missing_atoms"][cc]["res_%s"%resi] = missing
-        #print("%i missing atoms in res %s, code %i"%(Nmissings, resi, missing), file=sys.stderr)
-    return seq, L
+    #if missing != 0:
+    #print("%i missing atoms in res %s, code %i"%(Nmissings, resi, missing), file=sys.stderr)
+    return seq, newL, missing
 
 parser = argparse.ArgumentParser(description=__doc__,
                           formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -129,7 +123,7 @@ for struc in list:
         d["breaks"] = {"chain_%s"%c:[] for c in d["nachains"]}
         delstruc = 0
         for c in chains:
-            #if delstruc: break
+            cc="chain_%s"%c
             for m in range(1, d["Nmodels"]+1):
                 inp = "%s/%s%s-%i-iniparse.pdb"%(args.inpdir, struc, c, m)
                 if not os.path.exists(inp):
@@ -142,7 +136,7 @@ for struc in list:
                     print('%s already exists'%outfile, file=sys.stderr)
                     if m > 1 or ("sequence" in d and c in d["sequence"]):
                         continue
-                print("processing %s %s"%(struc, c), file=sys.stderr)
+                #print("processing %s %s"%(struc, c), file=sys.stderr)
                 L, lines, seq = [], [], []
                 resi = -999
                 Nmissings, missing = 0, 0
@@ -156,7 +150,12 @@ for struc in list:
                     if atomname == "O5T": continue
                     if resname not in resn_list: continue
                     if resid != resi:
-                        seq, L = process(Nmissings, missing, resi, L, lines, seq)
+                        seq, newL, missings = process(Nmissings, missing, resi, lines, seq)
+                        L += newL
+                        if missings != 0:
+                            d["missing_atoms"][cc]["res_%s"%resi] = missing
+                            if missings == 7:
+                                d["breaks"][cc].append(resi)
                         seq.append(resname[1])
                         lines = []
                         resi = resid
@@ -166,11 +165,16 @@ for struc in list:
                         #if atomname == "O5T": continue
                         Nmissings += 1
                         missing = missingcode[atomname] | missing
-                        #print("missing %s"%missing, file=sys.stderr)
                         continue
                     lines.append(l)
                 #### parse last residue
-                seq, L = process(Nmissings, missing, resi, L, lines, seq)
+                seq, newL, missings = process(Nmissings, missing, resi, lines, seq)
+                L += newL
+                if missings != 0:
+                    d["missing_atoms"][cc]["res_%s"%resi] = missing
+                    if missings == 7:
+                        d["breaks"][cc].append(resi)
+                ########################
                 outf = open(outfile, "w")
                 print(outfile)
                 for l in L:
@@ -186,7 +190,7 @@ for struc in list:
     except:
         continue
 
-json.dump(out, open(args.outjson, "w"), indent = 2)
+json.dump(out, open(args.outjson, "w"), indent = 2, sort_keys = True)
 
 outlist = open(args.outlist, 'w')
 for struct in out:
