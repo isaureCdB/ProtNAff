@@ -8,8 +8,8 @@ from itertools import repeat
 from queries.query_ss import query_ss
 
 #import of some useful fonctions
-from benchmark_scripts.extract_chains import extract_chains
-from benchmark_scripts.create_pdb import create_pdb
+from extract_chains import extract_chains
+from create_pdb import create_pdb
 
 '''
 Automatization for the creation of trinucleotide fragments.
@@ -158,7 +158,7 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
                     f.write("{}\n".format(file))
 
             #Creation of all atoms files and reduced files for chains.pdb
-            os.system('aareduce_benchmark {}/ {}'.format(dirBiologicalAssembly, runName))
+            os.system('./aareduce_benchmark {}/ {}'.format(dirBiologicalAssembly, runName))
 
             #Merging of Prot/RNA_chain-aa/aar.pdb files
             write_file(dirBiologicalAssembly, "RNA", "aa", list_created_file)
@@ -174,14 +174,12 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
             #Then do the query for every RNA chains in the biological assembly
             for chain_id in chains[assembly]["rna"]:
                 length = 5
-                nuclfrag = query_ss(pdb_info, chain_id, length)
-                print(nuclfrag)
+                nuclfrag = query_ss(pdb_info, "chain_{}".format(chain_id), length)
                 # If the query return nothing: continue
                 if len(nuclfrag) == 0:
+                    print("No structure of interest in {}\n\n".format(pdb_id))
                     continue
-                print('{} {}'.format(pdb_id, chain_id), end=' ')
-                for i in nuclfrag:
-                    print('{}'.format(i), end=' ')
+                print('{} {} : {}'.format(pdb_id, chain_id, nuclfrag), end=' ')
                 print('')
 
                 #Write the pdb name if the query is successful
@@ -192,8 +190,8 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
                 write_fragments_file(dirNameRun, "aa", nuclfrag, chain_id)
                 write_fragments_file(dirNameRun, "aar", nuclfrag, chain_id)
 
-                #Creation of fragments for the docking
-                os.system("extractfrag.sh rna {}".format(dirNameRun))
+#                 #Creation of fragments for the docking
+#                 os.system("extractfrag.sh rna {}".format(dirNameRun))
 
     #Catch the problem, more or less...
     except Exception as e:
@@ -201,6 +199,7 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
         with open("{}/pdb_with_error_{}.txt".format(outpdir, runName), 'a') as f:
             f.write("{} {}\n".format(pdb_id, e))
 
+    print("Done for {}\n\n".format(pdb_id))
     return None
 
 ###################################################
@@ -213,15 +212,14 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
 
 js = json.load(open(json_file))
 
-# Creation of a tmp/ directory on which every pdbnt intelligent qui deviendra l’un des plus grands stratèges de guerre.
-A ses côtés se tient Yatorishino, une fille aussi am will be downloaded
+# Creation of a tmp/ directory on which every pdb will be downloaded
 # This directory is deleted at the end
 # If you will use this script often, comment the deletion of this directory
 tmpPDB = "{}/tmp/".format(outpdir)
 if not os.path.exists(tmpPDB):
     os.mkdir(tmpPDB)
 
-pool = Pool(processes=8)
+pool = Pool(processes=1)
 
 pool.starmap(script_for_parallel, zip(js.keys(), repeat(tmpPDB), repeat(outpdir), repeat(runName), repeat(js)))
 

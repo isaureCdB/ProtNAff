@@ -1,0 +1,15 @@
+#!/bin/sh
+#script to download a pdb file
+
+pdb_name=$1
+output_dir=$2
+
+cd $output_dir
+
+if [ ! -f "$pdb_name.pdb" ] ; then
+  if wget -nc "http://files.rcsb.org/download/$pdb_name.pdb.gz" ; then
+    echo "Download of $pdb_name.pdb.gz is a success"
+    gzip -d "$pdb_name.pdb.gz"
+    rm "$pdb_name.pdb.gz"
+  fi
+fi
