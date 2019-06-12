@@ -1,0 +1,537 @@
+{
+  "1AQ4": {
+    "Nmodels": 1,
+    "breaks": {
+      "chain_R": [],
+      "chain_S": []
+    },
+    "canonized": {},
+    "hetnames": {},
+    "interface_hetatoms": {},
+    "interface_protein": {
+      "model_1": {
+        "chain_R": {
+          "res_10": {
+            "ph": 3.68,
+            "sug": 3.95
+          },
+          "res_11": {
+            "base": 2.82,
+            "ph": 2.37,
+            "sug": 3.21
+          },
+          "res_12": {
+            "base": 2.67,
+            "ph": 3.47,
+            "sug": 3.44
+          },
+          "res_13": {
+            "base": 4.64
+          },
+          "res_4": {
+            "ph": 4.36
+          },
+          "res_9": {
+            "base": 4.14
+          }
+        },
+        "chain_S": {
+          "res_10": {
+            "ph": 3.43,
+            "sug": 3.89
+          },
+          "res_11": {
+            "base": 3.01,
+            "ph": 2.53,
+            "sug": 3.13
+          },
+          "res_12": {
+            "base": 2.75,
+            "ph": 2.76,
+            "sug": 3.5
+          },
+          "res_13": {
+            "base": 4.92
+          },
+          "res_3": {
+            "ph": 4.67
+          },
+          "res_4": {
+            "ph": 3.33
+          },
+          "res_9": {
+            "base": 3.8
+          }
+        }
+      }
+    },
+    "method": "x-ray diffraction",
+    "missing_atoms": {
+      "chain_R": {
+        "res_1": 1
+      },
+      "chain_S": {
+        "res_1": 1
+      }
+    },
+    "nachains": [
+      "R",
+      "S"
+    ],
+    "protchains": [
+      "A",
+      "B",
+      "C"
+    ],
+    "resolution": 3.0,
+    "sequence": {
+      "chain_R": "AUGAGGAUUACCCAUG",
+      "chain_S": "AUGAGGAUUACCCA"
+    }
+  },
+  "1ASY": {
+    "Nmodels": 1,
+    "breaks": {
+      "chain_R": [],
+      "chain_S": []
+    },
+    "canonized": {
+      "chain_R": [
+        613,
+        616,
+        649,
+        619,
+        654,
+        655,
+        632,
+        637
+      ],
+      "chain_S": [
+        613,
+        616,
+        649,
+        619,
+        654,
+        655,
+        632,
+        637
+      ]
+    },
+    "hetnames": {},
+    "interface_hetatoms": {},
+    "interface_protein": {
+      "model_1": {
+        "chain_R": {
+          "res_601": {
+            "base": 2.74,
+            "ph": 2.83,
+            "sug": 3.26
+          },
+          "res_610": {
+            "base": 3.78,
+            "ph": 4.8,
+            "sug": 3.28
+          },
+          "res_611": {
+            "base": 3.91,
+            "ph": 3.88,
+            "sug": 3.48
+          },
+          "res_612": {
+            "base": 4.29,
+            "ph": 2.77,
+            "sug": 3.02
+          },
+          "res_613": {
+            "ph": 4.26
+          },
+          "res_624": {
+            "sug": 4.28
+          },
+          "res_625": {
+            "ph": 3.57,
+            "sug": 3.88
+          },
+          "res_626": {
+            "ph": 4.36,
+            "sug": 4.08
+          },
+          "res_627": {
+            "ph": 3.2,
+            "sug": 3.13
+          },
+          "res_628": {
+            "ph": 3.35,
+            "sug": 4.45
+          },
+          "res_629": {
+            "ph": 4.95
+          },
+          "res_630": {
+            "ph": 2.91
+          },
+          "res_632": {
+            "base": 2.79,
+            "sug": 3.7
+          },
+          "res_633": {
+            "base": 2.77,
+            "ph": 4.68,
+            "sug": 3.27
+          },
+          "res_634": {
+            "base": 3.04,
+            "ph": 3.09,
+            "sug": 3.52
+          },
+          "res_635": {
+            "base": 2.71,
+            "ph": 4.13,
+            "sug": 2.55
+          },
+          "res_636": {
+            "base": 2.6,
+            "ph": 4.7,
+            "sug": 3.04
+          },
+          "res_637": {
+            "base": 3.24,
+            "ph": 4.14,
+            "sug": 4.72
+          },
+          "res_638": {
+            "base": 2.43,
+            "ph": 2.87,
+            "sug": 3.71
+          },
+          "res_639": {
+            "base": 4.51
+          },
+          "res_667": {
+            "ph": 3.79
+          },
+          "res_668": {
+            "ph": 3.02,
+            "sug": 3.77
+          },
+          "res_669": {
+            "ph": 3.84
+          },
+          "res_670": {
+            "ph": 4.94
+          },
+          "res_671": {
+            "base": 4.46,
+            "ph": 3.89
+          },
+          "res_672": {
+            "base": 3.48,
+            "ph": 4.35
+          },
+          "res_673": {
+            "base": 2.49,
+            "ph": 2.75
+          },
+          "res_674": {
+            "base": 2.51,
+            "ph": 4.55,
+            "sug": 3.8
+          },
+          "res_675": {
+            "base": 2.37,
+            "ph": 3.36,
+            "sug": 3.53
+          },
+          "res_676": {
+            "base": 2.9,
+            "ph": 2.68,
+            "sug": 2.63
+          }
+        },
+        "chain_S": {
+          "res_601": {
+            "base": 2.83,
+            "ph": 2.71,
+            "sug": 4.94
+          },
+          "res_610": {
+            "base": 4.1,
+            "sug": 3.57
+          },
+          "res_611": {
+            "base": 4.12,
+            "ph": 3.85,
+            "sug": 3.93
+          },
+          "res_612": {
+            "base": 4.7,
+            "ph": 2.75,
+            "sug": 3.08
+          },
+          "res_613": {
+            "ph": 3.81
+          },
+          "res_624": {
+            "base": 4.31,
+            "ph": 4.95,
+            "sug": 3.46
+          },
+          "res_625": {
+            "ph": 3.36,
+            "sug": 3.74
+          },
+          "res_626": {
+            "ph": 3.68,
+            "sug": 3.34
+          },
+          "res_627": {
+            "ph": 3.94,
+            "sug": 3.99
+          },
+          "res_628": {
+            "ph": 3.96,
+            "sug": 4.99
+          },
+          "res_630": {
+            "ph": 3.25
+          },
+          "res_632": {
+            "base": 2.57,
+            "sug": 4.65
+          },
+          "res_633": {
+            "base": 4.08,
+            "ph": 3.59,
+            "sug": 3.85
+          },
+          "res_634": {
+            "base": 2.75,
+            "ph": 2.91,
+            "sug": 3.1
+          },
+          "res_635": {
+            "base": 2.67,
+            "ph": 3.85,
+            "sug": 2.48
+          },
+          "res_636": {
+            "base": 2.42,
+            "ph": 4.32,
+            "sug": 2.51
+          },
+          "res_637": {
+            "base": 3.61,
+            "ph": 2.59
+          },
+          "res_638": {
+            "base": 2.5,
+            "ph": 3.58,
+            "sug": 4.45
+          },
+          "res_639": {
+            "base": 4.87
+          },
+          "res_667": {
+            "ph": 4.17,
+            "sug": 4.85
+          },
+          "res_668": {
+            "ph": 3.54,
+            "sug": 3.91
+          },
+          "res_669": {
+            "ph": 3.93
+          },
+          "res_670": {
+            "ph": 4.99
+          },
+          "res_671": {
+            "ph": 4.54
+          },
+          "res_672": {
+            "base": 3.3,
+            "ph": 3.02,
+            "sug": 3.82
+          },
+          "res_673": {
+            "base": 2.89,
+            "ph": 2.44
+          },
+          "res_674": {
+            "base": 2.45,
+            "ph": 4.21,
+            "sug": 3.18
+          },
+          "res_675": {
+            "base": 3.27,
+            "ph": 2.75,
+            "sug": 2.61
+          },
+          "res_676": {
+            "base": 2.6,
+            "ph": 3.01,
+            "sug": 2.76
+          }
+        }
+      }
+    },
+    "method": "x-ray diffraction",
+    "missing_atoms": {
+      "chain_R": {
+        "res_16": 4,
+        "res_19": 4
+      },
+      "chain_S": {
+        "res_16": 4,
+        "res_19": 4
+      }
+    },
+    "nachains": [
+      "R",
+      "S"
+    ],
+    "protchains": [
+      "A",
+      "B"
+    ],
+    "resolution": 2.9,
+    "sequence": {
+      "chain_R": "UCCGUGAUAGUUUAAUGGUCAGAAUGGGCGCUUGUCGCGUGCCAGAUCGGGGUUCAAUUCCCCGUCGCGGAGCCA",
+      "chain_S": "UCCGUGAUAGUUUAAUGGUCAGAAUGGGCGCUUGUCGCGUGCCAGAUCGGGGUUCAAUUCCCCGUCGCGGAGCCA"
+    }
+  },
+  "1B7F": {
+    "Nmodels": 1,
+    "breaks": {
+      "chain_P": [],
+      "chain_Q": []
+    },
+    "canonized": {},
+    "hetnames": {},
+    "interface_hetatoms": {},
+    "interface_protein": {
+      "model_1": {
+        "chain_P": {
+          "res_10": {
+            "base": 2.48,
+            "ph": 3.21,
+            "sug": 3.3
+          },
+          "res_11": {
+            "base": 3.02,
+            "ph": 3.86,
+            "sug": 2.83
+          },
+          "res_12": {
+            "base": 2.96,
+            "ph": 3.0,
+            "sug": 2.32
+          },
+          "res_3": {
+            "base": 2.83,
+            "ph": 2.96,
+            "sug": 3.11
+          },
+          "res_4": {
+            "base": 2.94,
+            "ph": 3.1,
+            "sug": 3.51
+          },
+          "res_5": {
+            "base": 2.86,
+            "ph": 3.24,
+            "sug": 3.5
+          },
+          "res_6": {
+            "base": 2.96,
+            "ph": 3.54,
+            "sug": 3.48
+          },
+          "res_7": {
+            "base": 2.58,
+            "ph": 3.84
+          },
+          "res_8": {
+            "base": 2.65,
+            "ph": 3.67,
+            "sug": 3.36
+          },
+          "res_9": {
+            "base": 2.87,
+            "ph": 3.35,
+            "sug": 2.96
+          }
+        },
+        "chain_Q": {
+          "res_10": {
+            "base": 2.6,
+            "ph": 3.35,
+            "sug": 3.29
+          },
+          "res_11": {
+            "base": 2.75,
+            "ph": 4.56,
+            "sug": 2.86
+          },
+          "res_12": {
+            "base": 3.42,
+            "ph": 3.12,
+            "sug": 2.39
+          },
+          "res_3": {
+            "base": 3.04,
+            "ph": 4.66,
+            "sug": 3.21
+          },
+          "res_4": {
+            "base": 3.64,
+            "ph": 2.53,
+            "sug": 3.52
+          },
+          "res_5": {
+            "base": 3.16,
+            "ph": 3.17,
+            "sug": 3.28
+          },
+          "res_6": {
+            "base": 2.72,
+            "ph": 3.69,
+            "sug": 3.08
+          },
+          "res_7": {
+            "base": 4.2,
+            "ph": 3.42
+          },
+          "res_8": {
+            "base": 2.94,
+            "ph": 3.6,
+            "sug": 3.36
+          },
+          "res_9": {
+            "base": 2.71,
+            "ph": 3.31,
+            "sug": 3.34
+          }
+        }
+      }
+    },
+    "method": "x-ray diffraction",
+    "missing_atoms": {
+      "chain_P": {},
+      "chain_Q": {}
+    },
+    "nachains": [
+      "P",
+      "Q"
+    ],
+    "protchains": [
+      "A",
+      "B"
+    ],
+    "resolution": 2.6,
+    "sequence": {
+      "chain_P": "GUUGUUUUUUUU",
+      "chain_Q": "GUUGUUUUUUUU"
+    }
+  }
+}

@@ -105,6 +105,7 @@ def write_fragments_file(path, aa_r, nuclfrag, chain_id):
 
 def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
     try:
+
         pdb_info = js[pdb_id]
 
         #To make the difference between NMR and crystallo complexes
@@ -116,12 +117,13 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
             nmr_model = best
 
         #Creation of the directory linked to the PDB complex
+
         dirPDBName = create_folder(outpdir, pdb_id)
 
         #Creation of the dictionary chains containing for each biological assembly
         #every chains (prot and rna) involved
         chains = extract_chains(pdb_id, tmpPDB, True)
-
+        
         #If there is not biological assembly from the PDB
         if not chains:
             assembly_bool = False
