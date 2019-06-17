@@ -110,7 +110,6 @@ for struct in sorted(inp.keys()):
                 count[s]+=1
 
 json.dump(all_frag, open(args.frags, 'w'), indent = 2)
-sys.exit()
 for s in sequences:
     if not len(coor_bases[s]): continue
     nat = len(coor_bases[s][0])
