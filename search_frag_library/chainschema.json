@@ -1,15 +1,15 @@
 {
   "*pdbcode": [
     [
-      "bptype", 
+      "bptype",
       {
         "?*chain": {
           "?*res": []
         }
       }
-    ], 
+    ],
     [
-      "NAprot_hb", 
+      "NAprot_hb",
       {
         "?*chain": {
           "?*res": {
@@ -17,13 +17,13 @@
           }
         }
       }
-    ], 
+    ],
     [
-      "pdbchains", 
+      "pdbchains",
       []
-    ], 
+    ],
     [
-      "intraNA_hb", 
+      "intraNA_hb",
       {
         "?*chain": {
           "?*res": {
@@ -33,54 +33,56 @@
           }
         }
       }
-    ], 
+    ],
     [
-      "canonized", 
+      "canonized",
       {
         "?*chain": []
       }
-    ], 
+    ],
     [
-      "mut_sequence", 
+      "mut_sequence",
       {
         "*chain": []
       }
-    ], 
-    "Nmodels", 
-    "method", 
+    ],
+    "Nmodels",
+    "method",
     [
-      "nachains", 
+      "nachains",
       []
-    ], 
+    ],
     [
-      "mapping", 
+      "mapping",
       {
         "*chain": {
           "*res": null
         }
       }
-    ], 
+    ],
     [
-      "interface_hetatoms", 
+      "interface_hetatoms",
       {
         "?*chain": {
           "?*res": []
         }
       }
-    ], 
-    "resolution", 
+    ],
+    "resolution",
     [
-      "interface_protein", 
+      "interface_protein",
       {
-        "?*chain": {
-          "?*res": {
-            "?*part": null
+        "*model": {
+          "?*chain": {
+            "?*res": {
+              "?*part": null
+            }
           }
         }
       }
-    ], 
+    ],
     [
-      "fragments", 
+      "fragments",
       {
         "*model": {
           "*chain": [
@@ -88,28 +90,28 @@
           ]
         }
       }
-    ], 
+    ],
     [
-      "hetnames", 
+      "hetnames",
       {}
-    ], 
-    "sequence", 
+    ],
+    "sequence",
     [
-      "ss", 
+      "ss",
       {
         "*chain": {
           "*res": []
         }
       }
-    ], 
+    ],
     [
-      "missing_atoms", 
+      "missing_atoms",
       {
         "?*chain": []
       }
-    ], 
+    ],
     [
-      "stacking", 
+      "stacking",
       {
         "?*chain": {
           "?*res": {
@@ -117,9 +119,9 @@
           }
         }
       }
-    ], 
+    ],
     [
-      "=>", 
+      "=>",
       "name"
     ]
   ]
