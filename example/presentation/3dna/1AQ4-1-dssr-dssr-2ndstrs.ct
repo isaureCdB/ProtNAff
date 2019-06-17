@@ -1,0 +1,31 @@
+   30 ENERGY = 0.0 [1AQ4-1-3dna] -- secondary structure derived by DSSR
+    1 A     0     2    15     1 # name=.R.RA.1., pairedNt=.R.RU.15.
+    2 U     1     3    14     2 # name=.R.RU.2., pairedNt=.R.RA.14.
+    3 G     2     4    13     3 # name=.R.RG.3., pairedNt=.R.RC.13.
+    4 A     3     5     0     4 # name=.R.RA.4.
+    5 G     4     6    12     5 # name=.R.RG.5., pairedNt=.R.RC.12.
+    6 G     5     7    11     6 # name=.R.RG.6., pairedNt=.R.RC.11.
+    7 A     6     8     0     7 # name=.R.RA.7.
+    8 U     7     9     0     8 # name=.R.RU.8.
+    9 U     8    10     0     9 # name=.R.RU.9.
+   10 A     9    11     0    10 # name=.R.RA.10.
+   11 C    10    12     6    11 # name=.R.RC.11., pairedNt=.R.RG.6.
+   12 C    11    13     5    12 # name=.R.RC.12., pairedNt=.R.RG.5.
+   13 C    12    14     3    13 # name=.R.RC.13., pairedNt=.R.RG.3.
+   14 A    13    15     2    14 # name=.R.RA.14., pairedNt=.R.RU.2.
+   15 U    14    16     1    15 # name=.R.RU.15., pairedNt=.R.RA.1.
+   16 G    15     0     0    16 # name=.R.RG.16.
+   17 A     0    18     0     1 # name=.S.RA.1.
+   18 U    17    19    30     2 # name=.S.RU.2., pairedNt=.S.RA.14.
+   19 G    18    20    29     3 # name=.S.RG.3., pairedNt=.S.RC.13.
+   20 A    19    21     0     4 # name=.S.RA.4.
+   21 G    20    22    28     5 # name=.S.RG.5., pairedNt=.S.RC.12.
+   22 G    21    23    27     6 # name=.S.RG.6., pairedNt=.S.RC.11.
+   23 A    22    24     0     7 # name=.S.RA.7.
+   24 U    23    25     0     8 # name=.S.RU.8.
+   25 U    24    26     0     9 # name=.S.RU.9.
+   26 A    25    27     0    10 # name=.S.RA.10.
+   27 C    26    28    22    11 # name=.S.RC.11., pairedNt=.S.RG.6.
+   28 C    27    29    21    12 # name=.S.RC.12., pairedNt=.S.RG.5.
+   29 C    28    30    19    13 # name=.S.RC.13., pairedNt=.S.RG.3.
+   30 A    29     0    18    14 # name=.S.RA.14., pairedNt=.S.RU.2.

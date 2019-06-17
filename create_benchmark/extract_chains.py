@@ -7,16 +7,16 @@ import os, sys
 #         if element in couple:
 #             return True
 #     return False
-
+ATTRACT=os.environ.copy()["ATTRACTDIR"]
 def extract_chains(pdb_id, outputdir, verify_hetatm=False):
 
-    os.system('pdb_download_biological_assembly {} {}'.format(pdb_id, outputdir))
+    os.system('$SCRIPTS/pdb_download_biological_assembly {} {}'.format(pdb_id, outputdir))
 
     i = 1
 
     if verify_hetatm:
         list_hetatm = []
-        with open("$ATTRACT/../allatom/rna-mutate.list", 'r') as f:
+        with open(ATTRACT+"/../allatom/rna-mutate.list", 'r') as f:
             lines = f.readlines()
             for line in lines:
                 list_hetatm.append(line.split()[0])

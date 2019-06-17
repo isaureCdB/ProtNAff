@@ -1,0 +1,151 @@
+  150 ENERGY = 0.0 [1ASY-1-3dna] -- secondary structure derived by DSSR
+    1 U     0     2    71     1 # name=.R.RU.1., pairedNt=.R.RA.71.
+    2 C     1     3    70     2 # name=.R.RC.2., pairedNt=.R.RG.70.
+    3 C     2     4    69     3 # name=.R.RC.3., pairedNt=.R.RG.69.
+    4 G     3     5    68     4 # name=.R.RG.4., pairedNt=.R.RC.68.
+    5 U     4     6    67     5 # name=.R.RU.5., pairedNt=.R.RG.67.
+    6 G     5     7    66     6 # name=.R.RG.6., pairedNt=.R.RC.66.
+    7 A     6     8    65     7 # name=.R.RA.7., pairedNt=.R.RU.65.
+    8 U     7     9     0     8 # name=.R.RU.8.
+    9 A     8    10     0     9 # name=.R.RA.9.
+   10 G     9    11    25    10 # name=.R.RG.10., pairedNt=.R.RU.25.
+   11 U    10    12    24    11 # name=.R.RU.11., pairedNt=.R.RA.24.
+   12 U    11    13    23    12 # name=.R.RU.12., pairedNt=.R.RA.23.
+   13 U    12    14    22    13 # name=.R.RU.13., pairedNt=.R.RG.22.
+   14 A    13    15     0    14 # name=.R.RA.14.
+   15 A    14    16     0    15 # name=.R.RA.15.
+   16 U    15    17     0    16 # name=.R.RU.16.
+   17 G    16    18     0    17 # name=.R.RG.17.
+   18 G    17    19    55    18 # name=.R.RG.18., pairedNt=.R.RC.55.
+   19 U    18    20     0    19 # name=.R.RU.19.
+   20 C    19    21     0    20 # name=.R.RC.20.
+   21 A    20    22     0    21 # name=.R.RA.21.
+   22 G    21    23    13    22 # name=.R.RG.22., pairedNt=.R.RU.13.
+   23 A    22    24    12    23 # name=.R.RA.23., pairedNt=.R.RU.12.
+   24 A    23    25    11    24 # name=.R.RA.24., pairedNt=.R.RU.11.
+   25 U    24    26    10    25 # name=.R.RU.25., pairedNt=.R.RG.10.
+   26 G    25    27     0    26 # name=.R.RG.26.
+   27 G    26    28    43    27 # name=.R.RG.27., pairedNt=.R.RC.43.
+   28 G    27    29    42    28 # name=.R.RG.28., pairedNt=.R.RC.42.
+   29 C    28    30    41    29 # name=.R.RC.29., pairedNt=.R.RG.41.
+   30 G    29    31    40    30 # name=.R.RG.30., pairedNt=.R.RU.40.
+   31 C    30    32    39    31 # name=.R.RC.31., pairedNt=.R.RG.39.
+   32 U    31    33     0    32 # name=.R.RU.32.
+   33 U    32    34     0    33 # name=.R.RU.33.
+   34 G    33    35     0    34 # name=.R.RG.34.
+   35 U    34    36     0    35 # name=.R.RU.35.
+   36 C    35    37     0    36 # name=.R.RC.36.
+   37 G    36    38     0    37 # name=.R.RG.37.
+   38 C    37    39     0    38 # name=.R.RC.38.
+   39 G    38    40    31    39 # name=.R.RG.39., pairedNt=.R.RC.31.
+   40 U    39    41    30    40 # name=.R.RU.40., pairedNt=.R.RG.30.
+   41 G    40    42    29    41 # name=.R.RG.41., pairedNt=.R.RC.29.
+   42 C    41    43    28    42 # name=.R.RC.42., pairedNt=.R.RG.28.
+   43 C    42    44    27    43 # name=.R.RC.43., pairedNt=.R.RG.27.
+   44 A    43    45     0    44 # name=.R.RA.44.
+   45 G    44    46     0    45 # name=.R.RG.45.
+   46 A    45    47     0    46 # name=.R.RA.46.
+   47 U    46    48     0    47 # name=.R.RU.47.
+   48 C    47    49    64    48 # name=.R.RC.48., pairedNt=.R.RG.64.
+   49 G    48    50    63    49 # name=.R.RG.49., pairedNt=.R.RC.63.
+   50 G    49    51    62    50 # name=.R.RG.50., pairedNt=.R.RC.62.
+   51 G    50    52    61    51 # name=.R.RG.51., pairedNt=.R.RC.61.
+   52 G    51    53    60    52 # name=.R.RG.52., pairedNt=.R.RC.60.
+   53 U    52    54     0    53 # name=.R.RU.53.
+   54 U    53    55     0    54 # name=.R.RU.54.
+   55 C    54    56    18    55 # name=.R.RC.55., pairedNt=.R.RG.18.
+   56 A    55    57     0    56 # name=.R.RA.56.
+   57 A    56    58     0    57 # name=.R.RA.57.
+   58 U    57    59     0    58 # name=.R.RU.58.
+   59 U    58    60     0    59 # name=.R.RU.59.
+   60 C    59    61    52    60 # name=.R.RC.60., pairedNt=.R.RG.52.
+   61 C    60    62    51    61 # name=.R.RC.61., pairedNt=.R.RG.51.
+   62 C    61    63    50    62 # name=.R.RC.62., pairedNt=.R.RG.50.
+   63 C    62    64    49    63 # name=.R.RC.63., pairedNt=.R.RG.49.
+   64 G    63    65    48    64 # name=.R.RG.64., pairedNt=.R.RC.48.
+   65 U    64    66     7    65 # name=.R.RU.65., pairedNt=.R.RA.7.
+   66 C    65    67     6    66 # name=.R.RC.66., pairedNt=.R.RG.6.
+   67 G    66    68     5    67 # name=.R.RG.67., pairedNt=.R.RU.5.
+   68 C    67    69     4    68 # name=.R.RC.68., pairedNt=.R.RG.4.
+   69 G    68    70     3    69 # name=.R.RG.69., pairedNt=.R.RC.3.
+   70 G    69    71     2    70 # name=.R.RG.70., pairedNt=.R.RC.2.
+   71 A    70    72     1    71 # name=.R.RA.71., pairedNt=.R.RU.1.
+   72 G    71    73     0    72 # name=.R.RG.72.
+   73 C    72    74     0    73 # name=.R.RC.73.
+   74 C    73    75     0    74 # name=.R.RC.74.
+   75 A    74     0     0    75 # name=.R.RA.75.
+   76 U     0    77   146     1 # name=.S.RU.1., pairedNt=.S.RA.71.
+   77 C    76    78   145     2 # name=.S.RC.2., pairedNt=.S.RG.70.
+   78 C    77    79   144     3 # name=.S.RC.3., pairedNt=.S.RG.69.
+   79 G    78    80   143     4 # name=.S.RG.4., pairedNt=.S.RC.68.
+   80 U    79    81   142     5 # name=.S.RU.5., pairedNt=.S.RG.67.
+   81 G    80    82   141     6 # name=.S.RG.6., pairedNt=.S.RC.66.
+   82 A    81    83   140     7 # name=.S.RA.7., pairedNt=.S.RU.65.
+   83 U    82    84     0     8 # name=.S.RU.8.
+   84 A    83    85     0     9 # name=.S.RA.9.
+   85 G    84    86   100    10 # name=.S.RG.10., pairedNt=.S.RU.25.
+   86 U    85    87    99    11 # name=.S.RU.11., pairedNt=.S.RA.24.
+   87 U    86    88    98    12 # name=.S.RU.12., pairedNt=.S.RA.23.
+   88 U    87    89    97    13 # name=.S.RU.13., pairedNt=.S.RG.22.
+   89 A    88    90     0    14 # name=.S.RA.14.
+   90 A    89    91     0    15 # name=.S.RA.15.
+   91 U    90    92     0    16 # name=.S.RU.16.
+   92 G    91    93     0    17 # name=.S.RG.17.
+   93 G    92    94   130    18 # name=.S.RG.18., pairedNt=.S.RC.55.
+   94 U    93    95     0    19 # name=.S.RU.19.
+   95 C    94    96     0    20 # name=.S.RC.20.
+   96 A    95    97     0    21 # name=.S.RA.21.
+   97 G    96    98    88    22 # name=.S.RG.22., pairedNt=.S.RU.13.
+   98 A    97    99    87    23 # name=.S.RA.23., pairedNt=.S.RU.12.
+   99 A    98   100    86    24 # name=.S.RA.24., pairedNt=.S.RU.11.
+  100 U    99   101    85    25 # name=.S.RU.25., pairedNt=.S.RG.10.
+  101 G   100   102     0    26 # name=.S.RG.26.
+  102 G   101   103   118    27 # name=.S.RG.27., pairedNt=.S.RC.43.
+  103 G   102   104   117    28 # name=.S.RG.28., pairedNt=.S.RC.42.
+  104 C   103   105   116    29 # name=.S.RC.29., pairedNt=.S.RG.41.
+  105 G   104   106   115    30 # name=.S.RG.30., pairedNt=.S.RU.40.
+  106 C   105   107   114    31 # name=.S.RC.31., pairedNt=.S.RG.39.
+  107 U   106   108     0    32 # name=.S.RU.32.
+  108 U   107   109     0    33 # name=.S.RU.33.
+  109 G   108   110     0    34 # name=.S.RG.34.
+  110 U   109   111     0    35 # name=.S.RU.35.
+  111 C   110   112     0    36 # name=.S.RC.36.
+  112 G   111   113     0    37 # name=.S.RG.37.
+  113 C   112   114     0    38 # name=.S.RC.38.
+  114 G   113   115   106    39 # name=.S.RG.39., pairedNt=.S.RC.31.
+  115 U   114   116   105    40 # name=.S.RU.40., pairedNt=.S.RG.30.
+  116 G   115   117   104    41 # name=.S.RG.41., pairedNt=.S.RC.29.
+  117 C   116   118   103    42 # name=.S.RC.42., pairedNt=.S.RG.28.
+  118 C   117   119   102    43 # name=.S.RC.43., pairedNt=.S.RG.27.
+  119 A   118   120     0    44 # name=.S.RA.44.
+  120 G   119   121     0    45 # name=.S.RG.45.
+  121 A   120   122     0    46 # name=.S.RA.46.
+  122 U   121   123     0    47 # name=.S.RU.47.
+  123 C   122   124   139    48 # name=.S.RC.48., pairedNt=.S.RG.64.
+  124 G   123   125   138    49 # name=.S.RG.49., pairedNt=.S.RC.63.
+  125 G   124   126   137    50 # name=.S.RG.50., pairedNt=.S.RC.62.
+  126 G   125   127   136    51 # name=.S.RG.51., pairedNt=.S.RC.61.
+  127 G   126   128   135    52 # name=.S.RG.52., pairedNt=.S.RC.60.
+  128 U   127   129     0    53 # name=.S.RU.53.
+  129 U   128   130     0    54 # name=.S.RU.54.
+  130 C   129   131    93    55 # name=.S.RC.55., pairedNt=.S.RG.18.
+  131 A   130   132     0    56 # name=.S.RA.56.
+  132 A   131   133     0    57 # name=.S.RA.57.
+  133 U   132   134     0    58 # name=.S.RU.58.
+  134 U   133   135     0    59 # name=.S.RU.59.
+  135 C   134   136   127    60 # name=.S.RC.60., pairedNt=.S.RG.52.
+  136 C   135   137   126    61 # name=.S.RC.61., pairedNt=.S.RG.51.
+  137 C   136   138   125    62 # name=.S.RC.62., pairedNt=.S.RG.50.
+  138 C   137   139   124    63 # name=.S.RC.63., pairedNt=.S.RG.49.
+  139 G   138   140   123    64 # name=.S.RG.64., pairedNt=.S.RC.48.
+  140 U   139   141    82    65 # name=.S.RU.65., pairedNt=.S.RA.7.
+  141 C   140   142    81    66 # name=.S.RC.66., pairedNt=.S.RG.6.
+  142 G   141   143    80    67 # name=.S.RG.67., pairedNt=.S.RU.5.
+  143 C   142   144    79    68 # name=.S.RC.68., pairedNt=.S.RG.4.
+  144 G   143   145    78    69 # name=.S.RG.69., pairedNt=.S.RC.3.
+  145 G   144   146    77    70 # name=.S.RG.70., pairedNt=.S.RC.2.
+  146 A   145   147    76    71 # name=.S.RA.71., pairedNt=.S.RU.1.
+  147 G   146   148     0    72 # name=.S.RG.72.
+  148 C   147   149     0    73 # name=.S.RC.73.
+  149 C   148   150     0    74 # name=.S.RC.74.
+  150 A   149     0     0    75 # name=.S.RA.75.

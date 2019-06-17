@@ -18,13 +18,18 @@ def query_ss(pdb_info, chain_id, length):
 
     nuclfrag = set()
     ss = pdb_info['ss'][chain_id]
-    interf_prot = pdb_info["interface_protein"]["1"][chain_id]
+
+    interf_prot = pdb_info["interface_protein"]["model_1"][chain_id]
+    for element in interf_prot:
+        element = element.split("_")[1]
+
     # List of interface nucleotide resid
-    nucl_interf = [pdb_info["mapping"][chain_id][n] for n in interf_prot if len(interf_prot[n]) > 0]
+    nucl_interf = list(interf_prot.keys())
+    nucl_interf = [element.split("_")[1] for element in nucl_interf]
     # List of single-stranded nucleotides resid
-    nucl_ss = [pdb_info["mapping"][chain_id][n] for n in ss if ss[n][0] in ss_set]
+    nucl_ss = [pdb_info["mapping"][chain_id][n.split("_")[1]] for n in ss if ss[n][0] in ss_set]
     # List of single-stranded interface nucleotide resid
-    nucl_interf_ss = [int(n) for n in nucl_interf if n in nucl_ss ]
+    nucl_interf_ss = [int(n) for n in nucl_interf if n in nucl_ss]
     nucl_interf_ss.sort()
     if len(nucl_interf_ss) < length:
         return nuclfrag
