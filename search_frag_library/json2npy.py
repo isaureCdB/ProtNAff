@@ -3,7 +3,7 @@ import numpy as np, sys
 dtype = [
     ("motif", "S3"),
     ("frag", np.uint32),
-    ("structure", "S4"),
+    ("structure", "S5"),
     ("model", np.uint16),
     ("chain", "S1"), #nachains?
     ("resid", "S5", 3),

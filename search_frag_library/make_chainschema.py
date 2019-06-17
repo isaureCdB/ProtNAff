@@ -77,7 +77,7 @@ chainschema = {
             ("mapping", {"*chain": {"*res": None} } ),
             ("interface_hetatoms", {"?*chain": {"?*res": []} }),
             "resolution",
-            ("interface_protein", {"?*chain": {"?*res": {"?*part": None}} }),
+            ("interface_protein", {"*model": {"?*chain": {"?*res": {"?*part": None}}} }),
             ("fragments", {"*model": {"*chain": [[]] }}),
             ("hetnames", {}),
             "sequence",

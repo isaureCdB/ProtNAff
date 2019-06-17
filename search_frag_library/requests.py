@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 def is_ss(result):
-    ss = "".join([r[0] for r in result]).replace("T", "S")
+    ss = "".join([r[0] for r in result]).replace("T", "S").replace("L", "S")
     if ss == "SSS":
         return True
     return False
