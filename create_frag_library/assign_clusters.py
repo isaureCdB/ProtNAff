@@ -45,8 +45,8 @@ def mutate(seq, pattern):
     return "".join(motif)
 
 count = 0
-#for (a, b, c) in [(a, b, c) for a in s for b in s for c in s]:
-for (a, b, c) in [("A", "A", "A")]:
+for (a, b, c) in [(a, b, c) for a in s for b in s for c in s]:
+#for (a, b, c) in [("A", "A", "A")]:
     motif = a+b+c
     print(motif, file=sys.stderr)
     for frag in inp[motif]:
