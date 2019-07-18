@@ -38,14 +38,13 @@ def _query(data, schema, variables):
         if optional:
             subkey = variables[starkey[2:]] #select "res" in "?*res"
         else:
-            #print(starkey[1:], file=sys.stderr)
-            #print(variables, file=sys.stderr)
+            #print(starkey[1:])
+            #print(variables)
             subkey = variables[starkey[1:]] #select "res" in "*res"
         try:
             subdata = data[subkey]
         except KeyError:
             if optional:
-                #print("KEYERROR", subkey)
                 return None
             raise KeyError(subkey, starkey)
         subschema = schema[starkey]
@@ -59,8 +58,6 @@ def _query(data, schema, variables):
             if subschema == subkey:
                 return subdata
         elif subschema[0] == subkey:
-            #print("SUB", subdata, subkey)
-            #print(subschema)
             return _query(subdata, subschema[1], variables)
     else:
         raise Exception("variable not found in schema", subkey, schema)
@@ -72,12 +69,11 @@ def query_one_res(chaindata, chainschema, variables):
     return _query(chaindata, chainschema, variables)
 
 def query_one_frag(chaindata, chainschema, frag, default, name, result, part=None, pos=None):
-    #name of variables in the json file of per structure
     variables = {
         "name": name,
-        "model": "model_"+str(frag["model"]),
+        "model": "model_" + str(frag["model"]),
         "pdbcode": frag["structure"].decode(),
-        "chain": "chain_"+frag["chain"].decode(),
+        "chain": "chain_" + frag["chain"].decode(),
     }
     if part is not None:
         variables["part"] = part
@@ -95,7 +91,7 @@ def query_one_frag(chaindata, chainschema, frag, default, name, result, part=Non
         except Exception as exc:
             msg = "ERROR, query result: %s, expected type: %s\n"
             raise ValueError(msg % (q, result.dtype))
-        #import sys; sys.exit()
+
 
     return result
 
@@ -105,13 +101,3 @@ def query(chaindata, chainschema, frags, default, name, part=None, pos=None):
     for nr, frag in enumerate(frags):
         r = query_one_frag(chaindata, chainschema, frag, default, name, result[nr], part, pos)
     return result
-
-
-if __name__ == "__main__":
-    import numpy as np
-    import json, sys
-    fragments = np.load(sys.argv[1]) #fragments_clust.npy
-    chaindata = json.load(open(sys.argv[2])) #structures.json
-    chainschema = json.load(open(sys.argv[3]))
-    ss_ph = query(chaindata, chainschema, fragments, 99.9, "interface_protein", part="ph")
-    print(("ss_ph", ss_ph))
