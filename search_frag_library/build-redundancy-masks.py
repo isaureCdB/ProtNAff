@@ -33,24 +33,24 @@ fragments = np.load("fragments_clust.npy")
 
 def build_mask(clust, clust_center, pdb_to_ids):
     used_ids = {}
-    mask = np.zeros(len(fragments))
+    mask = np.zeros(len(fragments),bool)
     for fragnr, fragment in enumerate(fragments):
         if not clust_center[fragnr]:
-            continue        
+            continue
         clustid = fragment["motif"], clust[fragnr]
         assert clustid not in used_ids
         pdb = fragment["structure"]
-        used_ids[clustid] = set(pdb_to_ids.get(pdb,[]))    
+        used_ids[clustid] = set(pdb_to_ids.get(pdb,[]))
         mask[fragnr] = True
 
     for fragnr, fragment in enumerate(fragments):
         if clust_center[fragnr]:
-            continue        
+            continue
         clustid = fragment["motif"], clust[fragnr]
         if clustid not in used_ids: ### BUG in pipeline; center is not calculated for cluster 0...
-            used_ids[clustid] = set()            
+            used_ids[clustid] = set()
         curr_used_ids = used_ids[clustid]
-        pdb = fragment["structure"]        
+        pdb = fragment["structure"]
         new_used_ids = set(pdb_to_ids.get(pdb,[]))
         if curr_used_ids.intersection(new_used_ids):
             continue
@@ -64,7 +64,7 @@ for clust_cutoff in "2.0", "1.0", "0.2":
     clust = fragments["clust" + clust_cutoff]
     clust_center = fragments["clust" + clust_cutoff + "_center"]
     print("Fragment clustering at %s A: %d clusters" % (clust_cutoff,clust_center.sum()))
-    
+
     mask = build_mask(clust, clust_center, pdb_to_pfam)
     filename = "redundancy-masks/%s-pfam.npy" % clust_cutoff
     print("%s: every PFAM ID only once per fragment cluster, %d fragments" % (filename, mask.sum()))
@@ -73,12 +73,12 @@ for clust_cutoff in "2.0", "1.0", "0.2":
     mask = build_mask(clust, clust_center, pdb_to_uniprot)
     filename = "redundancy-masks/%s-uniprot.npy" % clust_cutoff
     print("%s: every Uniprot ID only once per fragment cluster, %d fragments" % (filename, mask.sum()))
-    np.save(filename, mask)    
+    np.save(filename, mask)
 
     for seqid, seqid_str in zip(seqids, seqids_str):
         mask = build_mask(clust, clust_center, pdb_to_seqclust[seqid])
         filename = "redundancy-masks/%s-seqclust-%s.npy" % (clust_cutoff, seqid)
         print("%s: every %s %% seqid cluster only once per fragment cluster, %d fragments" % (filename, seqid, mask.sum()))
-        np.save(filename, mask)    
+        np.save(filename, mask)
 
     print()
