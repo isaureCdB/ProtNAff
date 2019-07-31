@@ -8,7 +8,7 @@ import pandas as pd
 
 filename = "/tmp/pdb_chain_pfam.tsv"
 if not os.path.exists(filename):
-    msg = "Requires the existence of /tmp/pdb_chain_pfam.tsv.gz, downloadable from ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv"
+    msg = "Requires the existence of /tmp/pdb_chain_pfam.tsv, downloadable from ftp://ftp.ebi.ac.uk/pub/databases/msd/sifts/flatfiles/tsv"
     raise Exception(msg)
 pdb_chain_pfam = pd.read_csv(filename, dtype=str, skiprows=1, delimiter="\t")
 
