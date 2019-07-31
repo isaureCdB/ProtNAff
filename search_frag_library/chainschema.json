@@ -1,14 +1,6 @@
 {
   "*pdbcode": [
     [
-      "bptype",
-      {
-        "?*chain": {
-          "?*res": []
-        }
-      }
-    ],
-    [
       "NAprot_hb",
       {
         "?*chain": {
@@ -19,66 +11,34 @@
       }
     ],
     [
-      "pdbchains",
-      []
-    ],
-    [
-      "intraNA_hb",
+      "NAprot_hb_sum",
       {
         "?*chain": {
           "?*res": {
-            "?*part": {
-              "?*pos": null
-            }
+            "?*part": null
           }
         }
       }
     ],
-    [
-      "canonized",
-      {
-        "?*chain": []
-      }
-    ],
-    [
-      "mut_sequence",
-      {
-        "*chain": []
-      }
-    ],
     "Nmodels",
-    "method",
     [
-      "nachains",
-      []
-    ],
-    [
-      "mapping",
-      {
-        "*chain": {
-          "*res": null
-        }
-      }
-    ],
-    [
-      "interface_hetatoms",
+      "bptype",
       {
         "?*chain": {
           "?*res": []
         }
       }
     ],
-    "resolution",
     [
-      "interface_protein",
+      "breaks",
       {
-        "*model": {
-          "?*chain": {
-            "?*res": {
-              "?*part": null
-            }
-          }
-        }
+        "?*chain": []
+      }
+    ],
+    [
+      "canonized",
+      {
+        "?*chain": []
       }
     ],
     [
@@ -95,19 +55,89 @@
       "hetnames",
       {}
     ],
+    [
+      "interface_hetatoms",
+      {
+        "?*chain": {
+          "?*res": []
+        }
+      }
+    ],
+    [
+      "interface_protein",
+      {
+        "*model": {
+          "?*chain": {
+            "?*res": {
+              "?*part": null
+            }
+          }
+        }
+      }
+    ],
+    [
+      "intraNA_hb",
+      {
+        "?*chain": {
+          "?*res": {
+            "?*part": {
+              "?*pos": null
+            }
+          }
+        }
+      }
+    ],
+    [
+      "mapping",
+      {
+        "*chain": {
+          "*res": null
+        }
+      }
+    ],
+    "method",
+    [
+      "missing_atoms",
+      {
+        "?*chain": []
+      }
+    ],
+    [
+      "nachains",
+      []
+    ],
+    [
+      "pfam",
+      {
+        "?*protchain": null
+      }
+    ],
+    [
+      "uniprot",
+      {
+        "?*protchain": null
+      }
+    ],
+    [
+      "protchains",
+      []
+    ],
+    "resolution",
     "sequence",
+    [
+      "seqclust",
+      {
+        "*protchain": {
+          "*seqid": null
+        }
+      }
+    ],
     [
       "ss",
       {
         "*chain": {
           "*res": []
         }
-      }
-    ],
-    [
-      "missing_atoms",
-      {
-        "?*chain": []
       }
     ],
     [
