@@ -18,12 +18,15 @@ for seqid, seqid_str in zip(seqids, seqids_str):
     for pdb, struc in structures.items():
         seq_clusts = set([clusts.get(seqid_str) for clusts in struc["seqclust"].values()])
         seq_clusts.discard(None)
-        curr_pdb_to_seqclust[pdb.encode()] = sorted(seq_clusts)
+        if len(seq_clusts):
+            curr_pdb_to_seqclust[pdb.encode()] = sorted(seq_clusts)
 for pdb, struc in structures.items():
     pfams = sorted(struc["pfam"].values())
     uniprots = sorted(struc["uniprot"].values())
-    pdb_to_pfam[pdb.encode()] = pfams
-    pdb_to_uniprot[pdb.encode()] = uniprots
+    if len(pfams):
+        pdb_to_pfam[pdb.encode()] = pfams
+    if len(uniprots):
+        pdb_to_uniprot[pdb.encode()] = uniprots
 
 try:
     os.mkdir("redundancy-masks")
@@ -40,7 +43,7 @@ def build_mask(clust, clust_center, pdb_to_ids):
         clustid = fragment["motif"], clust[fragnr]
         assert clustid not in used_ids
         pdb = fragment["structure"]
-        used_ids[clustid] = set(pdb_to_ids.get(pdb,[]))
+        used_ids[clustid] = set(pdb_to_ids.get(pdb,[pdb]))  # PDB as ID, see below
         mask[fragnr] = True
 
     for fragnr, fragment in enumerate(fragments):
@@ -48,10 +51,15 @@ def build_mask(clust, clust_center, pdb_to_ids):
             continue
         clustid = fragment["motif"], clust[fragnr]
         if clustid not in used_ids: ### BUG in pipeline; center is not calculated for cluster 0...
-            used_ids[clustid] = set()
+            used_ids[clustid] = set([pdb])  # PDB as id, see below
         curr_used_ids = used_ids[clustid]
         pdb = fragment["structure"]
-        new_used_ids = set(pdb_to_ids.get(pdb,[]))
+        new_used_ids = set(
+            pdb_to_ids.get(pdb,[pdb])  # If PDB has no seqclust/pfam IDs,
+                                       #  use the PDB itself as id.
+                                       # This will guarantee that every PDB is only once
+                                       #   in each cluster
+        )
         if curr_used_ids.intersection(new_used_ids):
             continue
         mask[fragnr] = True
