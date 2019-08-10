@@ -27,7 +27,7 @@ for pdb, struc in structures.items():
     pfam = {}
     uniprot = {}
     for chain in struc["protchains"]:
-        key = mapping.get((pdb, chain))
+        key = mapping.get((pdb[:4], chain))
         if key is None:
             continue
         uniprot[chain] = key[0]

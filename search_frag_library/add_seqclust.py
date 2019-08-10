@@ -31,17 +31,17 @@ with open("structures.json") as f:
     structures = json.load(f)
 
 for pdb, struc in structures.items():
-    seqclust = {}    
+    seqclust = {}
     for chain in struc["protchains"]:
         curr_seqclust = {}
         seqclust[chain] = curr_seqclust
         for seqid in seqids:
             curr_mapping = mapping[seqid]
-            clustnr = curr_mapping.get((pdb, chain))
+            clustnr = curr_mapping.get((pdb[:4], chain))
             if clustnr is None:
                 continue
             curr_seqclust[seqid] = clustnr
     struc["seqclust"] = seqclust
-    
+
 with open("structures.json", "w") as f:
     json.dump(structures, f, indent=2, sort_keys=True)
