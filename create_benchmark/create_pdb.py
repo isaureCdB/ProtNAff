@@ -2,6 +2,8 @@
 
 import os, sys
 
+ATTRACT=os.environ.copy()["ATTRACTDIR"]
+
 def write_file(input_dir, output_dir, pdb_name, chain, prot_rna, list_hetatm):
     file_std = open('{}/{}_{}.pdb'.format(output_dir, prot_rna, chain), 'w')
 
@@ -40,7 +42,7 @@ def write_file_nmr(input_dir, output_dir, pdb_name, chain, prot_rna, nmr_model, 
 def create_pdb(input_dir, output_dir, pdb_name, rna_chains, nmr_model):
 
     list_hetatm = []
-    with open("/home/amoniot/attract/allatom/rna-mutate.list", 'r') as f:
+    with open(ATTRACT+"/../allatom/rna-mutate.list", 'r') as f:
         lines = f.readlines()
         for line in lines:
             list_hetatm.append(line.split()[0])
