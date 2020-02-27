@@ -39,50 +39,54 @@ def process_struc(struc, out, args):
     out[struc] = d
     d['canonized'] = {}
     mut = []
-    chains = copy.deepcopy(d['nachains'])
-    for c in chains:
-        cc = "chain_"+c
-        for m in range(1, d['Nmodels']+1):
-            outfile = "%s/%s%s-%i.pdb"%(args.outdir, struc, c, m)
-            if os.path.exists(outfile):
-                continue
-            #print("processing %s %s"%(struc, c), file=sys.stderr)
-            inpfile = "%s/%s%s-%i.pdb"%(args.inpdir, struc, c, m)
-            if not os.path.exists(inpfile):
-                print("%s does not exist"%inpfile, file=sys.stderr)
-                #del_chain(struc, c)
-                continue
-            inf = open(inpfile,'r')
-            prev = 0
-            L = []
-            for l in inf:
-                if l.split()[0] not in ("ATOM", "HETATM"): continue
-                res = int(l[23:26])
-                resn = l[17:20].strip()
-                atomname = l[12:16].strip()
-                if resn == "23": #A23, C23, etc. remove oxygen atoms
-                    if atomname in ("O2'", "O3'"): continue
-                elif resn in modif.keys():
-                    base = modif[resn][0][args.na]
-                    dict_at = modif[resn][1]
-                    if atomname.strip() in dict_at:
-                        atomname = dict_at[atomname.strip()]
-                    l = "%s%4.4s   %s%s" % (l[:12], atomname, base, l[20:])
-                elif resn == "H2U" and atomname in ["C2", "C4", "C5", "C6", "N3"]: continue
-                elif resn == "CMU" and atomname in ["C5", "C6", "C5M"]: continue
-                if resn in modified or resn in modif.keys():
-                    if cc not in d['canonized']:
-                        d['canonized'][cc] = set()
-                    d['canonized'][cc].add(res)
-                prev = res
-                L.append(l)
-            outf = open(outfile, 'w')
-            for l in L:
-                print(l[:16] + " " + l[17:-1], file=outf)
-            outf.close()
-        if struc in js.keys():
-            if cc in d['canonized']:
-                d['canonized'][cc] = list(d['canonized'][cc])
+    try:
+        chains = copy.deepcopy(d['nachains'])
+        for c in chains:
+            cc = "chain_"+c
+            for m in range(1, d['Nmodels']+1):
+                outfile = "%s/%s%s-%i.pdb"%(args.outdir, struc, c, m)
+                if os.path.exists(outfile):
+                    continue
+                #print("processing %s %s"%(struc, c), file=sys.stderr)
+                inpfile = "%s/%s%s-%i.pdb"%(args.inpdir, struc, c, m)
+                if not os.path.exists(inpfile):
+                    print("%s does not exist"%inpfile, file=sys.stderr)
+                    #del_chain(struc, c)
+                    continue
+                inf = open(inpfile,'r')
+                prev = 0
+                L = []
+                for l in inf:
+                    if l.split()[0] not in ("ATOM", "HETATM"): continue
+                    res = int(l[23:26])
+                    resn = l[17:20].strip()
+                    atomname = l[12:16].strip()
+                    if resn == "23": #A23, C23, etc. remove oxygen atoms
+                        if atomname in ("O2'", "O3'"): continue
+                    elif resn in modif.keys():
+                        base = modif[resn][0][args.na]
+                        dict_at = modif[resn][1]
+                        if atomname.strip() in dict_at:
+                            atomname = dict_at[atomname.strip()]
+                        l = "%s%4.4s   %s%s" % (l[:12], atomname, base, l[20:])
+                    elif resn == "H2U" and atomname in ["C2", "C4", "C5", "C6", "N3"]: continue
+                    elif resn == "CMU" and atomname in ["C5", "C6", "C5M"]: continue
+                    if resn in modified or resn in modif.keys():
+                        if cc not in d['canonized']:
+                            d['canonized'][cc] = set()
+                        d['canonized'][cc].add(res)
+                    prev = res
+                    L.append(l)
+                outf = open(outfile, 'w')
+                for l in L:
+                    print(l[:16] + " " + l[17:-1], file=outf)
+                outf.close()
+            if struc in js.keys():
+                if cc in d['canonized']:
+                    d['canonized'][cc] = list(d['canonized'][cc])
+    except:
+        print("ERROR on {}".format(struc))
+        pass
     return out
 
 parser = argparse.ArgumentParser(description=__doc__,
@@ -164,26 +168,35 @@ if args.subset:
 else:
     todo = sorted(js.keys())
 
+
 for struc in todo:
-    if struc in out_init and not args.replace:
-        chainx = out_init[struc]["nachains"][0]
-        outx = "%s/%s-1.pdb"%(args.outdir,struc)
-        if not os.path.exists(outx) and args.files:
-            out = process_struc(struc, out, args)
+    try:
+        if struc in out_init and not args.replace:
+            chainx = out_init[struc]["nachains"][0]
+            outx = "%s/%s-1.pdb"%(args.outdir,struc)
+            if not os.path.exists(outx) and args.files:
+                out = process_struc(struc, out, args)
+                continue
+            if args.delete:  # do not replace already existing entries
+                out[struc] = out_init[struc]
+            print("skipping %s"%struc, file=sys.stderr)
             continue
-        if args.delete:  # do not replace already existing entries
-            out[struc] = out_init[struc]
-        print("skipping %s"%struc, file=sys.stderr)
-        continue
-    out = process_struc(struc, out, args)
+        out = process_struc(struc, out, args)
+    except:
+        print("ERROR on {}".format(struc))
+        pass
 
 outlist = open(args.outlist, 'w')
 for struct in out:
-    d = out[struct]
-    for c in d['nachains']:
-        for m in range(1, d['Nmodels']+1):
-            outfile = "%s/%s%s-%i.pdb"%(args.outdir, struct, c, m)
-            print(outfile, file=outlist)
+    try:
+        d = out[struct]
+        for c in d['nachains']:
+            for m in range(1, d['Nmodels']+1):
+                outfile = "%s/%s%s-%i.pdb"%(args.outdir, struct, c, m)
+                print(outfile, file=outlist)
+    except:
+        print("ERROR on {}".format(struc))
+        pass
 outlist.close()
 
 json.dump(out, open(args.outjson, "w"), indent = 4, sort_keys = True )
