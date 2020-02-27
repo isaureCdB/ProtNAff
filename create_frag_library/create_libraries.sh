@@ -8,7 +8,7 @@ d=`dirname "$0"`
 
 echo "create PDB fragments (for mutating) from clust1.0, $m"
 
-$d/select-struct-npy.py $m-aa-fit.npy  $name-aa.npy  --struct `awk '{print $4}' $name`
+#$d/select-struct-npy.py $m-aa-fit.npy  $name-aa.npy  --struct `awk '{print $4}' $name`
 
 $d/npy2pdb.py $name-aa.npy  templates/$m.pdb   >  /tmp/$name-aa.pdb
 
