@@ -6,8 +6,8 @@
 na=$1
 
 wd=`pwd`
-d=`dirname "$0"`
-SCRIPTS="$wd/$d/create_frag_library/"
+x=$NAFRAGDB
+SCRIPTS="$x/create_frag_library/"
 
 rm -rf templates
 set -u -e
@@ -17,12 +17,12 @@ if [ ! -s fragments.json ];then
   echo "-------------------------------- mutate pdb files"
   ##########################################################################
   ### Mutate G -> A and U/T -> C to increase the number of conformers per purine-pyrimidine motif
-  $SCRIPTS/parse_pdb_AC.sh clean-iniparse-aa.list $na $d/data/mutate-AC.list
+  $SCRIPTS/parse_pdb_AC.sh clean-iniparse-aa.list $na $x/data/mutate-AC.list
 
   ##########################################################################
   echo "-------------------------------- cut into fragments"
   ##########################################################################
-  $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
+  python $SCRIPTS/fragmt-from-AC.py structures.json fragments.json $na motifs.list 'cleanPDB'
 fi
 
 mkdir -p trilib
@@ -36,14 +36,14 @@ done
 
 echo "create_template"
 mkdir -p templates
-$SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
+python $SCRIPTS/create_templates.py $SCRIPTS/../data/${na}lib templates $na
 
 ##########################################################################
 echo "-------------------------------- fragments clustering"
 ##########################################################################
 dr=0.2 # redundancy cutoff
 c1=1.0 # tight clustering cutoff
-c2=2.0 # large clustering cutoff
+c2=3.0 # large clustering cutoff
 
 # Deredundant fragments at $dr A RMSD
 if [ ! -s  AAA-dr0.2r.npy ];then
@@ -68,7 +68,7 @@ for m in `cat motifs.list`; do
 done
 
 # Assign each fragment to its clusters in the json file
-$SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
+python $SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
   --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
   --clustnames "clust$dr" "clust$c1" "clust$c2"
 
@@ -79,4 +79,4 @@ echo "-------------------------------- mutate back into all sequences"
 # You have to be located on the dna/rna lib folder
 # with the 8 bases 3-mers (GGG, GGT, GTG, GTT, TGG, TGT, TTG, TTT)
 # dr0.2r-clust1.0 is a reference to the xxx-dr0.2r-clust1.0.npy files
-$SCRIPTS/mutate-AC-libraries_npy.py $na "dr${dr}r-clust$c1"
+python $SCRIPTS/mutate-AC-libraries_npy.py $na "dr${dr}r-clust$c1"

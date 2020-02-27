@@ -9,7 +9,7 @@ pdbcodes=$1
 na=$2
 
 wd=`pwd`
-x=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+x=$NAFRAGDB
 echo $x
 d="$x/create_database/"
 
@@ -20,12 +20,14 @@ echo "---------------------------- Download PDBs"
 mkdir -p brutPDBs
 cd brutPDBs
 # Download only files that have not yet been downloaded
-for i in `cat ../$pdbcodes|awk '{print toupper($0)}'`; do
+for i in `cat $pdbcodes|awk '{print toupper($0)}'`; do
     if [ ! -s $i.pdb ] && [ ! -s $i.pdb.bz2 ] ;then
       echo "downloading $i"
-      pdb_download $i > /dev/null 2> /dev/null
-      sed -i 's/SE   MSE/ SD  MSE/' $i.pdb
-      sed -i 's/MSE/MET/' $i.pdb
+      $NAFRAGDB/pdb_download $i .
+      if [ -f $i.pdb ]; then
+        sed -i 's/SE   MSE/ SD  MSE/' $i.pdb
+        sed -i 's/MSE/MET/' $i.pdb
+      fi
     elif [ -s $i.pdb.bz2 ];then
       if [ 1 -gt $(ls  ./cleanPDB/${i}[A-Z]-1.pdb 2>/dev/null | wc -w) ]; then
         bunzip2 $i.pdb.bz2
