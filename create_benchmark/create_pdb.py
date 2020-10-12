@@ -40,7 +40,7 @@ def write_file_nmr(input_dir, output_dir, pdb_name, chain, prot_rna, nmr_model, 
                         file_std.write(l)
 
 def create_pdb(input_dir, output_dir, pdb_name, rna_chains, nmr_model):
-
+    print(pdb_name)
     list_hetatm = []
     with open(ATTRACT+"/../allatom/rna-mutate.list", 'r') as f:
         lines = f.readlines()

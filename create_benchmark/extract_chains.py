@@ -10,7 +10,7 @@ import os, sys
 ATTRACT=os.environ.copy()["ATTRACTDIR"]
 def extract_chains(pdb_id, outputdir, verify_hetatm=False):
 
-    os.system('$SCRIPTS/pdb_download_biological_assembly {} {}'.format(pdb_id, outputdir))
+    os.system('./pdb_download_biological_assembly {} {}'.format(pdb_id, outputdir))
 
     i = 1
 
