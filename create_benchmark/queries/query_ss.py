@@ -17,6 +17,7 @@ def query_ss(pdb_info, chain_id, length):
     ss_set = set(["L", "T", "S", "J", "B", "I"])
 
     nuclfrag = set()
+    print(pdb_info['ss'][chain_id])
     ss = pdb_info['ss'][chain_id]
 
     interf_prot = pdb_info["interface_protein"]["model_1"][chain_id]
