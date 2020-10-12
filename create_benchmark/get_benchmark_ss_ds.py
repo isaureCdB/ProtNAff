@@ -92,7 +92,8 @@ def write_fragments_file(path, aa_r, nuclfrag, chain_id):
             - aa_r, if files to merge are all atoms or reduced
     """
 
-    rnafile = open('{}/RNA_fragments-{}.pdb'.format(path, aa_r), 'w')
+    chain_id = chain_id.split('_')[-1]
+    rnafile = open('{}/RNA_{}_fragments-{}.pdb'.format(path, chain_id, aa_r), 'w')
 
     for l in open('{}/../RNA-{}.pdb'.format(path, aa_r), 'r'):
         if l.startswith("TER") and l[21] == chain_id:
@@ -123,15 +124,15 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
         #Creation of the dictionary chains containing for each biological assembly
         #every chains (prot and rna) involved
         chains = extract_chains(pdb_id, tmpPDB, True)
-        
+
         #If there is not biological assembly from the PDB
         if not chains:
             assembly_bool = False
             #Then download the .pdb file
-            os.system('pdb_download_gz {} {}'.format(pdb_id, tmpPDB))
+            os.system('./pdb_download_gz {} {}'.format(pdb_id, tmpPDB))
 
             #chains involved are those from the json
-            protein_list = pdb_info["pdbchains"]
+            protein_list = pdb_info["protchains"]
             rna_list = pdb_info["nachains"]
 
             #Creation of the dictionary chains
@@ -175,7 +176,7 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
 
             #Then do the query for every RNA chains in the biological assembly
             for chain_id in chains[assembly]["rna"]:
-                length = 5
+                length = 3
                 nuclfrag = query_ss(pdb_info, "chain_{}".format(chain_id), length)
                 # If the query return nothing: continue
                 if len(nuclfrag) == 0:
