@@ -10,8 +10,9 @@ import os, sys
 ATTRACT=os.environ.copy()["ATTRACTDIR"]
 def extract_chains(pdb_id, outputdir, verify_hetatm=False):
 
-    os.system('./pdb_download_biological_assembly {} {}'.format(pdb_id, outputdir))
-
+    tmp_pdb_id = pdb_id[:4]
+    os.system('./pdb_download_biological_assembly {} {}'.format(tmp_pdb_id, outputdir))
+    os.system('mv {}/{} {}/{}'.format(outputdir, tmp_pdb_id, outputdir, pdb_id))
     i = 1
 
     if verify_hetatm:
