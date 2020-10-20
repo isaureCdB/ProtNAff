@@ -131,7 +131,7 @@ def script_for_parallel(pdb_id, tmpPDB, outpdir, runName, js):
             #Then download the .pdb file
             tmp_pdb_id = pdb_id[:4]
             os.system('./pdb_download_gz {} {}'.format(pdb_id, tmpPDB))
-            os.system('mv {}/{} {}/{}'.format(tmpPDB, tmp_pdb_id, tmpPDB, pdb_id))
+            os.system('mv {}/{}.pdb {}/{}.pdb'.format(tmpPDB, tmp_pdb_id, tmpPDB, pdb_id))
 
             #chains involved are those from the json
             protein_list = pdb_info["protchains"]
