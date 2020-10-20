@@ -12,7 +12,6 @@ def extract_chains(pdb_id, outputdir, verify_hetatm=False):
 
     tmp_pdb_id = pdb_id[:4]
     os.system('./pdb_download_biological_assembly {} {}'.format(tmp_pdb_id, outputdir))
-    os.system('mv {}/{} {}/{}'.format(outputdir, tmp_pdb_id, outputdir, pdb_id))
     i = 1
 
     if verify_hetatm:
@@ -25,6 +24,7 @@ def extract_chains(pdb_id, outputdir, verify_hetatm=False):
     interaction_chains = {}
     while True:
         try:
+            os.system('mv {}/{}.pdb{} {}/{}.pdb{}'.format(outputdir, tmp_pdb_id, i, outputdir, pdb_id, i))
             with open('{}/{}.pdb{}'.format(outputdir, pdb_id, i), 'r') as file:
                 interaction_chains[i] = {"protein":[], "rna":[]}
                 lines = file.readlines()
