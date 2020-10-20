@@ -60,11 +60,11 @@ def query_ss(pdb_info, chain_id, length):
     nuclfrag.sort()
     nuclfrag = keep_length(nuclfrag, length)
 
-    nuclfrag_mapped = []
-    for nucl in nuclfrag:
-        nuclfrag_mapped.append(int(pdb_info["mapping"][chain_id][str(nucl)]))
+    # nuclfrag_mapped = []
+    # for nucl in nuclfrag:
+    #     nuclfrag_mapped.append(int(pdb_info["mapping"][chain_id][str(nucl)]))
 
-    return nuclfrag_mapped
+    return nuclfrag
 
 
 def keep_length(nuclfrag, length):
@@ -82,14 +82,13 @@ def keep_length(nuclfrag, length):
     return nuclfrag
 
 def main():
-    js = json.load(open("/amoniot/Documents/x3dna_10rows.json"))
-
-    for pdb_id in js:
-        pdb_info = js[pdb_id]
-
-        for chain_id in pdb_info['nachains']:
-            nuclfrag = query_ss(pdb_info, chain_id, 5)
-            print("{} {} {}".format(pdb_id, chain_id, nuclfrag))
+    js = json.load(open("/home/amoniot/Documents/libraries/nalib_oct2019_new/structures.json"))
+    print(query_ss(js["1B23"], "chain_R", 3))
+    # for pdb_id in js:
+    #     pdb_info = js[pdb_id]
+    #     for chain_id in pdb_info['nachains']:
+    #         nuclfrag = query_ss(pdb_info, chain_id, 5)
+    #         print("{} {} {}".format(pdb_id, chain_id, nuclfrag))
 
 if __name__ == '__main__':
     main()
