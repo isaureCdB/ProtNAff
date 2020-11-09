@@ -26,16 +26,14 @@ for i in $(cat $filelist); do
   fi
   #echo $i $outf
   resn=`head -1 $i | awk '{print substr($0,23,4)}'`
-
   if [ $type = "RNA" ]; then
-
     python $ATTRACTDIR/../allatom/aareduce.py $i $outf --rna --heavy \
     --chain $chain --modbase --mutate $ATTRACTDIR/../allatom/rna-mutate.list \
     --startres $resn --manual --patch $resn None > $name-aa.mapping
 
     python $NAFRAGDB/create_benchmark/delete_nucleotide_from_pdb.py $outf
 
-    python $ATTRACTTOOLS/reduce.py $name-aa.pdb --rna --chain $chain --startres $resn> /dev/null
+    python $ATTRACTTOOLS/reduce.py $name-aa.pdb --rna --chain $chain > /dev/null
 
   else
 
