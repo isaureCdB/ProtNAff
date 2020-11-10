@@ -32,8 +32,8 @@ for i in $(cat $filelist); do
     --startres $resn --manual --patch $resn None > $name-aa.mapping
 
     python $NAFRAGDB/create_benchmark/delete_nucleotide_from_pdb.py $outf
-
-    python $ATTRACTTOOLS/reduce.py $name-aa.pdb --rna --chain $chain > /dev/null
+    resn=`head -1 $outf | awk '{print substr($0,23,4)}'`
+    python $ATTRACTTOOLS/reduce.py $name-aa.pdb --rna --chain $chain --startres $resn > /dev/null
 
   else
 
