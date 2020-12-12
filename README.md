@@ -1,8 +1,8 @@
-# NAfragDB
-Multi-Purpose Structural Database of Nucleic-Acid/Protein Complexes
+# ProtNAff
+Create filters to select Protein - Nucleic acids structures from PDB files, and build libraries of protein-boud RNA fragments 
 
 --------------------------------------------------------------------------
-NAfragDB is a pipeline to:
+ProtNAff is a pipeline to:
 --------------------------------------------------------------------------
 1_ Clean-up and parse all NA-protein structures from the PDB into ensembles of small information units in a single file
 
@@ -18,7 +18,7 @@ The output of 1 for the PDB at a certain time will soon be downloadable from the
 --------------------------------------------------------------------------
 Work in progress
 --------------------------------------------------------------------------
-The main idea of NAfragDB is to provide a highly versatile pipeline to cover as many usages as possible.
+The main idea of ProtNAff is to provide a highly versatile pipeline to cover as many usages as possible.
 This is intended to be a dynamic collaborative work:
 
 _ If you need a specific feature that you can't find or don't know how to add in the current pipeline, please contact us, and we will do our best to include it!
