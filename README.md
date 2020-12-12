@@ -84,12 +84,3 @@ To accelerate clustering, the fragments are first converted into ATTRACT's coars
 --------------------------------------------------------------------------
 4. Requests to compute statistics on a fragments library
 --------------------------------------------------------------------------
-The fragment library is converted into a flat table for quick search.
-
-Queries on the fragment library use 3 dictionaries:
-_ the data dictionnary, provided by structures.json (written when creating the database, at step 1)
-_ the chainschema (see make_chainschena.py) that describes the format of the data and how it can be queried
-_ the query "variables" dictionnary (see query.py), that contains description of the subdata we are interested in
-
-For details on the data formats, see make_chainschena.py
-For an example of query, see the jupyter-notebook exemple_stats.ipynb
