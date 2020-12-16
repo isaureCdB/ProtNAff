@@ -1,5 +1,5 @@
 # ProtNAff
-Create filters to select Protein - Nucleic acids structures from PDB files, and build libraries of protein-boud RNA fragments 
+Create filters to select Protein - Nucleic acids structures from PDB files, and build libraries of protein-boud RNA fragments
 
 --------------------------------------------------------------------------
 ProtNAff is a pipeline to:
@@ -23,7 +23,7 @@ This is intended to be a dynamic collaborative work:
 
 _ If you need a specific feature that you can't find or don't know how to add in the current pipeline, please contact us, and we will do our best to include it!
 
-_ If you added some feature that you think can be usefull to others, please fill free to add a new branch in this repository.
+_ If you added some feature that you think can be useful to others, please fill free to propose a pull request.
 
 --------------------------------------------------------------------------
 Steps description
@@ -56,7 +56,7 @@ The output is a description, at the PDB structure levels, of the full set of pro
 --------------------------------------------------------------------------
 2. Requests to select (parts of) structures from the database
 --------------------------------------------------------------------------
-To use querries you need to use ./create_benchmark/get_benchmark.sh script
+To use queries you need to use ./create_benchmark/get_benchmark.sh script
 
 The idea is to create an architecture of folders in which you will have for each pdb if in the Json file the result of the query.
 
