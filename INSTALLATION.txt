@@ -1,17 +1,17 @@
 To install ProtNAff you need to be on Linux, it will not work on Windows and on MacOS.
 
-For the moment you need to install ATTRACT if you want to use ProtNAff (link).
+For the moment you need to install ATTRACT if you want to use ProtNAff (https://github.com/isaureCdB/attract/blob/master/INSTALLATION.txt).
 
-You will also need miniconda3 (link), as you will use several environement to switch from python2 to python3.
+You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environement to switch from python2 to python3.
 
 When miniconda is installed you will be able to use both environement of ProtNAff, to do so you will need to lauch those lines into the ProtNAff folder:
 
 conda create -n protnaff --file protnaff_requirements.txt
 conda create -n attract --file attract_requirements.txt
 
-To finish you need to add several variable of environement. To do so you have two choices, add them in your .bashrc (link). Or you can use direnv (link). This choice is up to you.
+To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
 
-Those variables are needed:
+Copy paste those lines by changing user by the name of your user and path by the path to ProtNAff:
 
-MY_CONDA=/home/user/miniconda3
-PROTNAFF=/path/ProtNAff/
+echo 'MY_CONDA=/home/user/miniconda3' >> ~/.bashrc
+echo 'PROTNAFF=/path/ProtNAff/' >> ~/.bashrc
