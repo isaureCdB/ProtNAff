@@ -1,6 +1,8 @@
 # ProtNAff
 Create filters to select Protein - Nucleic acids structures from PDB files, and build libraries of protein-boud RNA fragments
 
+For the installation and instances of uses, please look at INSTALLATION file.
+
 --------------------------------------------------------------------------
 ProtNAff is a pipeline to:
 --------------------------------------------------------------------------

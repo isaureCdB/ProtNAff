@@ -6,7 +6,7 @@
 na=$1
 
 wd=`pwd`
-x=$NAFRAGDB
+x=$PROTNAFF
 SCRIPTS="$x/create_frag_library/"
 
 rm -rf templates
