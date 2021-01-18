@@ -9,7 +9,7 @@ pdbcodes=$1
 na=$2
 
 wd=`pwd`
-x=$NAFRAGDB
+x=$PROTNAFF
 echo $x
 d="$x/create_database/"
 
@@ -23,7 +23,7 @@ cd brutPDBs
 for i in `cat $pdbcodes|awk '{print toupper($0)}'`; do
     if [ ! -s $i.pdb ] && [ ! -s $i.pdb.bz2 ] ;then
       echo "downloading $i"
-      $NAFRAGDB/pdb_download $i .
+      $PROTNAFF/pdb_download $i .
       if [ -f $i.pdb ]; then
         sed -i 's/SE   MSE/ SD  MSE/' $i.pdb
         sed -i 's/MSE/MET/' $i.pdb
