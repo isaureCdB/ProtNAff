@@ -29,13 +29,14 @@ def mindist(at1, at2):
     return mdif2
 
 nnn = np.load(sys.argv[1]) #$m-aa-fit.npy
-nat = [int(i) for i in sys.argv[2:5]]
-cutoff = float(sys.argv[5])
-outp1 = sys.argv[6] #$m-aa-noclash.npy
-outp2 = sys.argv[7] #$m-aa.noclash
+nat = [int(i) for i in sys.argv[2:-3]]
+cutoff = float(sys.argv[-3])
+outp1 = sys.argv[-2] #$m-aa-noclash.npy
+outp2 = sys.argv[-1] #$m-aa.noclash
 
 out2 = open(outp2, 'w')
-
+print(len(nnn[0]))
+print(sum(nat))
 assert len(nnn[0]) == sum(nat)
 
 n1 = nnn[:, :nat[0]-1, :] # do not include O3'
