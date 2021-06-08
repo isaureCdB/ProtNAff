@@ -13,5 +13,16 @@ To finish you need to add several variable of environement. To do so you have ad
 
 Copy paste those lines by changing user by the name of your user and path by the path to ProtNAff:
 
-echo 'MY_CONDA=/home/user/miniconda3' >> ~/.bashrc
-echo 'PROTNAFF=/path/ProtNAff/' >> ~/.bashrc
+echo 'export MY_CONDA=/home/user/miniconda3' >> ~/.bashrc
+echo 'export PROTNAFF=/path/ProtNAff/' >> ~/.bashrc
+echo 'export PATH=$PROTNAFF:$PATH' >> ~/.bashrc
+
+The how_to_use.ipynb file is a jupyter notebook file, it will help you to understand how to use the tool.
+To run it you need to run 2 command lines into the example folder:
+
+conda activate protnaff
+jupyter notebook
+
+When this is done a web page should open, it is the notebook, to execute a cell you have to press Ctrl+Enter.
+
+If you have any question, do not hesitate to contact us !

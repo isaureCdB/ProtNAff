@@ -27,7 +27,7 @@ fi
 
 mkdir -p trilib
 cd trilib
-\cp ../motifs.list .
+cp ./../motifs.list .
 for m in `cat motifs.list`; do
     if [ ! -f $m-all-aa.npy ];then
         ln -s ../$m-all-aa.npy
