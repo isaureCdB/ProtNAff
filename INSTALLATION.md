@@ -1,3 +1,5 @@
+# Installation of ProtNAff
+
 To install ProtNAff you need to be on Linux, it will not work on Windows and on MacOS.
 
 1. First you need to clone the repository using Git. To check if you have Git on your computer you can execute this command in a terminal:
