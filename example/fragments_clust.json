@@ -2,16 +2,21 @@
   "AAA": {
     "1": {
       "chain": "R",
-      "clust0.2": 1,
+      "clust0.2": 19,
       "clust0.2_center": true,
       "clust1.0": 4,
       "clust1.0_center": true,
-      "clust2.0": 3,
-      "clust2.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
       "indices": [
         3,
         4,
         5
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -24,16 +29,21 @@
     },
     "10": {
       "chain": "R",
-      "clust0.2": 10,
+      "clust0.2": 6,
       "clust0.2_center": true,
       "clust1.0": 3,
       "clust1.0_center": true,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         44,
         45,
         46
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -46,16 +56,21 @@
     },
     "11": {
       "chain": "R",
-      "clust0.2": 11,
+      "clust0.2": 7,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": true,
-      "clust2.0": 1,
-      "clust2.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
       "indices": [
         49,
         50,
         51
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -68,16 +83,21 @@
     },
     "12": {
       "chain": "R",
-      "clust0.2": 12,
+      "clust0.2": 8,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         50,
         51,
         52
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -90,16 +110,21 @@
     },
     "13": {
       "chain": "R",
-      "clust0.2": 13,
+      "clust0.2": 9,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         69,
         70,
         71
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -112,16 +137,21 @@
     },
     "14": {
       "chain": "R",
-      "clust0.2": 14,
+      "clust0.2": 10,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         70,
         71,
         72
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -134,16 +164,21 @@
     },
     "15": {
       "chain": "S",
-      "clust0.2": 15,
+      "clust0.2": 11,
       "clust0.2_center": true,
       "clust1.0": 2,
       "clust1.0_center": false,
-      "clust2.0": 2,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         21,
         22,
         23
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -156,16 +191,21 @@
     },
     "16": {
       "chain": "S",
-      "clust0.2": 16,
+      "clust0.2": 12,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         22,
         23,
         24
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -178,16 +218,21 @@
     },
     "17": {
       "chain": "S",
-      "clust0.2": 17,
+      "clust0.2": 13,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         26,
         27,
         28
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -200,16 +245,21 @@
     },
     "18": {
       "chain": "S",
-      "clust0.2": 18,
+      "clust0.2": 14,
       "clust0.2_center": true,
       "clust1.0": 3,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         44,
         45,
         46
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -222,16 +272,21 @@
     },
     "19": {
       "chain": "S",
-      "clust0.2": 19,
+      "clust0.2": 15,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         49,
         50,
         51
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -244,16 +299,21 @@
     },
     "2": {
       "chain": "R",
-      "clust0.2": 2,
+      "clust0.2": 21,
       "clust0.2_center": true,
       "clust1.0": 5,
       "clust1.0_center": true,
-      "clust2.0": 4,
-      "clust2.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
       "indices": [
         4,
         5,
         6
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -266,16 +326,21 @@
     },
     "20": {
       "chain": "S",
-      "clust0.2": 20,
+      "clust0.2": 16,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         50,
         51,
         52
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -288,16 +353,21 @@
     },
     "21": {
       "chain": "S",
-      "clust0.2": 21,
+      "clust0.2": 17,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         69,
         70,
         71
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -310,16 +380,21 @@
     },
     "22": {
       "chain": "S",
-      "clust0.2": 22,
+      "clust0.2": 18,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         70,
         71,
         72
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -332,16 +407,21 @@
     },
     "3": {
       "chain": "R",
-      "clust0.2": 3,
+      "clust0.2": 1,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         5,
         6,
         7
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -354,16 +434,21 @@
     },
     "4": {
       "chain": "S",
-      "clust0.2": 4,
+      "clust0.2": 20,
       "clust0.2_center": true,
       "clust1.0": 4,
       "clust1.0_center": false,
-      "clust2.0": 3,
-      "clust2.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
       "indices": [
         3,
         4,
         5
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -376,16 +461,21 @@
     },
     "5": {
       "chain": "S",
-      "clust0.2": 5,
+      "clust0.2": 22,
       "clust0.2_center": true,
       "clust1.0": 5,
       "clust1.0_center": false,
-      "clust2.0": 4,
-      "clust2.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
       "indices": [
         4,
         5,
         6
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -398,16 +488,21 @@
     },
     "6": {
       "chain": "S",
-      "clust0.2": 6,
+      "clust0.2": 2,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         5,
         6,
         7
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -420,16 +515,21 @@
     },
     "7": {
       "chain": "R",
-      "clust0.2": 7,
+      "clust0.2": 3,
       "clust0.2_center": true,
       "clust1.0": 2,
       "clust1.0_center": true,
-      "clust2.0": 2,
-      "clust2.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         21,
         22,
         23
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -442,16 +542,21 @@
     },
     "8": {
       "chain": "R",
-      "clust0.2": 8,
+      "clust0.2": 4,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         22,
         23,
         24
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -464,16 +569,21 @@
     },
     "9": {
       "chain": "R",
-      "clust0.2": 9,
+      "clust0.2": 5,
       "clust0.2_center": true,
       "clust1.0": 1,
       "clust1.0_center": false,
-      "clust2.0": 1,
-      "clust2.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
       "indices": [
         26,
         27,
         28
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
       ],
       "model": 1,
       "resid": [
@@ -482,6 +592,4610 @@
         "628"
       ],
       "seq": "GGG",
+      "structure": "1ASY"
+    }
+  },
+  "AAC": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        6,
+        7,
+        8
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "8",
+        "9",
+        "10"
+      ],
+      "seq": "GAU",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        51,
+        52,
+        53
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "652",
+        "653",
+        "654"
+      ],
+      "seq": "GGU",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "R",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        56,
+        57,
+        58
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "657",
+        "658",
+        "659"
+      ],
+      "seq": "AAU",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        71,
+        72,
+        73
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "672",
+        "673",
+        "674"
+      ],
+      "seq": "AGC",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "S",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        6,
+        7,
+        8
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "606",
+        "607",
+        "608"
+      ],
+      "seq": "GAU",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "S",
+      "clust0.2": 20,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        9,
+        10,
+        11
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "609",
+        "610",
+        "611"
+      ],
+      "seq": "AGU",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "S",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        14,
+        15,
+        16
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "614",
+        "615",
+        "616"
+      ],
+      "seq": "AAU",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 22,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": true,
+      "clust3.0": 5,
+      "clust3.0_center": true,
+      "indices": [
+        17,
+        18,
+        19
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "617",
+        "618",
+        "619"
+      ],
+      "seq": "GGU",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        23,
+        24,
+        25
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "623",
+        "624",
+        "625"
+      ],
+      "seq": "AAU",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        27,
+        28,
+        29
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "627",
+        "628",
+        "629"
+      ],
+      "seq": "GGC",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        45,
+        46,
+        47
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "645",
+        "646",
+        "648"
+      ],
+      "seq": "GAU",
+      "structure": "1ASY"
+    },
+    "2": {
+      "chain": "S",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        6,
+        7,
+        8
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "8",
+        "9",
+        "10"
+      ],
+      "seq": "GAU",
+      "structure": "1AQ4"
+    },
+    "20": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        51,
+        52,
+        53
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "652",
+        "653",
+        "654"
+      ],
+      "seq": "GGU",
+      "structure": "1ASY"
+    },
+    "21": {
+      "chain": "S",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        56,
+        57,
+        58
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "657",
+        "658",
+        "659"
+      ],
+      "seq": "AAU",
+      "structure": "1ASY"
+    },
+    "22": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        71,
+        72,
+        73
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "672",
+        "673",
+        "674"
+      ],
+      "seq": "AGC",
+      "structure": "1ASY"
+    },
+    "3": {
+      "chain": "R",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        6,
+        7,
+        8
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "606",
+        "607",
+        "608"
+      ],
+      "seq": "GAU",
+      "structure": "1ASY"
+    },
+    "4": {
+      "chain": "R",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        9,
+        10,
+        11
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "609",
+        "610",
+        "611"
+      ],
+      "seq": "AGU",
+      "structure": "1ASY"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        14,
+        15,
+        16
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "614",
+        "615",
+        "616"
+      ],
+      "seq": "AAU",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 21,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        17,
+        18,
+        19
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "617",
+        "618",
+        "619"
+      ],
+      "seq": "GGU",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        23,
+        24,
+        25
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "623",
+        "624",
+        "625"
+      ],
+      "seq": "AAU",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        27,
+        28,
+        29
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "627",
+        "628",
+        "629"
+      ],
+      "seq": "GGC",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        45,
+        46,
+        47
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "645",
+        "646",
+        "648"
+      ],
+      "seq": "GAU",
+      "structure": "1ASY"
+    }
+  },
+  "ACA": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "3",
+        "4",
+        "5"
+      ],
+      "seq": "AUG",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        39,
+        40,
+        41
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "639",
+        "640",
+        "641"
+      ],
+      "seq": "GUG",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "R",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        67,
+        68,
+        69
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "668",
+        "669",
+        "670"
+      ],
+      "seq": "GCG",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        4,
+        5,
+        6
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "604",
+        "605",
+        "606"
+      ],
+      "seq": "GUG",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "S",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        7,
+        8,
+        9
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "607",
+        "608",
+        "609"
+      ],
+      "seq": "AUA",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "S",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        15,
+        16,
+        17
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "615",
+        "616",
+        "617"
+      ],
+      "seq": "AUG",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        24,
+        25,
+        26
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "624",
+        "625",
+        "626"
+      ],
+      "seq": "AUG",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        28,
+        29,
+        30
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "628",
+        "629",
+        "630"
+      ],
+      "seq": "GCG",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        37,
+        38,
+        39
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "637",
+        "638",
+        "639"
+      ],
+      "seq": "GCG",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        39,
+        40,
+        41
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "639",
+        "640",
+        "641"
+      ],
+      "seq": "GUG",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "S",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        67,
+        68,
+        69
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "668",
+        "669",
+        "670"
+      ],
+      "seq": "GCG",
+      "structure": "1ASY"
+    },
+    "2": {
+      "chain": "R",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        14,
+        15,
+        16
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "16",
+        "17",
+        "18"
+      ],
+      "seq": "AUG",
+      "structure": "1AQ4"
+    },
+    "3": {
+      "chain": "S",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "3",
+        "4",
+        "5"
+      ],
+      "seq": "AUG",
+      "structure": "1AQ4"
+    },
+    "4": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        4,
+        5,
+        6
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "604",
+        "605",
+        "606"
+      ],
+      "seq": "GUG",
+      "structure": "1ASY"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        7,
+        8,
+        9
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "607",
+        "608",
+        "609"
+      ],
+      "seq": "AUA",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        15,
+        16,
+        17
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "615",
+        "616",
+        "617"
+      ],
+      "seq": "AUG",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        24,
+        25,
+        26
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "624",
+        "625",
+        "626"
+      ],
+      "seq": "AUG",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        28,
+        29,
+        30
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "628",
+        "629",
+        "630"
+      ],
+      "seq": "GCG",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        37,
+        38,
+        39
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "637",
+        "638",
+        "639"
+      ],
+      "seq": "GCG",
+      "structure": "1ASY"
+    }
+  },
+  "ACC": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        7,
+        8,
+        9
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "9",
+        "10",
+        "11"
+      ],
+      "seq": "AUU",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": true,
+      "clust3.0": 6,
+      "clust3.0_center": true,
+      "indices": [
+        46,
+        47,
+        48
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "646",
+        "648",
+        "649"
+      ],
+      "seq": "AUC",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        52,
+        53,
+        54
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "653",
+        "654",
+        "655"
+      ],
+      "seq": "GUU",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "R",
+      "clust0.2": 21,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": true,
+      "clust3.0": 7,
+      "clust3.0_center": true,
+      "indices": [
+        57,
+        58,
+        59
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "658",
+        "659",
+        "660"
+      ],
+      "seq": "AUU",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        64,
+        65,
+        66
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "665",
+        "666",
+        "667"
+      ],
+      "seq": "GUC",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        72,
+        73,
+        74
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "673",
+        "674",
+        "675"
+      ],
+      "seq": "GCC",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "S",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        10,
+        11,
+        12
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "610",
+        "611",
+        "612"
+      ],
+      "seq": "GUU",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 28,
+      "clust0.2_center": true,
+      "clust1.0": 13,
+      "clust1.0_center": true,
+      "clust3.0": 10,
+      "clust3.0_center": true,
+      "indices": [
+        18,
+        19,
+        20
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "618",
+        "619",
+        "620"
+      ],
+      "seq": "GUC",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        30,
+        31,
+        32
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "630",
+        "631",
+        "632"
+      ],
+      "seq": "GCU",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": false,
+      "clust3.0": 5,
+      "clust3.0_center": false,
+      "indices": [
+        34,
+        35,
+        36
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "634",
+        "635",
+        "636"
+      ],
+      "seq": "GUC",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        41,
+        42,
+        43
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "641",
+        "642",
+        "643"
+      ],
+      "seq": "GCC",
+      "structure": "1ASY"
+    },
+    "2": {
+      "chain": "R",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        10,
+        11,
+        12
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "12",
+        "13",
+        "14"
+      ],
+      "seq": "ACC",
+      "structure": "1AQ4"
+    },
+    "20": {
+      "chain": "S",
+      "clust0.2": 20,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": false,
+      "clust3.0": 6,
+      "clust3.0_center": false,
+      "indices": [
+        46,
+        47,
+        48
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "646",
+        "648",
+        "649"
+      ],
+      "seq": "AUC",
+      "structure": "1ASY"
+    },
+    "21": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        52,
+        53,
+        54
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "653",
+        "654",
+        "655"
+      ],
+      "seq": "GUU",
+      "structure": "1ASY"
+    },
+    "22": {
+      "chain": "S",
+      "clust0.2": 22,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": false,
+      "clust3.0": 7,
+      "clust3.0_center": false,
+      "indices": [
+        57,
+        58,
+        59
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "658",
+        "659",
+        "660"
+      ],
+      "seq": "AUU",
+      "structure": "1ASY"
+    },
+    "23": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        64,
+        65,
+        66
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "665",
+        "666",
+        "667"
+      ],
+      "seq": "GUC",
+      "structure": "1ASY"
+    },
+    "24": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        72,
+        73,
+        74
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "673",
+        "674",
+        "675"
+      ],
+      "seq": "GCC",
+      "structure": "1ASY"
+    },
+    "25": {
+      "chain": "P",
+      "clust0.2": 23,
+      "clust0.2_center": true,
+      "clust1.0": 10,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "1",
+        "2",
+        "3"
+      ],
+      "seq": "GUU",
+      "structure": "1B7F"
+    },
+    "26": {
+      "chain": "P",
+      "clust0.2": 25,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": true,
+      "clust3.0": 8,
+      "clust3.0_center": true,
+      "indices": [
+        4,
+        5,
+        6
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "4",
+        "5",
+        "6"
+      ],
+      "seq": "GUU",
+      "structure": "1B7F"
+    },
+    "27": {
+      "chain": "Q",
+      "clust0.2": 24,
+      "clust0.2_center": true,
+      "clust1.0": 11,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "1",
+        "2",
+        "3"
+      ],
+      "seq": "GUU",
+      "structure": "1B7F"
+    },
+    "28": {
+      "chain": "Q",
+      "clust0.2": 26,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": false,
+      "clust3.0": 8,
+      "clust3.0_center": false,
+      "indices": [
+        4,
+        5,
+        6
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "4",
+        "5",
+        "6"
+      ],
+      "seq": "GUU",
+      "structure": "1B7F"
+    },
+    "3": {
+      "chain": "S",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        7,
+        8,
+        9
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "9",
+        "10",
+        "11"
+      ],
+      "seq": "AUU",
+      "structure": "1AQ4"
+    },
+    "4": {
+      "chain": "S",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        10,
+        11,
+        12
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "12",
+        "13",
+        "14"
+      ],
+      "seq": "ACC",
+      "structure": "1AQ4"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        10,
+        11,
+        12
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "610",
+        "611",
+        "612"
+      ],
+      "seq": "GUU",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 27,
+      "clust0.2_center": true,
+      "clust1.0": 12,
+      "clust1.0_center": true,
+      "clust3.0": 9,
+      "clust3.0_center": true,
+      "indices": [
+        18,
+        19,
+        20
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "618",
+        "619",
+        "620"
+      ],
+      "seq": "GUC",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        30,
+        31,
+        32
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "630",
+        "631",
+        "632"
+      ],
+      "seq": "GCU",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": true,
+      "clust3.0": 5,
+      "clust3.0_center": true,
+      "indices": [
+        34,
+        35,
+        36
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "634",
+        "635",
+        "636"
+      ],
+      "seq": "GUC",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        41,
+        42,
+        43
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "641",
+        "642",
+        "643"
+      ],
+      "seq": "GCC",
+      "structure": "1ASY"
+    }
+  },
+  "CAA": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        2,
+        3,
+        4
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "4",
+        "5",
+        "6"
+      ],
+      "seq": "UGA",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        48,
+        49,
+        50
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "649",
+        "650",
+        "651"
+      ],
+      "seq": "CGG",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        55,
+        56,
+        57
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "656",
+        "657",
+        "658"
+      ],
+      "seq": "CAA",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "R",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        68,
+        69,
+        70
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "669",
+        "670",
+        "671"
+      ],
+      "seq": "CGG",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "S",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        5,
+        6,
+        7
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "605",
+        "606",
+        "607"
+      ],
+      "seq": "UGA",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "S",
+      "clust0.2": 21,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        8,
+        9,
+        10
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "608",
+        "609",
+        "610"
+      ],
+      "seq": "UAG",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        13,
+        14,
+        15
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "613",
+        "614",
+        "615"
+      ],
+      "seq": "UAA",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        16,
+        17,
+        18
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "616",
+        "617",
+        "618"
+      ],
+      "seq": "UGG",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 22,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": true,
+      "clust3.0": 5,
+      "clust3.0_center": true,
+      "indices": [
+        20,
+        21,
+        22
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "620",
+        "621",
+        "622"
+      ],
+      "seq": "CAG",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        25,
+        26,
+        27
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "625",
+        "626",
+        "627"
+      ],
+      "seq": "UGG",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        43,
+        44,
+        45
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "643",
+        "644",
+        "645"
+      ],
+      "seq": "CAG",
+      "structure": "1ASY"
+    },
+    "2": {
+      "chain": "S",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        2,
+        3,
+        4
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "4",
+        "5",
+        "6"
+      ],
+      "seq": "UGA",
+      "structure": "1AQ4"
+    },
+    "20": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        48,
+        49,
+        50
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "649",
+        "650",
+        "651"
+      ],
+      "seq": "CGG",
+      "structure": "1ASY"
+    },
+    "21": {
+      "chain": "S",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        55,
+        56,
+        57
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "656",
+        "657",
+        "658"
+      ],
+      "seq": "CAA",
+      "structure": "1ASY"
+    },
+    "22": {
+      "chain": "S",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        68,
+        69,
+        70
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "669",
+        "670",
+        "671"
+      ],
+      "seq": "CGG",
+      "structure": "1ASY"
+    },
+    "3": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        5,
+        6,
+        7
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "605",
+        "606",
+        "607"
+      ],
+      "seq": "UGA",
+      "structure": "1ASY"
+    },
+    "4": {
+      "chain": "R",
+      "clust0.2": 20,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        8,
+        9,
+        10
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "608",
+        "609",
+        "610"
+      ],
+      "seq": "UAG",
+      "structure": "1ASY"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        13,
+        14,
+        15
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "613",
+        "614",
+        "615"
+      ],
+      "seq": "UAA",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        16,
+        17,
+        18
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "616",
+        "617",
+        "618"
+      ],
+      "seq": "UGG",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        20,
+        21,
+        22
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "620",
+        "621",
+        "622"
+      ],
+      "seq": "CAG",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        25,
+        26,
+        27
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "625",
+        "626",
+        "627"
+      ],
+      "seq": "UGG",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        43,
+        44,
+        45
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "643",
+        "644",
+        "645"
+      ],
+      "seq": "CAG",
+      "structure": "1ASY"
+    }
+  },
+  "CAC": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        9,
+        10,
+        11
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "11",
+        "12",
+        "13"
+      ],
+      "seq": "UAC",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        63,
+        64,
+        65
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "664",
+        "665",
+        "666"
+      ],
+      "seq": "CGU",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "R",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        66,
+        67,
+        68
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "667",
+        "668",
+        "669"
+      ],
+      "seq": "CGC",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "S",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        3,
+        4,
+        5
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "603",
+        "604",
+        "605"
+      ],
+      "seq": "CGU",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        29,
+        30,
+        31
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "629",
+        "630",
+        "631"
+      ],
+      "seq": "CGC",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "S",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        33,
+        34,
+        35
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "633",
+        "634",
+        "635"
+      ],
+      "seq": "UGU",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "S",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": false,
+      "clust3.0": 5,
+      "clust3.0_center": false,
+      "indices": [
+        36,
+        37,
+        38
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "636",
+        "637",
+        "638"
+      ],
+      "seq": "CGC",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        38,
+        39,
+        40
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "638",
+        "639",
+        "640"
+      ],
+      "seq": "CGU",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        40,
+        41,
+        42
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "640",
+        "641",
+        "642"
+      ],
+      "seq": "UGC",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        63,
+        64,
+        65
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "664",
+        "665",
+        "666"
+      ],
+      "seq": "CGU",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "S",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        66,
+        67,
+        68
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "667",
+        "668",
+        "669"
+      ],
+      "seq": "CGC",
+      "structure": "1ASY"
+    },
+    "2": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        13,
+        14,
+        15
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "15",
+        "16",
+        "17"
+      ],
+      "seq": "CAU",
+      "structure": "1AQ4"
+    },
+    "20": {
+      "chain": "P",
+      "clust0.2": 20,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        3,
+        4,
+        5
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "3",
+        "4",
+        "5"
+      ],
+      "seq": "UGU",
+      "structure": "1B7F"
+    },
+    "21": {
+      "chain": "Q",
+      "clust0.2": 21,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        3,
+        4,
+        5
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "3",
+        "4",
+        "5"
+      ],
+      "seq": "UGU",
+      "structure": "1B7F"
+    },
+    "3": {
+      "chain": "S",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        9,
+        10,
+        11
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "11",
+        "12",
+        "13"
+      ],
+      "seq": "UAC",
+      "structure": "1AQ4"
+    },
+    "4": {
+      "chain": "R",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        3,
+        4,
+        5
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "603",
+        "604",
+        "605"
+      ],
+      "seq": "CGU",
+      "structure": "1ASY"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        29,
+        30,
+        31
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "629",
+        "630",
+        "631"
+      ],
+      "seq": "CGC",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        33,
+        34,
+        35
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "633",
+        "634",
+        "635"
+      ],
+      "seq": "UGU",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 5,
+      "clust3.0_center": true,
+      "indices": [
+        36,
+        37,
+        38
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "636",
+        "637",
+        "638"
+      ],
+      "seq": "CGC",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        38,
+        39,
+        40
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "638",
+        "639",
+        "640"
+      ],
+      "seq": "CGU",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        40,
+        41,
+        42
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "640",
+        "641",
+        "642"
+      ],
+      "seq": "UGC",
+      "structure": "1ASY"
+    }
+  },
+  "CCA": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 5,
+      "clust3.0_center": true,
+      "indices": [
+        8,
+        9,
+        10
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "10",
+        "11",
+        "12"
+      ],
+      "seq": "UUA",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        42,
+        43,
+        44
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "642",
+        "643",
+        "644"
+      ],
+      "seq": "CCA",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "R",
+      "clust0.2": 20,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": true,
+      "clust3.0": 7,
+      "clust3.0_center": true,
+      "indices": [
+        47,
+        48,
+        49
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "648",
+        "649",
+        "650"
+      ],
+      "seq": "UCG",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "R",
+      "clust0.2": 22,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        54,
+        55,
+        56
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "655",
+        "656",
+        "657"
+      ],
+      "seq": "UCA",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        62,
+        63,
+        64
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "663",
+        "664",
+        "665"
+      ],
+      "seq": "CCG",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "R",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        65,
+        66,
+        67
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "666",
+        "667",
+        "668"
+      ],
+      "seq": "UCG",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "R",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 12,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        73,
+        74,
+        75
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "674",
+        "675",
+        "676"
+      ],
+      "seq": "CCA",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        2,
+        3,
+        4
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "602",
+        "603",
+        "604"
+      ],
+      "seq": "CCG",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        12,
+        13,
+        14
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "612",
+        "613",
+        "614"
+      ],
+      "seq": "UUA",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 27,
+      "clust0.2_center": true,
+      "clust1.0": 14,
+      "clust1.0_center": true,
+      "clust3.0": 9,
+      "clust3.0_center": true,
+      "indices": [
+        19,
+        20,
+        21
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "619",
+        "620",
+        "621"
+      ],
+      "seq": "UCA",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "S",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        32,
+        33,
+        34
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "632",
+        "633",
+        "634"
+      ],
+      "seq": "UUG",
+      "structure": "1ASY"
+    },
+    "2": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        12,
+        13,
+        14
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "14",
+        "15",
+        "16"
+      ],
+      "seq": "CCA",
+      "structure": "1AQ4"
+    },
+    "20": {
+      "chain": "S",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": false,
+      "clust3.0": 6,
+      "clust3.0_center": false,
+      "indices": [
+        35,
+        36,
+        37
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "635",
+        "636",
+        "637"
+      ],
+      "seq": "UCG",
+      "structure": "1ASY"
+    },
+    "21": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        42,
+        43,
+        44
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "642",
+        "643",
+        "644"
+      ],
+      "seq": "CCA",
+      "structure": "1ASY"
+    },
+    "22": {
+      "chain": "S",
+      "clust0.2": 21,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": false,
+      "clust3.0": 7,
+      "clust3.0_center": false,
+      "indices": [
+        47,
+        48,
+        49
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "648",
+        "649",
+        "650"
+      ],
+      "seq": "UCG",
+      "structure": "1ASY"
+    },
+    "23": {
+      "chain": "S",
+      "clust0.2": 23,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        54,
+        55,
+        56
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "655",
+        "656",
+        "657"
+      ],
+      "seq": "UCA",
+      "structure": "1ASY"
+    },
+    "24": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        62,
+        63,
+        64
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "663",
+        "664",
+        "665"
+      ],
+      "seq": "CCG",
+      "structure": "1ASY"
+    },
+    "25": {
+      "chain": "S",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        65,
+        66,
+        67
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "666",
+        "667",
+        "668"
+      ],
+      "seq": "UCG",
+      "structure": "1ASY"
+    },
+    "26": {
+      "chain": "S",
+      "clust0.2": 28,
+      "clust0.2_center": true,
+      "clust1.0": 15,
+      "clust1.0_center": true,
+      "clust3.0": 10,
+      "clust3.0_center": true,
+      "indices": [
+        73,
+        74,
+        75
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "674",
+        "675",
+        "676"
+      ],
+      "seq": "CCA",
+      "structure": "1ASY"
+    },
+    "27": {
+      "chain": "P",
+      "clust0.2": 24,
+      "clust0.2_center": true,
+      "clust1.0": 10,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        2,
+        3,
+        4
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "2",
+        "3",
+        "4"
+      ],
+      "seq": "UUG",
+      "structure": "1B7F"
+    },
+    "28": {
+      "chain": "Q",
+      "clust0.2": 25,
+      "clust0.2_center": true,
+      "clust1.0": 11,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        2,
+        3,
+        4
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "2",
+        "3",
+        "4"
+      ],
+      "seq": "UUG",
+      "structure": "1B7F"
+    },
+    "3": {
+      "chain": "S",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": false,
+      "clust3.0": 5,
+      "clust3.0_center": false,
+      "indices": [
+        8,
+        9,
+        10
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "10",
+        "11",
+        "12"
+      ],
+      "seq": "UUA",
+      "structure": "1AQ4"
+    },
+    "4": {
+      "chain": "S",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        12,
+        13,
+        14
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "14",
+        "15",
+        "16"
+      ],
+      "seq": "CCA",
+      "structure": "1AQ4"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        2,
+        3,
+        4
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "602",
+        "603",
+        "604"
+      ],
+      "seq": "CCG",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        12,
+        13,
+        14
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "612",
+        "613",
+        "614"
+      ],
+      "seq": "UUA",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 26,
+      "clust0.2_center": true,
+      "clust1.0": 13,
+      "clust1.0_center": true,
+      "clust3.0": 8,
+      "clust3.0_center": true,
+      "indices": [
+        19,
+        20,
+        21
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "619",
+        "620",
+        "621"
+      ],
+      "seq": "UCA",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        32,
+        33,
+        34
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "632",
+        "633",
+        "634"
+      ],
+      "seq": "UUG",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": true,
+      "clust3.0": 6,
+      "clust3.0_center": true,
+      "indices": [
+        35,
+        36,
+        37
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "635",
+        "636",
+        "637"
+      ],
+      "seq": "UCG",
+      "structure": "1ASY"
+    }
+  },
+  "CCC": {
+    "1": {
+      "chain": "R",
+      "clust0.2": 1,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        11,
+        12,
+        13
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "13",
+        "14",
+        "15"
+      ],
+      "seq": "CCC",
+      "structure": "1AQ4"
+    },
+    "10": {
+      "chain": "R",
+      "clust0.2": 7,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": true,
+      "clust3.0": 4,
+      "clust3.0_center": true,
+      "indices": [
+        61,
+        62,
+        63
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "662",
+        "663",
+        "664"
+      ],
+      "seq": "CCC",
+      "structure": "1ASY"
+    },
+    "11": {
+      "chain": "S",
+      "clust0.2": 8,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "601",
+        "602",
+        "603"
+      ],
+      "seq": "UCC",
+      "structure": "1ASY"
+    },
+    "12": {
+      "chain": "S",
+      "clust0.2": 9,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        11,
+        12,
+        13
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "611",
+        "612",
+        "613"
+      ],
+      "seq": "UUU",
+      "structure": "1ASY"
+    },
+    "13": {
+      "chain": "S",
+      "clust0.2": 14,
+      "clust0.2_center": true,
+      "clust1.0": 3,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        31,
+        32,
+        33
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "631",
+        "632",
+        "633"
+      ],
+      "seq": "CUU",
+      "structure": "1ASY"
+    },
+    "14": {
+      "chain": "S",
+      "clust0.2": 10,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": false,
+      "clust3.0": 5,
+      "clust3.0_center": false,
+      "indices": [
+        53,
+        54,
+        55
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "654",
+        "655",
+        "656"
+      ],
+      "seq": "UUC",
+      "structure": "1ASY"
+    },
+    "15": {
+      "chain": "S",
+      "clust0.2": 19,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        58,
+        59,
+        60
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "659",
+        "660",
+        "661"
+      ],
+      "seq": "UUC",
+      "structure": "1ASY"
+    },
+    "16": {
+      "chain": "S",
+      "clust0.2": 20,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": false,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        59,
+        60,
+        61
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "660",
+        "661",
+        "662"
+      ],
+      "seq": "UCC",
+      "structure": "1ASY"
+    },
+    "17": {
+      "chain": "S",
+      "clust0.2": 11,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        60,
+        61,
+        62
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "661",
+        "662",
+        "663"
+      ],
+      "seq": "CCC",
+      "structure": "1ASY"
+    },
+    "18": {
+      "chain": "S",
+      "clust0.2": 12,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        61,
+        62,
+        63
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "662",
+        "663",
+        "664"
+      ],
+      "seq": "CCC",
+      "structure": "1ASY"
+    },
+    "19": {
+      "chain": "P",
+      "clust0.2": 21,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": true,
+      "clust3.0": 6,
+      "clust3.0_center": true,
+      "indices": [
+        5,
+        6,
+        7
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "5",
+        "6",
+        "7"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "2": {
+      "chain": "S",
+      "clust0.2": 2,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        11,
+        12,
+        13
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "13",
+        "14",
+        "15"
+      ],
+      "seq": "CCC",
+      "structure": "1AQ4"
+    },
+    "20": {
+      "chain": "P",
+      "clust0.2": 23,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": true,
+      "clust3.0": 7,
+      "clust3.0_center": true,
+      "indices": [
+        6,
+        7,
+        8
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "6",
+        "7",
+        "8"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "21": {
+      "chain": "P",
+      "clust0.2": 15,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": true,
+      "indices": [
+        7,
+        8,
+        9
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "7",
+        "8",
+        "9"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "22": {
+      "chain": "P",
+      "clust0.2": 25,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": true,
+      "clust3.0": 8,
+      "clust3.0_center": true,
+      "indices": [
+        8,
+        9,
+        10
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "8",
+        "9",
+        "10"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "23": {
+      "chain": "P",
+      "clust0.2": 27,
+      "clust0.2_center": true,
+      "clust1.0": 10,
+      "clust1.0_center": true,
+      "clust3.0": 9,
+      "clust3.0_center": true,
+      "indices": [
+        9,
+        10,
+        11
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "9",
+        "10",
+        "11"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "24": {
+      "chain": "P",
+      "clust0.2": 29,
+      "clust0.2_center": true,
+      "clust1.0": 12,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": true,
+      "indices": [
+        10,
+        11,
+        12
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "10",
+        "11",
+        "12"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "25": {
+      "chain": "Q",
+      "clust0.2": 22,
+      "clust0.2_center": true,
+      "clust1.0": 7,
+      "clust1.0_center": false,
+      "clust3.0": 6,
+      "clust3.0_center": false,
+      "indices": [
+        5,
+        6,
+        7
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "5",
+        "6",
+        "7"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "26": {
+      "chain": "Q",
+      "clust0.2": 24,
+      "clust0.2_center": true,
+      "clust1.0": 8,
+      "clust1.0_center": false,
+      "clust3.0": 7,
+      "clust3.0_center": false,
+      "indices": [
+        6,
+        7,
+        8
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "6",
+        "7",
+        "8"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "27": {
+      "chain": "Q",
+      "clust0.2": 16,
+      "clust0.2_center": true,
+      "clust1.0": 2,
+      "clust1.0_center": false,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        7,
+        8,
+        9
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "7",
+        "8",
+        "9"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "28": {
+      "chain": "Q",
+      "clust0.2": 26,
+      "clust0.2_center": true,
+      "clust1.0": 9,
+      "clust1.0_center": false,
+      "clust3.0": 8,
+      "clust3.0_center": false,
+      "indices": [
+        8,
+        9,
+        10
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "8",
+        "9",
+        "10"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "29": {
+      "chain": "Q",
+      "clust0.2": 28,
+      "clust0.2_center": true,
+      "clust1.0": 10,
+      "clust1.0_center": false,
+      "clust3.0": 9,
+      "clust3.0_center": false,
+      "indices": [
+        9,
+        10,
+        11
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "9",
+        "10",
+        "11"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "3": {
+      "chain": "R",
+      "clust0.2": 3,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        1,
+        2,
+        3
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "601",
+        "602",
+        "603"
+      ],
+      "seq": "UCC",
+      "structure": "1ASY"
+    },
+    "30": {
+      "chain": "Q",
+      "clust0.2": 30,
+      "clust0.2_center": true,
+      "clust1.0": 13,
+      "clust1.0_center": true,
+      "clust3.0": 3,
+      "clust3.0_center": false,
+      "indices": [
+        10,
+        11,
+        12
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "10",
+        "11",
+        "12"
+      ],
+      "seq": "UUU",
+      "structure": "1B7F"
+    },
+    "4": {
+      "chain": "R",
+      "clust0.2": 4,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        11,
+        12,
+        13
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "611",
+        "612",
+        "613"
+      ],
+      "seq": "UUU",
+      "structure": "1ASY"
+    },
+    "5": {
+      "chain": "R",
+      "clust0.2": 13,
+      "clust0.2_center": true,
+      "clust1.0": 11,
+      "clust1.0_center": true,
+      "clust3.0": 1,
+      "clust3.0_center": false,
+      "indices": [
+        31,
+        32,
+        33
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "631",
+        "632",
+        "633"
+      ],
+      "seq": "CUU",
+      "structure": "1ASY"
+    },
+    "6": {
+      "chain": "R",
+      "clust0.2": 5,
+      "clust0.2_center": true,
+      "clust1.0": 4,
+      "clust1.0_center": true,
+      "clust3.0": 5,
+      "clust3.0_center": true,
+      "indices": [
+        53,
+        54,
+        55
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "654",
+        "655",
+        "656"
+      ],
+      "seq": "UUC",
+      "structure": "1ASY"
+    },
+    "7": {
+      "chain": "R",
+      "clust0.2": 17,
+      "clust0.2_center": true,
+      "clust1.0": 5,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": true,
+      "indices": [
+        58,
+        59,
+        60
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "659",
+        "660",
+        "661"
+      ],
+      "seq": "UUC",
+      "structure": "1ASY"
+    },
+    "8": {
+      "chain": "R",
+      "clust0.2": 18,
+      "clust0.2_center": true,
+      "clust1.0": 6,
+      "clust1.0_center": true,
+      "clust3.0": 2,
+      "clust3.0_center": false,
+      "indices": [
+        59,
+        60,
+        61
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "660",
+        "661",
+        "662"
+      ],
+      "seq": "UCC",
+      "structure": "1ASY"
+    },
+    "9": {
+      "chain": "R",
+      "clust0.2": 6,
+      "clust0.2_center": true,
+      "clust1.0": 1,
+      "clust1.0_center": false,
+      "clust3.0": 4,
+      "clust3.0_center": false,
+      "indices": [
+        60,
+        61,
+        62
+      ],
+      "missing_atoms": [
+        0,
+        0,
+        0
+      ],
+      "model": 1,
+      "resid": [
+        "661",
+        "662",
+        "663"
+      ],
+      "seq": "CCC",
       "structure": "1ASY"
     }
   }
