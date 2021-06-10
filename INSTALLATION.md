@@ -19,6 +19,7 @@ This will create a ProtNAff folder.
 When miniconda is installed you will be able to use both environement of ProtNAff, to do so you will need to lauch those lines into the ProtNAff folder:
 
 conda create -n protnaff --file protnaff_requirements.txt
+
 conda create -n attract --file attract_requirements.txt
 
 4. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
@@ -26,8 +27,11 @@ conda create -n attract --file attract_requirements.txt
 Copy paste those lines by changing user by the name of your user and path by the path to ProtNAff:
 
 echo 'export MY_CONDA=/home/user/miniconda3' >> ~/.bashrc
+
 echo 'export PROTNAFF=/path/ProtNAff/' >> ~/.bashrc
+
 echo 'export PATH=$PROTNAFF:$PATH' >> ~/.bashrc
+
 echo 'export PYTHONPATH=$PROTNAFF:$PYTHONPATH' >> ~/.bashrc
 
 5. Then you need to source your .bashrc or open a new terminal.
@@ -36,6 +40,7 @@ echo 'export PYTHONPATH=$PROTNAFF:$PYTHONPATH' >> ~/.bashrc
 To run it you need to run 2 command lines into the example folder:
 
 conda activate protnaff
+
 jupyter notebook
 
 When this is done a web page should open, it is the notebook, to execute a cell you have to press Ctrl+Enter.
