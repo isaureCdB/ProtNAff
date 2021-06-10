@@ -19,7 +19,7 @@ The output of 1 for the PDB at a certain time will soon be downloadable from the
 ### Installation
 --------------------------------------------------------------------------
 
-For the installation come [here](../INSTALLATION.md)
+For the installation come [here](./INSTALLATION.md)
 
 --------------------------------------------------------------------------
 ### Testing and Examples
