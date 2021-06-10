@@ -32,7 +32,7 @@ cd trilib
 ln -fs ./../motifs.list .
 for m in `cat motifs.list`; do
     if [ ! -f $m-all-aa.npy ];then
-        ln -s ../$m-all-aa.npy
+        ln -fs ../$m-all-aa.npy
     fi
 done
 
