@@ -3,6 +3,8 @@
 #Author Isaure Chauvot de Beauchene, CNRS, LORIA. 2018
 
 # provide the type of nucleic acids (dna or rna)
+source $MY_CONDA/etc/profile.d/conda.sh
+conda activate protnaff
 na=$1
 
 wd=`pwd`
@@ -27,7 +29,7 @@ fi
 
 mkdir -p trilib
 cd trilib
-cp ./../motifs.list .
+ln -fs ./../motifs.list .
 for m in `cat motifs.list`; do
     if [ ! -f $m-all-aa.npy ];then
         ln -s ../$m-all-aa.npy

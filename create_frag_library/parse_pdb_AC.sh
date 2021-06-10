@@ -10,7 +10,6 @@ for i in `cat $filelist`; do
   outf=${i%%.pdb}-AC.pdb
   if [ -s $outf ]; then continue; fi
   if [ -s $i ] ; then
-    echo $outf
     echo $outf >> parse_pdb_AC.log
     resn=`head -1 $i | awk '{print substr($0,23,4)}'`
 

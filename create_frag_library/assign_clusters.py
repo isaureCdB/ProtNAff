@@ -59,7 +59,6 @@ for (a, b, c) in [(a, b, c) for a in s for b in s for c in s]:
     clust2 =  get_clust(motif + "-" + args.clustfiles[2])
     drname, name1, name2 = args.clustnames
     for nd, d in enumerate(dr):
-        print(d)
         center = d[0]
         outp[motif][str(center)]['%s_center'%drname] = True
         for frag in d:
