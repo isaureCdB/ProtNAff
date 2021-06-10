@@ -1,9 +1,0 @@
-cluster 1 => 1  2  3  4  9  10  11  12  17  18  
-cluster 2 => 5  13  21  27  
-cluster 3 => 7  8  15  16  
-cluster 4 => 19  25  
-cluster 5 => 20  26  
-cluster 6 => 6  14  
-cluster 7 => 24  30  
-cluster 8 => 23  29  
-cluster 9 => 22  28  
