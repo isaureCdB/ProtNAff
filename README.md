@@ -25,6 +25,17 @@ For the installation come [here](./INSTALLATION.md)
 ### Testing and Examples
 --------------------------------------------------------------------------
 
+There are several notebooks to help you to understand ProtNAff:
+
+- The [How_to_Use notebook](./example/how_to_use.ipynb) is a notebook that will
+help you to create a small database and your first fragment library. Add the
+end of the notebook you will do a small graph, to know is the installation is
+correct you can compare this graph to the one in the next notebook.
+
+- The [Test_Notebook](./example/test_notebook.ipynb) is a small notebook that create
+the graph that you need to obtain at the end of the previous notebook, if both
+graph are the same, then everything is fine.
+
 --------------------------------------------------------------------------
 ### Work in progress
 --------------------------------------------------------------------------

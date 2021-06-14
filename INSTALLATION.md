@@ -4,13 +4,13 @@ To install ProtNAff you need to be on Linux, it will not work on Windows and on 
 
 1. First you need to clone the repository using Git. To check if you have Git on your computer you can execute this command in a terminal:
 
-git --version
+`git --version`
 
 If you have a git version you can continue, else you need to install Git (https://git-scm.com/downloads)
 
 2. To clone the repository you can use this command (first go to the directory where you want to have ProtNAff):
 
-git clone https://github.com/isaureCdB/ProtNAff.git
+`git clone https://github.com/isaureCdB/ProtNAff.git`
 
 This will create a ProtNAff folder.
 
@@ -18,21 +18,18 @@ This will create a ProtNAff folder.
 
 When miniconda is installed you will be able to use both environement of ProtNAff, to do so you will need to lauch those lines into the ProtNAff folder:
 
-conda create -n protnaff --file protnaff_requirements.txt
+`conda create -n protnaff --channel conda-forge --file protnaff_requirements.txt`
 
-conda create -n attract --file attract_requirements.txt
+`conda create -n attract --channel schrodinger --file attract_requirements.txt`
+
+4. You need 1 more tool which is jq, on Ubuntu you can run the following command:
+
+`sudo apt install jq`
 
 4. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
+We created a bash file that will do it for you, run the following command:
 
-Copy paste those lines by changing user by the name of your user and path by the path to ProtNAff:
-
-echo 'export MY_CONDA=/home/user/miniconda3' >> ~/.bashrc
-
-echo 'export PROTNAFF=/path/ProtNAff/' >> ~/.bashrc
-
-echo 'export PATH=$PROTNAFF:$PATH' >> ~/.bashrc
-
-echo 'export PYTHONPATH=$PROTNAFF:$PYTHONPATH' >> ~/.bashrc
+`bash add_env_var.sh`
 
 5. Then you need to source your .bashrc or open a new terminal.
 
