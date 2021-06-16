@@ -10,6 +10,7 @@ d=`dirname "$0"`
 $d/select-struct-npy.py ${name}.npy ${name}-3at.npy \
   --atnames "P" "O3'" "C5" --template $template
 
+cut1=`echo $cut1 | cut -d "." -f 1`
 cut1=$((cut+1))
 echo $cut $cut1
 echo "$d/fastcluster_npy.py ${name}-3at.npy $cut1 --chunk 200"

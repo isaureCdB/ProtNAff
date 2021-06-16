@@ -10,7 +10,8 @@ conda activate protnaff
 set -u -e
 
 # Cluster fragments by RMSD.
-a=$((cut1+1))
+cut1=`echo $cut1 | cut -d "." -f 1`
+a=$((cut1 + 1))
 >&2 echo "-------------------------------------------------"
 >&2 echo "Cluster $m large ($a A); then tight ($cut1 A)"
 >&2 echo "-------------------------------------------------"
