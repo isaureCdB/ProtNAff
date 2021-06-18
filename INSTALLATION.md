@@ -18,9 +18,9 @@ This will create a ProtNAff folder.
 
 When miniconda is installed you will be able to use both environement of ProtNAff, to do so you will need to lauch those lines into the ProtNAff folder:
 
-`conda create -n protnaff --channel conda-forge --file protnaff_requirements.txt`
+`conda env create -f protnaff_environment.yml`
 
-`conda create -n attract --channel schrodinger --file attract_requirements.txt`
+`conda env create -f attract_environment.yml`
 
 4. You need 1 more tool which is jq, on Ubuntu you can run the following command:
 

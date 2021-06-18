@@ -1,0 +1,9 @@
+name: protnaff
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - notebook
+  - biopython==1.70.*
+  - scipy
+  - statsmodels
