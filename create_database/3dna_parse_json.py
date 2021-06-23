@@ -20,9 +20,9 @@ def pp(*x):
 
 def parse_nts(j):
     nts = [ j[x].split(".") for x in ["nt1","nt2"] ]
-    resint = [ int(x[3]) for x in nts ]
-    c = [ x[1] for x in nts ]
-    resid = [ x[3] for x in nts ]
+    resint = [ int(x[4]) for x in nts ]
+    c = [ x[2] for x in nts ]
+    resid = [ x[4] for x in nts ]
     return nts, resid, resint, c
 
 def dump_indiv(f, struct):
@@ -158,7 +158,7 @@ def check_breaks(js, c):
     if cc not in js["dbn"].keys(): return breaks
     bseq = js["dbn"][cc]["bseq"].strip()
     nts = [ jj for jj in js["nts"] if jj["chain_name"] == c]
-    nt_id = [ int(x["nt_id"].split(".")[3]) for x in nts ]
+    nt_id = [ int(x["nt_id"].split(".")[4]) for x in nts ]
     for nr, n in enumerate(nt_id):
         if bseq[nr] == "&":
             breaks.append(n)
@@ -203,8 +203,8 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
         # Ex of atom description by x3dna: "atom2_id": "N6@.M.RA.8.",
         atoms = [ j[x].split("@") for x in ["atom1_id", "atom2_id"]]
         residues = [ at[1].split(".") for at in atoms]
-        nt_indices = [ xr for (xr, x) in enumerate(residues) if x[2][0] == prefix and x[1] in chains]
-        aa_indices = [ xr for (xr, x) in enumerate(residues) if x[1] in protchains ]
+        nt_indices = [ xr for (xr, x) in enumerate(residues) if x[3][0] == prefix and x[2] in chains]
+        aa_indices = [ xr for (xr, x) in enumerate(residues) if x[2] in protchains ]
         res = [ residues[i] for i in nt_indices]
         aa = [ residues[i] for i in aa_indices]
         if len(res) == 0: continue
@@ -214,10 +214,10 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
             # 2 nucl in correct nucleic acid type
             at = [ a[0].split(".")[0] for a in atoms ]
             c = [x[1] for x in res ]
-            cc = [ "chain_"+x[1] for x in res ]
-            resint = [ int(x[3]) for x in res ]
+            cc = [ "chain_"+x[2] for x in res ]
+            resint = [ int(x[4]) for x in res ]
             rr  = [ "res_%i"%resint[i] for i in [0, 1]]
-            resname = [ x[2] for x in res ]
+            resname = [ x[3] for x in res ]
             for (a, b) in [(0, 1), (1, 0)]:
                 # get the nucleotide part involved in the hbond
                 part = dictcode[at[a]]
@@ -234,13 +234,13 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
             # !!! can be j["residue_pair"] == "nt:misc" (unknown?)
             try:
                 at = atoms[nt_indices[0]]
-                cc, rr = "chain_"+res[0][1], "res_"+res[0][3]
+                cc, rr = "chain_"+res[0][2], "res_"+res[0][4]
                 atname = at[0]
                 part = dictcode[atname]
                 code = codenames[part]
                 aa_at = atoms[aa_indices[0]]
                 aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
-                aa_name = aa_at[1].split(".")[2]
+                aa_name = aa_at[1].split(".")[3]
                 d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
             except:
                 print(j)
@@ -300,6 +300,7 @@ def get_pairs(js_pairs, d_ss, d_bptype):
         for i in [0, 1]:
             cc = "chain_"+c[i]
             rr = "res_"+resid[i]
+            print(cc, rr)
             if c[i] in chains:
                 if cc not in d_bptype:
                     d_bptype[cc] = {}
@@ -310,6 +311,7 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                 # the structure is "D" for undetermined double-stranded.
                 # It can be detailed further in the code (stem, helix, junction ...)
                 if j["name"] != "Platform" and j["name"] != "--":
+                    print(d_ss)
                     d_ss[cc][rr][0] = "D"
     return d_ss, d_bptype
 
@@ -317,8 +319,8 @@ def get_hairpins(js_hairpins, d_ss):
     for j in js_hairpins:
         nts = [ x.split(".") for x in j["nts_long"].split(",") ]
         for nr, n in enumerate(nts):
-            c = nts[nr][1]
-            resid = int(nts[nr][3])
+            c = nts[nr][2]
+            resid = int(nts[nr][4])
             if nr==0 or nr==len(nts)-1:
                 d_ss["chain_%s"%c]["res_%i"%resid] = ["D", 0, 0]
             else:
@@ -421,6 +423,7 @@ for struct in sorted(chainsmodels.keys()):
             cc="chain_"+c
             firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
             d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
+
             for m in range(1, d["Nmodels"]+1): # for each model
                 d = map_missing(d, cc, dict_n2to3)
                 d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
