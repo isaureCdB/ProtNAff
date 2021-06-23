@@ -22,18 +22,25 @@ When miniconda is installed you will be able to use both environement of ProtNAf
 
 `conda env create -f attract_environment.yml`
 
-4. You need 1 more tool which is jq, on Ubuntu you can run the following command:
+4. You need jq, on Debian you can run the following command:
 
 `sudo apt install jq`
 
-4. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
+5. ProtNAff needs x3dna-dssr to work. You will find the tool on this page:
+http://innovation.columbia.edu/technologies/CU20391, to open correctly the web page you need to be on
+chrome. You will ask for a licence, it may take few days to obtain it. When you will have download the
+executable, you have to add the directory on your PATH:
+
+echo 'export PATH=$PATH:$PWD' >> ~/.bashrc
+
+6. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
 We created a bash file that will do it for you, run the following command:
 
 `bash add_env_var.sh`
 
-5. Then you need to source your .bashrc or open a new terminal.
+7. Then you need to source your .bashrc or open a new terminal.
 
-6. The how_to_use.ipynb file is a jupyter notebook file, it will help you to understand how to use the tool.
+8. The how_to_use.ipynb file is a jupyter notebook file, it will help you to understand how to use the tool.
 To run it you need to run 2 command lines into the example folder:
 
 conda activate protnaff

@@ -6,7 +6,7 @@ inp=/tmp/$name-3dna.pdb
 outp1=/tmp/$name-3dna.json
 outp2=3dna/$name.snap
 
-$PROTNAFF/x3dna-dssr -i=$inp -o=$outp1 --non-pair --u-turn --po4 --json --idstr=long --more 2> 3dna.errors
+x3dna-dssr -i=$inp -o=$outp1 --non-pair --u-turn --po4 --json --idstr=long --more 2> 3dna.errors
 
 #x3dna-snap -i=$inp -o=$outp2 --cutoff=5.0 --get-hbond --t-shape 2>> 3dna.errors
 for j in `ls dssr-*`; do mv $j 3dna/$name-dssr-$j;done
