@@ -51,10 +51,10 @@ def check_ds_binding(pdb_id, chain_id, dir_3dna):
         for pair in pairs:
             nt1 = pair["nt1"]
             nt2 = pair["nt2"]
-            num_nt1 = int(nt1.split('.')[3])
-            chain_nt1 = nt1.split('.')[1]
-            num_nt2 = int(nt2.split('.')[3])
-            chain_nt2 = nt2.split('.')[1]
+            num_nt1 = int(nt1.split('.')[4])
+            chain_nt1 = nt1.split('.')[2]
+            num_nt2 = int(nt2.split('.')[4])
+            chain_nt2 = nt2.split('.')[2]
             if chain_nt1 == chain_id and chain_nt2 == chain_id:
                 couples.append([num_nt1, num_nt2])
     except:
@@ -91,7 +91,6 @@ def query_hairpin(pdb_id, pdb_info, chain_id, dir_3dna, interact, length_ds, len
     # If there is less ss nucleotide than the minimum size of the ss part, then exit
     if len(nucl_ss) < length_ss:
         return nuclfrag
-
     list_ds = []
     for x in nucl_ds:
         try:
