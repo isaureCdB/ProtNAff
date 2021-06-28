@@ -27,14 +27,20 @@ For the installation come [here](./INSTALLATION.md)
 
 There are several notebooks to help you to understand ProtNAff:
 
-- The [How_to_Use notebook](./example/how_to_use.ipynb) is a notebook that will
+- The [example notebook](./example/example.ipynb) is a notebook that will
 help you to create a small database and your first fragment library. Add the
 end of the notebook you will do a small graph, to know is the installation is
 correct you can compare this graph to the one in the next notebook.
 
-- The [Test_Notebook](./example/test_notebook.ipynb) is a small notebook that create
+- The [test notebook](./example/test.ipynb) is a small notebook that create
 the graph that you need to obtain at the end of the previous notebook, if both
 graph are the same, then everything is fine.
+
+- The [data_protnaff notebook](./data_protnaff.ipynb) is a notebook that will
+create the JSONs containing the data used for the paper.
+
+- The [figures_protnaff notebook](./figures_protnaff.ipynb) is the notebook that
+uses the JSONs from `data_protnaff.ipynb` to create the figures from the paper.
 
 --------------------------------------------------------------------------
 ### Work in progress
