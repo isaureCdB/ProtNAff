@@ -334,7 +334,7 @@ def get_junctions(js_junctions, d_ss):
             l = jj["num_nts"]
             for nr, n in enumerate(nts):
                 if len(n) < 2 : continue
-                resid, resint, c = n[3], int(n[3]), n[1]
+                resid, resint, c = n[4], int(n[4]), n[2]
                 d_ss["chain_"+c]["res_%i"%resint] = ["J", nr , l]
     return d_ss
 
@@ -342,11 +342,11 @@ def get_ss(js_ssSegments, d_ss):
     #TODO : distinguish T from full-ss NA
     for j in js_ssSegments:
         nts = [ x.split(".") for x in j["nts_long"].split(",") ]
-        c = nts[0][1]
+        c = nts[1][1]
         if c not in chains: continue
         l = j["num_nts"]
         for nr, n in enumerate(nts):
-            resid, resint, c = n[3], n[3], n[1]
+            resid, resint, c = n[4], n[4], n[2]
             d_ss["chain_"+c]["res_%i"%resint] = ["S", nr + 1 , l]
             if int(resint)+1 in d["breaks"]["chain_"+c]:
                 d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
@@ -355,9 +355,9 @@ def get_ss(js_ssSegments, d_ss):
             resint = nts[-1][3]
             nr = len(nts)
             d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
-        if int(nts[0][3]) == firstres:
+        if int(nts[1][3]) == firstres:
             #5'-term ssSegments
-            resint = nts[0][3]
+            resint = nts[1][3]
             nr = 0
             d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
 
