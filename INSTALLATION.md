@@ -40,12 +40,12 @@ We created a bash file that will do it for you, run the following command:
 
 7. Then you need to source your .bashrc or open a new terminal.
 
-8. The how_to_use.ipynb file is a jupyter notebook file, it will help you to understand how to use the tool.
+8. The `example.ipynb` file is a jupyter notebook file, it will help you to understand how to use the tool.
 To run it you need to run 2 command lines into the example folder:
 
-conda activate protnaff
+`conda activate protnaff`
 
-jupyter notebook
+`jupyter notebook`
 
 When this is done a web page should open, it is the notebook, to execute a cell you have to press Ctrl+Enter.
 
