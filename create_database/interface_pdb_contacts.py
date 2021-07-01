@@ -295,6 +295,8 @@ for struc in inlist:
                 else:
                     hetatoms, protatoms = process_protchains(chain, hetatoms, protatoms)
             naarray = np.array([a.get_coord() for a in naatoms])
+            if len(list(naarray.shape)) < 2:
+                continue
             natree = KDTree(naarray)
             protmin, _ , prot_interf = get_interf_res(protatoms, natree, model)
             hetmin, _ , het_interf = get_interf_res(hetatoms, natree, model)

@@ -409,10 +409,13 @@ for struct in sorted(chainsmodels.keys()):
     d = chainsmodels[struct]
     # get data from x3dna output
     inp = "3dna/%s-1-dssr.json"%struct #output from 3dna-dssr
-    if not os.path.exists(inp):
+    if not os.path.exists(inp) and os.stat(inp).st_size == 0:
         print("%s does not exist"%inp)
         continue
-    js = json.load(open(inp))
+    try:
+        js = json.load(open(inp))
+    except:
+        continue
     # initialise dictionary for the current structure
     chains = d["nachains"]  #list of IDs for rna/dna chains
     protchains = d["protchains"]
