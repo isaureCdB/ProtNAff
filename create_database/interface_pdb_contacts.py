@@ -216,7 +216,7 @@ parser.add_argument("--replace", help="replace entries already in outp", action=
 
 args = parser.parse_args()
 
-parser = PDBParser()
+parser = PDBParser(QUIET=True)
 pdbl = PDBList()
 io = PDBIO()
 threshold = 8
@@ -264,7 +264,6 @@ for struc in inlist:
     if struc in out_init and not args.replace:
         out[struc] = out_init[struc]
         continue
-    print(struc, file=sys.stderr)
     if not os.path.exists(args.inpdir+"/"+struc+'.pdb'):
         print("ERROR: "+args.inpdir+"/"+struc+".pdb does not exist")
         continue

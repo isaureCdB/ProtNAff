@@ -16,7 +16,6 @@ def testpathjson(jsonfile):
         dictname = json.load(open(jsonfile))
     else:
         dictname = {}
-        print('%s does not exist'%jsonfile, file=sys.stderr)
         #exec( dictname + "= {}" )
     return dictname
 
@@ -34,7 +33,7 @@ def del_chain(struc, c):
         del js[struc]
 
 def process_struc(struc, out, args):
-    print("process %s"%struc, file=sys.stderr)
+    print("process %s"%struc, file=sys.stdout)
     d = js[struc]
     out[struc] = d
     d['canonized'] = {}
@@ -50,7 +49,7 @@ def process_struc(struc, out, args):
                 #print("processing %s %s"%(struc, c), file=sys.stderr)
                 inpfile = "%s/%s%s-%i.pdb"%(args.inpdir, struc, c, m)
                 if not os.path.exists(inpfile):
-                    print("%s does not exist"%inpfile, file=sys.stderr)
+                    print("%s does not exist"%inpfile, file=sys.stdout)
                     #del_chain(struc, c)
                     continue
                 inf = open(inpfile,'r')
@@ -179,7 +178,6 @@ for struc in todo:
                 continue
             if args.delete:  # do not replace already existing entries
                 out[struc] = out_init[struc]
-            print("skipping %s"%struc, file=sys.stderr)
             continue
         out = process_struc(struc, out, args)
     except:

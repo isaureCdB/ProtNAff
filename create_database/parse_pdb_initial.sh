@@ -19,7 +19,6 @@ for inp in `cat $filelist`; do
     continue
   fi
   chain=`awk '$1=="ATOM"||$1=="HETATM"{print substr($0,22,1);exit}' $inp`
-  echo "------------------------------------ "$inp $chain >> /dev/stderr
   echo "------------------------------------ "$inp >> parse_pdb_initial.err
   first=`awk '$1=="ATOM"||$1=="HETATM"{printf "%i", substr($0,23,4); exit}' $inp`
 
@@ -28,7 +27,4 @@ for inp in `cat $filelist`; do
   --mutate $d/../data/${na}lib/mutate.list --${na}_chain $chain \
   | awk 'NF==2' > $mapping
 
-  if [ -s $outf ]; then
-    echo $outf
-  fi
 done

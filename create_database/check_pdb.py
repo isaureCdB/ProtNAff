@@ -75,7 +75,7 @@ parser.add_argument("mutatelist",help="[d/r]nalib/mutate.list")
 parser.add_argument("na",help="dna or rna")
 args = parser.parse_args()
 
-parser = PDBParser()
+parser = PDBParser(QUIET=True)
 
 modified = set([l.split()[0] for l in open(args.mutatelist)])
 canonical = set(["DT", "DC", "DG", "DA", "C", "T", "A", "G", "PSU", "7AT",
@@ -122,12 +122,10 @@ for l in open(args.inplist):
         struc = l.strip()
         filename = "%s/%s.pdb"%(args.inpdir, struc)
         if struc in done:
-            print('%s done'%struc)
             continue
         if not os.path.exists(filename) or os.stat(filename).st_size==0:
-            print("ERROR: %s/%s.pdb does not exist"%(args.inpdir, struc))
+            print("ERROR: %s/%s.pdb does not exist"%(args.inpdir, struc), file=sys.stdout)
             continue
-        print('-------------------------------' + struc, file=sys.stderr)
         structure = parser.get_structure(struc, filename)
         if structure.header['structure_method'] == "x-ray diffraction":
             if float(structure.header['resolution']) > 3.5:
@@ -135,7 +133,7 @@ for l in open(args.inplist):
                 print(struc, file = corrupted)
                 continue
         if check_models_chains(structure):
-            print("%s has different MODELS => to fix"%struc)
+            print("%s has different MODELS => to fix"%struc, file=sys.stderr)
             print(struc, file = tofix)
             continue
         nachains = []
@@ -156,7 +154,7 @@ for l in open(args.inplist):
             continue
         alternates = check_alternate(filename, nachains)
         if alternates:
-            print("%s has alternate atoms => splited"%struc)
+            print("%s has alternate atoms => splited"%struc, file=sys.stderr)
             select_alternate_conf("%s/%s.pdb"%(args.inpdir, struc))
             print(struc, file = splitted)
             for a in alternates:

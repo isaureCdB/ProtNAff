@@ -18,10 +18,8 @@ for i in `cat  $filelist`; do
       continue
   fi
   if [ ! -s $i ] ; then
-    echo "$i does not exist "
     continue
   fi
-  echo $i $outf
   resn=`head -1 $i | awk '{print substr($0,23,4)}'`
   chain=`echo $i|awk -F "-" '{print substr($1,length($1),1)}'`
 
@@ -33,6 +31,5 @@ $d/pdbcompletion.py $i $outf --$na --heavy \
 
   if [ ! -f $outf ]; then
       touch $outf
-      echo "missing $outf"
   fi
 done

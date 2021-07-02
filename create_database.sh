@@ -10,7 +10,6 @@ na=$2
 
 wd=`pwd`
 x=$PROTNAFF
-echo $x
 d="$x/create_database/"
 
 set -u -e
@@ -22,8 +21,7 @@ cd brutPDBs
 # Download only files that have not yet been downloaded
 for i in `cat $pdbcodes|awk '{print toupper($0)}'`; do
     if [ ! -s $i.pdb ] && [ ! -s $i.pdb.bz2 ] ;then
-      echo "downloading $i"
-      $PROTNAFF/pdb_download $i .
+      $PROTNAFF/create_database/pdb_download $i .
       if [ -f $i.pdb ]; then
         sed -i 's/SE   MSE/ SD  MSE/' $i.pdb
         sed -i 's/MSE/MET/' $i.pdb
@@ -75,10 +73,6 @@ $d/clean_rna.py 'chainsmodels/' 'cleanPDB/' cleanPDB.list \
   $d/${na}lib/mutate.list chainsmodels.json \
   clean_rna.json $na > clean.err
 
-if [ -s cleanPDB/4RZRB-1.pdb ];then
-  $d/modif_atnames_4RZRB.sh
-fi
-
   ### Applies aareduce to remove non-NA. Creates:
   #    - parse_pdb_initial.errors
   #    - cleanPDB/xxxxX-y-iniparse.pdb
@@ -117,7 +111,7 @@ echo "--------------------------------- Fill-up missing atoms "
       #   - 'missings' : residues with missing atoms (if too many => deleted)
       #   - 'sequence'
 $d/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
-  excised.list $na
+  excised.list $na > excise.log 2> excise.err
 
   ### Fill-up missing atoms
       #    create: _ parse_pdb.errors
@@ -139,7 +133,9 @@ echo "-------------------------------- apply 3dna"
 ##########################################################################
 mkdir -p 3dna
 ### concatenate protein and RNA chains for each model###
-$d/3dna.py excise.json $d/3dna.sh
+$d/3dna.py excise.json $d/3dna.sh > 3dna.log 2> 3dna.err
 # Convert data per structure into data per nucleotide
 $d/3dna_parse_json.py excise.json structures.json $na > 3dna_parse_json.log \
     2> 3dna_parse_json.err
+
+echo "Done"

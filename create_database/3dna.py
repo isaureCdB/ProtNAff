@@ -23,7 +23,7 @@ for struct in sorted(chainsmodels.keys()):
     x ="3dna/%s-1-dssr.json"%struct
     if os.path.exists(x) and os.path.getsize(x) > 0:
         continue
-    print(struct, file=sys.stderr)
+    print(struct, file=sys.stdout)
     Nmodels = d['Nmodels']
     chains = d['nachains']
     x3dna(struct, chains, Nmodels)

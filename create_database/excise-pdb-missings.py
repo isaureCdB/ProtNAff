@@ -29,7 +29,7 @@ def testpathjson(jsonfile):
     return dictname
 
 def del_chain(struc, c):
-    print('del %s %s'%(struc, c), file=sys.stderr)
+    print('del %s %s'%(struc, c), file=sys.stdout)
     global out
     d = out[struc]
     cc="chain_%s"%c
@@ -41,7 +41,7 @@ def del_chain(struc, c):
         d["nachains"].remove(cc)
     if len(d["nachains"]) == 0:
         del out[struc]
-        print('deleted struc %s'%struc)
+        print('deleted struc %s'%struc, file=sys.stdout)
         return 1
     return 0
 
@@ -112,7 +112,7 @@ for struc in list:
         and not args.checkinp:
         out[struc] = out_init[struc]
         continue
-    print(struc, file=sys.stderr)
+    print(struc, file=sys.stdout)
     try:
         d = chainsmodels[struc]
         chains = copy.deepcopy(d["nachains"])
@@ -127,13 +127,13 @@ for struc in list:
             for m in range(1, d["Nmodels"]+1):
                 inp = "%s/%s%s-%i-iniparse.pdb"%(args.inpdir, struc, c, m)
                 if not os.path.exists(inp):
-                    print('%s does not exist'%inp, file=sys.stderr)
+                    print('%s does not exist'%inp, file=sys.stdout)
                     if args.checkinp:
                         delstruc = del_chain(struc, c)
                     continue
                 outfile = "%s/%s%s-%i-iniparse-excise.pdb"%(args.inpdir, struc, c, m)
                 if os.path.exists(outfile):
-                    print('%s already exists'%outfile, file=sys.stderr)
+                    print('%s already exists'%outfile, file=sys.stdout)
                     if m > 1 or ("sequence" in d and c in d["sequence"]):
                         continue
                 #print("processing %s %s"%(struc, c), file=sys.stderr)
@@ -176,7 +176,6 @@ for struc in list:
                         d["breaks"][cc].append(resi)
                 ########################
                 outf = open(outfile, "w")
-                print(outfile)
                 for l in L:
                     print(l, end='', file = outf)
                 outf.close()
