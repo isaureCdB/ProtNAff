@@ -15,7 +15,8 @@ for i in `cat $filelist`; do
 
     $d/pdbcompletion.py $i $outf --$na --heavy --mutate $mutationlist \
     --patch None $resn None > /dev/null 2>> parse_pdb_AC.log
-
+    
+    echo "$i mutated"
   else
     echo  "$i does not exist"
     touch $outf

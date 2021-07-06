@@ -1,6 +1,6 @@
 # Installation of ProtNAff
 
-To install ProtNAff you need to be on Linux, it will not work on Windows and on MacOS.
+To install ProtNAff you need to be on Linux, it will not work on Windows. It should work on MacOSX (untested!) if you use a bash shell.
 
 1. First you need to clone the repository using Git. To check if you have Git on your computer you can execute this command in a terminal:
 
@@ -14,7 +14,9 @@ If you have a git version you can continue, else you need to install Git (https:
 
 This will create a ProtNAff folder. **Move into this folder.**
 
-3. You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environement to switch from python2 to python3.
+3. You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environments to switch from python2 to python3.
+
+It is recommended to set `conda config --set channel_priority strict`, else the installation can be quite slow.
 
 When miniconda is installed you will be able to use both environement of ProtNAff, to do so you will need to lauch those lines into the ProtNAff folder:
 
@@ -22,16 +24,19 @@ When miniconda is installed you will be able to use both environement of ProtNAf
 
 `conda env create -f attract_environment.yml`
 
-4. You need jq, on Debian you can run the following command:
+4. You need jq and wget, on Debian you can run the following command:
 
-`sudo apt install jq`
+`sudo apt install jq wget`
 
 5. ProtNAff needs x3dna-dssr to work. You will find the tool on this page:
 http://innovation.columbia.edu/technologies/CU20391, to open correctly the web page you need to be on
 chrome. You will ask for a licence, it may take few days to obtain it. When you will have download the
 executable, you have to add the directory on your PATH:
 
-echo 'export PATH=$PATH:$PWD' >> ~/.bashrc
+```bash
+ls ./x3dna-dssr
+echo 'export PATH=$PATH:'$(pwd) >> ~/.bashrc
+```
 
 6. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
 We created a bash file that will do it for you, run the following command:
