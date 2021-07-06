@@ -33,7 +33,7 @@ def del_chain(struc, c):
         del js[struc]
 
 def process_struc(struc, out, args):
-    print("process %s"%struc, file=sys.stdout)
+    print("process %s"%struc, file=sys.stderr)
     d = js[struc]
     out[struc] = d
     d['canonized'] = {}
@@ -49,7 +49,7 @@ def process_struc(struc, out, args):
                 #print("processing %s %s"%(struc, c), file=sys.stderr)
                 inpfile = "%s/%s%s-%i.pdb"%(args.inpdir, struc, c, m)
                 if not os.path.exists(inpfile):
-                    print("%s does not exist"%inpfile, file=sys.stdout)
+                    print("%s does not exist"%inpfile, file=sys.stderr)
                     #del_chain(struc, c)
                     continue
                 inf = open(inpfile,'r')
@@ -193,7 +193,7 @@ for struct in out:
                 outfile = "%s/%s%s-%i.pdb"%(args.outdir, struct, c, m)
                 print(outfile, file=outlist)
     except:
-        print("ERROR on {}".format(struc))
+        print("ERROR on {}".format(struc), file=sys.stderr)
         pass
 outlist.close()
 

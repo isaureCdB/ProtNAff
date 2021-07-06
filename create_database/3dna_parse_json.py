@@ -51,6 +51,7 @@ def map_indices(struct, c):
         dict_n2to3[ll[0]] = ll[1]
         dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
     #
+
     nind = [int(i) for i in dict_n3to1]
     firstres, lastres = min(nind), max(nind)
     #
@@ -311,7 +312,7 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                 # the structure is "D" for undetermined double-stranded.
                 # It can be detailed further in the code (stem, helix, junction ...)
                 if j["name"] != "Platform" and j["name"] != "--":
-                    print(d_ss)
+                    print(d_ss, file=sys.stderr)
                     d_ss[cc][rr][0] = "D"
     return d_ss, d_bptype
 
@@ -424,7 +425,9 @@ for struct in sorted(chainsmodels.keys()):
         try:
             pp("%s_%s"%(struct, c))
             cc="chain_"+c
+
             firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
+
             d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
 
             for m in range(1, d["Nmodels"]+1): # for each model

@@ -9,7 +9,7 @@ from copy import deepcopy
 import topology, traceback
 
 def pp(i):
-    print(i, file=sys.stdout)
+    print(i, file=sys.stderr)
 
 currdir = os.path.abspath(os.path.split(__file__)[0])
 
@@ -317,7 +317,7 @@ def apply_nalib(pdb, lib, manual, heavy=True):
     """
     Add missing atoms using a nucleotides lib
     """
-    print("apply_nalib  NAfragDB", file=sys.stdout)
+    print("apply_nalib  NAfragDB", file=sys.stderr)
     #assert heavy == True #TODO: remove this when the rna library has hydrogens
     syspath = list(sys.path)
     if "ATTRACTTOOLS" in os.environ:
@@ -365,8 +365,8 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                         break
                 else:
                     msg = 'residue %s could not be fixed'%res.resid
-                    print("missing atoms: ", file=sys.stdout)
-                    print(missing, file=sys.stdout)
+                    print("missing atoms: ", file=sys.stderr)
+                    print(missing, file=sys.stderr)
                     break
                     #raise FixError(msg)
                 #print("fixing %s"%fixmode, file=sys.stderr)
@@ -377,7 +377,7 @@ def apply_nalib(pdb, lib, manual, heavy=True):
                         lib_complete_indices.append(anr)
                 #TODO: change clashing threshold when not --heavy
                 #optimize: if clashes, take next nucleotide in mononucl_library
-                print('optimize resid %s %s'%(res.resname, res.resid), file=sys.stdout)
+                print('optimize resid %s %s'%(res.resname, res.resid), file=sys.stderr)
                 for nl, libconf in enumerate(libcoor_fitted_sorted):
                     clashing = check_clashes(nl, libconf, lib_complete_indices, new_at_all, tree, atom_to_residue)
                     if not clashing:
@@ -394,7 +394,7 @@ def apply_nalib(pdb, lib, manual, heavy=True):
         except FixError as err:
             if manual is not None:
                 e = "\n" + "!"*60 + "\n"
-                print(e + "WARNING: " + err.args[0] + e, file=sys.stdout)
+                print(e + "WARNING: " + err.args[0] + e, file=sys.stderr)
             else:
                 raise
         for a in new_at:
@@ -424,7 +424,7 @@ def get_atomcode_resname(l, mutations, mapnuc, is_dna, is_rna):
     if resname=="MSE" and atomcode=='SE':atomcode='SD'
     if resname=="MSE":  resname="MET"
     if resname in mutations:
-        print("replaces %s by %s"%(resname, mutations[resname]), file=sys.stdout)
+        print("replaces %s by %s"%(resname, mutations[resname]), file=sys.stderr)
         resname = mutations[resname]
     if resname in mapnuc:
         if is_dna:
@@ -480,6 +480,7 @@ mapnucrev = {
   "RG":"G",
   "DT":"T",
   "RU":"U",
+  "RT":"U"
   }
 #nucnames = set(mapnucrev.keys()) and set(mapnuc.keys())
 
@@ -512,7 +513,7 @@ def read_pdb(pdblines, pdbname, top_residues, is_dna, is_rna, heavy,
     atomlines = []
     ter_indices = []
     pdblines = list(pdblines)
-    print("read_pdb", file=sys.stdout) ###
+    print("read_pdb", file=sys.stderr) ###
 
     if (modbase or modres):
         # check for each residue containing some HETATM if it is a base/aa
@@ -616,9 +617,9 @@ def eval_moltype(pdbres):
         if is_prot and is_na:
             break
     if is_prot:
-        print('input contains protein', file=sys.stdout)
+        print('input contains protein', file=sys.stderr)
     if is_na:
-        print('input contains nucleic acids', file=sys.stdout)
+        print('input contains nucleic acids', file=sys.stderr)
     return is_prot, is_na
 
 def write_pdb(pdbres, args, patches={}, heavy = False,
@@ -752,7 +753,7 @@ def get_topologies(toplist):
                 ]
 
     for f in toplist:
-        print(f, file=sys.stdout)
+        print(f, file=sys.stderr)
         assert os.path.exists(f), f
         topfiles.append(f)
 
@@ -761,7 +762,7 @@ def get_topologies(toplist):
         try:
             topologies.append(topology.load(json.load(open(f))))
         except:
-            print(f, file=sys.stdout)
+            print(f, file=sys.stderr)
             raise
     top_residues, top_patches = topology.merge(topologies)
     return top_residues, top_patches
@@ -792,14 +793,14 @@ def run_pdbcomplete(pdbfile, args):
 
     for p in args.patches:
         chain, resid = p[0], p[1]
-        print("chain %s"%chain, file=sys.stdout)
+        print("chain %s"%chain, file=sys.stderr)
         if chain != "None":
             ###print([ (r.resid.strip(),r.chain.strip() )for r in pdb], file=sys.stderr)
             resindices = [ri for ri,r in enumerate(pdb) if r.resid.strip() == resid and r.chain.strip() == chain]
         else:
             resindices = [ri for ri,r in enumerate(pdb) if r.resid.strip() == resid]
         if len(resindices) == 0:
-            print("WARNING: No residues have chain %s resid %s" %(chain, resid),file=sys.stdout)
+            print("WARNING: No residues have chain %s resid %s" %(chain, resid),file=sys.stderr)
             continue ####
         elif len(resindices) > 1:
             raise ValueError("Multiple residues have resid %s" % resid)
@@ -824,13 +825,13 @@ def run_pdbcomplete(pdbfile, args):
         if args.dna:
             libname = "dnalib"
         nalib = load_nalib(libname)
-        print('apply_nalib NAfragDB, manual %s'%args.manual, file=sys.stdout)
+        print('apply_nalib NAfragDB, manual %s'%args.manual, file=sys.stderr)
         apply_nalib(pdb, nalib, args.manual)
 
     # If hydrogen must be added to DNA/RNA, pdb2pqr must be used after nalib
     # If protein in input, apply pdb2pqr
     if is_prot or not args.heavy:
-        print('apply_pdb2pqr', file=sys.stdout)
+        print('apply_pdb2pqr', file=sys.stderr)
         pdblines, mapping, mutations_5ter = write_pdb(pdb, args, patches, manual=args.manual, pdb2pqr=True)
         pqrlines = run_pdb2pqr(pdblines)
         pqr, ter_indices = read_pdb(pqrlines, "<PDB2PQR output from %s>" % pdbfile, top_residues,

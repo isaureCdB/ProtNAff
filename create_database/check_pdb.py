@@ -124,7 +124,7 @@ for l in open(args.inplist):
         if struc in done:
             continue
         if not os.path.exists(filename) or os.stat(filename).st_size==0:
-            print("ERROR: %s/%s.pdb does not exist"%(args.inpdir, struc), file=sys.stdout)
+            print("ERROR: %s/%s.pdb does not exist"%(args.inpdir, struc), file=sys.stderr)
             continue
         structure = parser.get_structure(struc, filename)
         if structure.header['structure_method'] == "x-ray diffraction":
@@ -149,7 +149,7 @@ for l in open(args.inplist):
                     nachains.append(c)
                     break
         if not len(nachains):
-            print("%s contain no %s chains"%(struc, args.na))
+            print("%s contain no %s chains"%(struc, args.na), file=sys.stderr)
             print(struc, file = corrupted)
             continue
         alternates = check_alternate(filename, nachains)

@@ -84,7 +84,7 @@ class PDBres:
         self.topology = topology
 
 def pp(i):
-    print(i, file=sys.stdout)
+    print(i, file=sys.stderr)
 
 def read_filelist(filelist):
     ret = []
@@ -119,7 +119,7 @@ def read_models(pdb):
             pdbs.append([])
         if ll[0] not in ["ATOM","TER","HETATM"]: continue
         if l0 == "HETATM" and not args.modres and not args.modbase:
-            print("discarde %s"%l, file=sys.stdout) ###
+            print("discarde %s"%l, file=sys.stderr) ###
             continue
         outp.write(l)
         pdbs[-1].append(l)
@@ -199,7 +199,7 @@ for f in topfiles:
     try:
         topologies.append(topology.load(json.load(open(f))))
     except:
-        print(f, file=sys.stdout)
+        print(f, file=sys.stderr)
         raise
 top_residues, top_patches = topology.merge(topologies)
 

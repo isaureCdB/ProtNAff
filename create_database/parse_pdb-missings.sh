@@ -25,7 +25,7 @@ for i in `cat  $filelist`; do
 
 $d/pdbcompletion.py $i $outf --$na --heavy \
 --${na}_chain $chain --modbase --mutate $d/../data/${na}lib/mutate.list \
---patch None $resn None --manual residual > $name-aa.mapping
+--patch None $resn None --manual residual > $name-aa.mapping 2> pdbcompletion.err
 
   echo $outf >> clean-iniparse-aa.list
 

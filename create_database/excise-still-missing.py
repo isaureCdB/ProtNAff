@@ -42,13 +42,13 @@ for filename in [l.strip() for l in open(inplist)]:
     d = js[struc]
     mapping = js['mapping'][c]
     if not os.path.exists(filename):
-        print('ERROR: %s does not exist'%inp, file=sys.stdout)
+        print('ERROR: %s does not exist'%inp, file=sys.stderr)
         raise
     target = "%s/%s%s-%i-iniparse-aa.pdb"%(inpdir, struc, c, m)
     if os.path.exists(target):
-        print('%s already exists'%target, file=sys.stdout)
+        print('%s already exists'%target, file=sys.stderr)
         continue
-    print("processing %s %s"%(struc, c), file=sys.stdout)
+    print("processing %s %s"%(struc, c), file=sys.stderr)
     L, lines, seq = [], [], []
     resi = -999
     for l in open(inp, 'r'):
@@ -69,7 +69,7 @@ for filename in [l.strip() for l in open(inplist)]:
     L = process(missing, mapping[resi], L, lines)
 
     outf = open(target, "w")
-    print(target, file=sys.stdout)
+    print(target, file=sys.stderr)
     for l in L:
         print(l, end='', file = outf)
     outf.close()

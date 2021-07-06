@@ -43,7 +43,7 @@ echo "-------------------------- check pdb"
 ##########################################################################
 $d/check_pdb.py brutPDBs/ $pdbcodes corrupted_pdb_files.list \
   tofix.list checked.list splitted.list $d/${na}lib/mutate.list \
-   $na
+   $na 2> check_pdb.err
 sort -u checked.list > bi; mv -f bi checked.list
 
 ##########################################################################
@@ -59,7 +59,7 @@ echo "-------------------------- detect NA - protein interface "
   #    defaults: update output json with new entries in input
 $d/interface_pdb_contacts.py 5 brutPDBs chainsmodels checked.list \
   $d/${na}lib/mutate.list chainsmodels.json $na \
-   > interface_pdb_contacts.log
+   > interface_pdb_contacts.log 2> interface_pdb_contact.err
 
 ##########################################################################
 echo "---------------------------------  parse initial pdb"
@@ -71,14 +71,14 @@ echo "---------------------------------  parse initial pdb"
   # TODO: remove clashing atoms
 $d/clean_rna.py 'chainsmodels/' 'cleanPDB/' cleanPDB.list \
   $d/${na}lib/mutate.list chainsmodels.json \
-  clean_rna.json $na > clean.err
+  clean_rna.json $na 2> clean.err
 
   ### Applies aareduce to remove non-NA. Creates:
   #    - parse_pdb_initial.errors
   #    - cleanPDB/xxxxX-y-iniparse.pdb
   #    - cleanPDB/xxxxX-y.mapping
   # Marks missing atoms by XXX coordinates
-$d/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list
+$d/parse_pdb_initial.sh cleanPDB.list $na >> clean-iniparse.list 2> parse_pdb_initial.err
 sort -u clean-iniparse.list > bi; mv -f bi clean-iniparse.list
 
 # This section is to create a library of mononucleotide, to be used by the
@@ -111,7 +111,7 @@ echo "--------------------------------- Fill-up missing atoms "
       #   - 'missings' : residues with missing atoms (if too many => deleted)
       #   - 'sequence'
 $d/excise-pdb-missings.py cleanPDB clean_rna.json excise.json \
-  excised.list $na > excise.log 2> excise.err
+  excised.list $na > excise.log
 
   ### Fill-up missing atoms
       #    create: _ parse_pdb.errors
