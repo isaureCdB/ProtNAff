@@ -12,7 +12,7 @@ If you have a git version you can continue, else you need to install Git (https:
 
 `git clone https://github.com/isaureCdB/ProtNAff.git`
 
-This will create a ProtNAff folder.
+This will create a ProtNAff folder. **Move into this folder.**
 
 3. You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environement to switch from python2 to python3.
 
