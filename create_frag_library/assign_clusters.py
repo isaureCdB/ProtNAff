@@ -29,8 +29,8 @@ def get_clust(filename):
     return clusters
 
 s = ["C", "A"]
-if na == 'dna':
-    s = ["G", "T"]
+#if na == 'dna':
+#    s = ["G", "T"]
 
 mutations = {'G': 'A', 'U': 'C', 'T': 'C'}
 mutpattern = [[a, b, c] for a in [0, 1] for b in [0, 1] for c in [0, 1] ]
