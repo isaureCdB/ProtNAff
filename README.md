@@ -42,7 +42,7 @@ create the JSONs containing the data used for the paper.
 - The [figures_protnaff notebook](./figures_protnaff.ipynb) is the notebook that
 uses the JSONs from `data_protnaff.ipynb` to create the figures from the paper.
 
-- The [figures_dna_protnaff notebook](./figures_dna_protnaff.fr) is a notebook
+- The [figures_dna_protnaff notebook](./figures_dna_protnaff.ipynb) is a notebook
 that is doing the figures for DNA instead of RNA, there is not a lot of changes
 compared to both data_protnaff and figures_protnaff.
 
