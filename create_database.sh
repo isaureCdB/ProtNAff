@@ -15,7 +15,7 @@ t=5
 
 while getopts ":t:" opt; do
   case $opt in
-    c)
+    t)
       t=$OPTARG
       ;;
     \?)
@@ -30,7 +30,6 @@ while getopts ":t:" opt; do
 done
 
 shift "$((OPTIND - 1))"
-
 # provide a list of PDB codes of structures to parse
 pdbcodes=$1
 
