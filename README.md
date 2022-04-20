@@ -116,9 +116,9 @@ Here the main scripts are decribed:
   - input: a list of pdb ids, and rna/dna depending of what nucleic acids you are working on
   - ouput: the `structures.json` file
 
-* `cretae_frag_library.sh` the script to create the fragment libraries
+* `create_frag_library.sh` the script to create the fragment libraries
   - input: rna/dna depending of what nucleic acids you are working on, the `structures.json` is needed
-  - ouput: `fragments.json` and `fragments_clust.json`
+  - output: `fragments.json` and `fragments_clust.json`
 
 Some useful scripts:
 
