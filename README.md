@@ -90,23 +90,27 @@ Installation instructions are [here](./INSTALLATION.md)
 
 There are several notebooks to help you to understand ProtNAff:
 
-- The [example notebook](./example/example.ipynb) notebook helps
+- The [example notebook](./example/example.ipynb) helps
 you create a small database and your first fragment library. At the
 end of the notebook, a graph is creates to check if the installation is
 correct, by comparing this graph to the one in the next notebook.
 
-- The [test notebook](./example/test.ipynb) notebook creates the same graph
+- The [test notebook](./example/test.ipynb) creates the same graph
 as should be obtained at the end of the example notebook: if both
 graphs are identical, the installation went fine.
 
-- The [data_protnaff notebook](./data_protnaff.ipynb) notebook creates
+- The [data_protnaff notebook](./data_protnaff.ipynb) creates
 the JSON files containing the data uses for analyses in the protNAff paper.
 
-- The [figures_protnaff notebook](./figures_protnaff.ipynb) notebook uses
+- The [figures_protnaff notebook](./figures_protnaff.ipynb) uses
 the JSON files created by `data_protnaff.ipynb` to create the figures in the paper.
 
-- The [figures_dna_protnaff notebook](./figures_dna_protnaff.fr) notebook creates
+- The [figures_dna_protnaff notebook](./figures_dna_protnaff.ipynb)creates
 the same figures as previously but for DNA instead of RNA.
+
+
+- The [filtering and clustering notebook](./filtering-clustering.ipynb) shows you how to perform custom filtering and clustering.
+In the notebook, you can select and run a custom filter and clustering method among the provided examples. You can also write your own filter or clustering method.
 
 ### Description of the main scripts
 
