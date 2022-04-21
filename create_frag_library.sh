@@ -5,6 +5,20 @@
 # provide the type of nucleic acids (dna or rna)
 source $MY_CONDA/etc/profile.d/conda.sh
 conda activate protnaff
+clust_type="fast"
+while getopts ":f:a" opt; do
+  case $opt in
+    f)
+      clust_type="fast"
+      ;;
+    a)
+      clust_type="acc"
+      ;;
+  esac
+done
+
+shift "$((OPTIND - 1))"
+
 na=$1
 
 wd=`pwd`
@@ -57,11 +71,23 @@ fi
 
 # Cluster fragments at $c1 A RMSD
 # Clustering the ${c1}A-cluster centers at $c2 A
-if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
-  for m in `cat motifs.list`; do
-    $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &
-  done
-  wait
+if [ "$clust_type" == "fast" ]; then
+  if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
+    for m in `cat motifs.list`; do
+      $SCRIPTS/clusterfrag_npy.sh $m-dr${dr}r $m $c1 $c2 > clusterfrag_npy_tight-$m.log &
+    done
+    wait
+  fi
+fi
+
+
+if [ "$clust_type" == "acc" ]; then
+  if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
+    for m in `cat motifs.list`; do
+      python $SCRIPTS/clustering_hierarchique.py $m-aa-fit-clust${dr}.npy $c1 -c 4 -o $m-dr${dr}r-clust1.0-aa &
+    done
+    wait
+  fi
 fi
 
 for m in `cat motifs.list`; do
@@ -69,10 +95,12 @@ for m in `cat motifs.list`; do
   $SCRIPTS/reduce_libraries.sh $m $dr $c1 # Convert to coarse-grained representation
 done
 
-# Assign each fragment to its clusters in the json file
-python $SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
-  --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
-  --clustnames "clust$dr" "clust$c1" "clust$c2"
+if [ "$clust_type" == "fast" ]; then
+# # Assign each fragment to its clusters in the json file
+  python $SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
+    --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
+    --clustnames "clust$dr" "clust$c1" "clust$c2"
+fi
 
 ##########################################################################
 echo "-------------------------------- mutate back into all sequences"
