@@ -84,6 +84,8 @@ The statistics are completely up to the user. Nothing is provided excepted the e
 
 Installation instructions are [here](./INSTALLATION.md)
 
+**In addition, you can run the ProtNAff filtering and clustering web server by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb).**
+
 --------------------------------------------------------------------------
 ### Testing and Examples
 --------------------------------------------------------------------------
@@ -111,6 +113,8 @@ the same figures as previously but for DNA instead of RNA.
 
 - The [filtering and clustering notebook](./filtering-clustering.ipynb) shows you how to perform custom filtering and clustering.
 In the notebook, you can select and run a custom filter and clustering method among the provided examples. You can also write your own filter or clustering method.
+**You can also run this notebook as a web server in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb). This does not require ProtNAff to be installed.**
+
 
 ### Description of the main scripts
 
