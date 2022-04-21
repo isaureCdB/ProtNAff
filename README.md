@@ -105,7 +105,8 @@ graphs are identical, the installation went fine.
 the JSON files containing the data uses for analyses in the protNAff paper.
 
 - The [figures_protnaff notebook](./figures_protnaff.ipynb) uses
-the JSON files created by `data_protnaff.ipynb` to create the figures in the paper.
+the JSON files created by `data_protnaff.ipynb` to create the figures in the paper. **You can also run a standalone version of this notebook in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/figures_protnaff-standalone.ipynb). This does not require ProtNAff to be installed.**
+
 
 - The [figures_dna_protnaff notebook](./figures_dna_protnaff.ipynb)creates
 the same figures as previously but for DNA instead of RNA.
