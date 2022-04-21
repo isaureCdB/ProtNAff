@@ -116,6 +116,8 @@ the same figures as previously but for DNA instead of RNA.
 In the notebook, you can select and run a custom filter and clustering method among the provided examples. You can also write your own filter or clustering method.
 **You can also run this notebook as a web server in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb). This does not require ProtNAff to be installed.**
 
+- The [analysis of sequence-specific conformations notebook](./sequence-specific_conformations.ipynb). **You can also run this notebook in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/sequence-specific_conformations.ipynb). This does not require ProtNAff to be installed.**
+
 
 ### Description of the main scripts
 
