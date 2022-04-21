@@ -182,7 +182,7 @@ def cluster(structures, threshold, **kwargs):
         clustered += len(cluster)
     return clustids
 
-def fastcluster(structures, threshold, chunksize, **kwargs):
+def fastcluster(structures, threshold, chunksize, existing=[], **kwargs):
     """Clusters structures using an RMSD threshold
         First structure becomes a cluster,
          second structure only if it doesn't cluster with the first, etc.
@@ -190,6 +190,7 @@ def fastcluster(structures, threshold, chunksize, **kwargs):
         structures: 2D numpy array, second dimension = 3 * natoms
           structures must already have been fitted!
         threshold: RMSD threshold (A)
+        existing: a list of existing cluster IDs
         chunksize: number of structures to put in a chunk
           This is an implementation detail that only affects the speed, not the result
     
@@ -206,10 +207,17 @@ def fastcluster(structures, threshold, chunksize, **kwargs):
     threshold2 = threshold**2 * natoms
 
     nclus = 1
-    clus_space = 100
-    clus = np.zeros((clus_space, structures.shape[1]))
-    clus[:1] = structures[:1]
-    clustids = [0]
+    if len(existing):
+        clus_space = max(len(existing), 100)
+        clus = np.zeros((clus_space, structures.shape[1]))
+        clus[:len(existing)] = structures[existing]
+        clustids = []
+        clustids[:] = existing[:]
+    else:
+        clus_space = 100
+        clus = np.zeros((clus_space, structures.shape[1]))
+        clus[:1] = structures[:1]
+        clustids = [0]
     for n in range(1, len(structures), chunksize):
         #print("{0}/{1}".format(n, len(structures), file=sys.stderr)
         #sys.stderr.flush()
@@ -290,8 +298,9 @@ def hierarchical_cluster(structures,threshold, secondary_threshold, chunksize, *
         clustids0 = fastcluster(rough_clust_struc, threshold, chunksize=chunksize)
     else:
         clustids0 = cluster(rough_clust_struc, threshold)
-    clustids = rough_clustids[clustids0].tolist()
-    return clustids    
+    fine_clustids = rough_clustids[clustids0].tolist()
+    final_clustids = fastcluster(structures, threshold, chunksize=chunksize, existing=fine_clustids)
+    return final_clustids    
 
 clustering_methods = {
     "Fast": fastcluster,
@@ -305,8 +314,8 @@ clustering_methods = {
 
 filtering_method = "Pure single-stranded, no NMR structures"
 clustering_method = "Hierarchical"
-clustering_threshold = 3.0
-secondary_threshold = 4.0
+clustering_threshold = 1.0
+secondary_threshold = 2.0
 chunksize = 200  # affects only the speed, not the result
 
 #####################################
