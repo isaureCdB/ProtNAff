@@ -9,7 +9,7 @@ import copy
 => This could be used instead of distance-based script for break detection
 (But use distance-based if you skip 3dna-analysis)
 
-!!! Compatible with x3dna-dssr version before 2018oct09 !!!
+!!! Compatible with x3dna-dssr v2.3.1 (2021jun01) !!!
 '''
 #TODO: add bulges and intraloop
 

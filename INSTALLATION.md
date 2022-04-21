@@ -33,6 +33,9 @@ executable, you have to add the directory on your PATH:
 
 echo 'export PATH=$PATH:$PWD' >> ~/.bashrc
 
+ProtNAff has been tested with x3dna-dssr v2.3.1 (2021jun01).
+Older versions of x3dna-dssr, in particular v1.7.2, do not work.
+
 6. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
 We created a bash file that will do it for you, run the following command:
 

@@ -2,12 +2,40 @@
 
 #Author Isaure Chauvot de Beauchene, CNRS, LORIA. 2018
 
+usage()
+{
+  echo "Usage: create_database.sh [-t number] [rna | dna] list_pdb
+  This script is used to create the json database for ProtNAff, there are
+  3 arguments. The first one -c is the distance threshold to the protein.
+  The second one is the file containing the list of PDB ids.
+  The last one is the type of nucleic acids that you are looking at."
+}
+
+t=5
+
+while getopts ":t:" opt; do
+  case $opt in
+    t)
+      t=$OPTARG
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an number argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+shift "$((OPTIND - 1))"
 # provide a list of PDB codes of structures to parse
 pdbcodes=$1
 
 # provide the type of nucleic acids (dna or rna)
 na=$2
-
+echo $2
 wd=`pwd`
 x=$PROTNAFF
 d="$x/create_database/"
@@ -57,7 +85,7 @@ echo "-------------------------- detect NA - protein interface "
   #    --replace: replace in output json the entries also in input list
   #    --files: process entries for which the output PDB does not exist
   #    defaults: update output json with new entries in input
-$d/interface_pdb_contacts.py 5 brutPDBs chainsmodels checked.list \
+$d/interface_pdb_contacts.py $t brutPDBs chainsmodels checked.list \
   $d/${na}lib/mutate.list chainsmodels.json $na \
    > interface_pdb_contacts.log 2> interface_pdb_contact.err
 
