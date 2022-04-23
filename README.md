@@ -20,15 +20,16 @@ The output of step 1 (for the PDB at a certain time) can now be downloaded from 
 
 ### Creation of the structures database
 
-The first step is to create the file named `structures.json`. This file is a JSON containing information extract from x3DNA, but also some information computed by ProtNAff. The example usages are given lower.
+The first step is to create `structures.json`, a JSON containing informations per 3D structure, either extracted from x3DNA outputs or computed by ProtNAff directly. Examples of usage are given below.
 
 ### Usage of filters
 
 The filters are the most customizable part: you can create the filters you need.
-Examples of filter are given in the ProtNAff paper, and more examples are given in the `filters` folder.
+Examples of filter are given in the ProtNAff paper, and more examples are given in the `filters` folder. Especially, look at the
+explanation_filters.ipynb notebook for a detailed explanation on how to build filters.
 
-Some of them are python scripts as `filter_no_modified.py`, which is returning a JSON file, or
-`filter_ss.py`, which is printing the single-stranded nucleotides per PDB id.
+Some filters are python scripts, such as `filter_no_modified.py`, which returns a JSON file, or
+`filter_ss.py`, which prints the single-stranded nucleotides per PDB id. Others are jupyter-notebooks, such as filtering-clustering.ipynb. The earliers must be runon your machine after installation of the proper conda environement, while the laters can be run through a collab session (see *INSTALLATION* section below).
 
 The detailed information contained in the `structures.json` are:
 
@@ -36,7 +37,7 @@ The detailed information contained in the `structures.json` are:
   - Experimental method;
   - Resolution (if X-ray);
   - Name of NA chains and protein chains;
-  - Number of models;
+  - Number of models (for NMR);
   - Name of cofactors.
 
 * Per nucleic acid chain:
@@ -44,9 +45,9 @@ The detailed information contained in the `structures.json` are:
   - Sequence.
 
 * Per nucleotide:
-  - All H-bonds made with the protein, with for each H-bond (i) the amino-acid type and atom, (ii) the nucleotide sub-part, (iii) the H-bond distance, and (iv) the fact that 3DNA would consider the H-bond donor or acceptor as "questionable"
+  - All H-bonds made with the protein, with for each H-bond (i) the amino-acid type and atom, (ii) the nucleotide sub-part (phosphate group/sugar/base), (iii) the H-bond distance, and (iv) the fact that 3DNA would consider the H-bond donor or acceptor as "questionable"
   - All H-bonds made with another nucleic acid, with (i) the position of the other nucleotide in the sequence (n-2, n-1, n+1, n+2 or other), (ii) the nucleotide sub-part, (iii) the H-bond distance, and (iv) the fact that 3DNA would consider the H-bond donor or acceptor as "questionable" according to DSSR;
-  - Total number of H-bonds with protein for each sub-part, with a 0.5 weighting when questionable;
+  - Total number of H-bonds with protein for each sub-part (phosphate group/sugar/base), with a 0.5 weighting for questionable H-bonds according to x3DNA;
   - Base-pairing types it is involved in;
   - Initial name of the residue in the PDB file (if canonized residue);
   - Minimal distance of each sub-part to the protein and to cofactors, if < 5 \AA;
