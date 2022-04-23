@@ -1,14 +1,13 @@
 #!/bin/bash
 
-#Author Isaure Chauvot de Beauchene, CNRS, LORIA. 2018
-
 usage()
 {
-  echo "Usage: create_database.sh [-t number] [rna | dna] list_pdb
-  This script is used to create the json database for ProtNAff, there are
-  3 arguments. The first one -c is the distance threshold to the protein.
-  The second one is the file containing the list of PDB ids.
-  The last one is the type of nucleic acids that you are looking at."
+  echo "Usage: create_database.sh list_pdb [rna | dna] [-t number] 
+  This script is used to create the json database of parsed structures.
+  The arguments are : 
+  1/ the file containing a list of PDB ids, 
+  2/the type of nucleic acids (dna/rna),
+  3/(optional) the distance threshold to the protein (in angstroem)."
 }
 
 t=5
