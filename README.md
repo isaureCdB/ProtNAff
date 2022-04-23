@@ -143,8 +143,6 @@ Some useful scripts:
   - usage: create_frag_library/pdb2npy.py filename.list --list --outp filename.npy
 
 * `create_frag_library/reduce.py` this script reduces all-atom rna/dba pdb into ATTRACT coarse-grained representation
-  - input:
-  - output: 
 
 --------------------------------------------------------------------------
 ### Work in progress
@@ -154,4 +152,4 @@ This is intended to be a dynamic collaborative work:
 
 _ If you need a specific feature that you can't find or don't know how to add in the current pipeline, please contact us, and we will do our best to include it.
 
-_ If you added some feature that you think can be useful to others, please fill free to propose a pull request.
+_ If you added some feature that you think can be useful to others, please feel free to propose a pull request.
