@@ -1,13 +1,13 @@
 # User manual for ProtNAff
 
-Protein-bound Nucleic Acid filters and fragment libraries (ProtNAff) is a tool to create filters selecting structures of Protein - Nucleic acids complexes from the PDB and to build libraries of protein-bound RNA fragments.
+Protein-bound Nucleic Acid filters and fragment libraries (ProtNAff) is a tool to create filters that select structures of Protein - Nucleic acids complexes from the PDB and to build libraries of protein-bound RNA fragments.
 
 This document explains how to use ProtNAff and what can be done with it.
 
 --------------------------------------------------------------------------
 To sumarize, ProtNAff is a pipeline to:
 --------------------------------------------------------------------------
-1. Clean-up and parse all NA-protein structures from the PDB into ensembles of small information units in a single file.
+1. Clean-up and parse NA-protein structures from the PDB into ensembles of small information units in a single file.
 
 2. Search for sets of NA-protein structures with highly customisable combinations of criteria.
 
@@ -20,7 +20,9 @@ The output of step 1 (for the PDB at a certain time) can now be downloaded from 
 
 ### Creation of the structures database (step 1)
 
-The first step is to create `structures.json`, a JSON containing informations per 3D structure, either extracted from x3DNA outputs or computed by ProtNAff directly. Examples of usage are given below.
+The first step is to create `structures.json`, a JSON containing informations obtained by parsing 3D structures downloaded from the PDB.
+The list of PDB entries to consider is provided by the user. It can be obtained by using the "advanced search" page of rcsb.org and selecting all structures that contain both protein and RNA/DNA, or a subset of those by using the available filters from RCSB (such as specific protein families, organism...). 
+The informations contained in the created database (structures.json) are either obtained by runing the dssr tool of 3DNA or computed by ProtNAff directly. Examples of usage of this database are given below.
 
 ### Usage of filters (step 2)
 
