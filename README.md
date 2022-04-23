@@ -18,11 +18,11 @@ To sumarize, ProtNAff is a pipeline to:
 Step 1 is necessary, steps 2 and 3 can be done independantly, step 4 can be done only after step 3.
 The output of step 1 (for the PDB at a certain time) can now be downloaded from https://zenodo.org/record/6475637#.YmK3MFxByV4 , allowing to do steps 2, 3 and/or 4 directly.
 
-### Creation of the structures database
+### Creation of the structures database (step 1)
 
 The first step is to create `structures.json`, a JSON containing informations per 3D structure, either extracted from x3DNA outputs or computed by ProtNAff directly. Examples of usage are given below.
 
-### Usage of filters
+### Usage of filters (step 2)
 
 The filters are the most customizable part: you can create the filters you need.
 Examples of filter are given in the ProtNAff paper, and more examples are given in the `filters` folder. Especially, look at the
@@ -68,14 +68,14 @@ The detailed information contained in the `structures.json` are:
 All those information can be used and combined to filter the structures or the fragments and create a set suitable for a given application.
 It is also possible tu use the 3DNA outputs directly, as we are doing in the `filter_hairpin.py`.
 
-### Creation of fragment libraries
+### Creation of fragment libraries (step 3)
 
 This step creates a 3D fragment library from the set of structures created in the previous step.
 The clustering creates clusters of fragments that are at a maximal RMSD from the cluster center. This can be done by two methods: 
 - "fastclust", which is fast but non deterministic (dependant on the fragments order) and does not minimize the total number of clusters
 - "radius", which is slow but deterministic and minimize the number of clusters.
 
-### Statistics
+### Statistics (step 4)
 
 ProtNAff allows to run all kinds of statistics on the structures database and on the fragment libraries. Examples of statistics from the protNAff paper are provided in the notebooks named below (*Testing and Examples* section).
 
@@ -95,7 +95,7 @@ There are several notebooks to help you to understand ProtNAff:
 
 - The [example notebook](./example/example.ipynb) helps
 you create a small database and your first fragment library. At the
-end of the notebook, a graph is creates to check if the installation is
+end of the notebook, a graph is creates to check if your installation is
 correct, by comparing this graph to the one in the next notebook.
 
 - The [test notebook](./example/test.ipynb) creates the same graph
@@ -103,43 +103,46 @@ as should be obtained at the end of the example notebook: if both
 graphs are identical, the installation went fine.
 
 - The [data_protnaff notebook](./data_protnaff.ipynb) creates
-the JSON files containing the data uses for analyses in the protNAff paper.
+the JSON files containing the data used for analyses in the protNAff paper.
 
 - The [figures_protnaff notebook](./figures_protnaff.ipynb) uses
-the JSON files created by `data_protnaff.ipynb` to create the figures in the paper.
+the JSON files created by `data_protnaff.ipynb` to create the figures in the protNAff paper.
 
-- The [figures_dna_protnaff notebook](./figures_dna_protnaff.ipynb)creates
+- The [figures_dna_protnaff notebook](./figures_dna_protnaff.ipynb) creates
 the same figures as previously but for DNA instead of RNA.
 
-
 - The [filtering and clustering notebook](./filtering-clustering.ipynb) shows you how to perform custom filtering and clustering.
-In the notebook, you can select and run a custom filter and clustering method among the provided examples. You can also write your own filter or clustering method.
+In the notebook, you can select and run custom filter and clustering methods among the provided examples. You can also write your own filter or clustering method.
 **You can also run this notebook as a web server in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb). This does not require ProtNAff to be installed.**
 
 
 ### Description of the main scripts
 
-Here the main scripts are decribed:
+The main protNAff scripts:
 
-* `create_database.sh` the script to create the `structures.json`
-  - input: a list of pdb ids, and rna/dna depending of what nucleic acids you are working on
+* `create_database.sh` to create the `structures.json` file.
+  - input: a user-given list of pdb ids of NA-protein complexes, and the type of nucleic acids you work on (rna/dna)
   - ouput: the `structures.json` file
+  - usage: ./create_database.sh <list of PDBs> --rna/dna
 
 * `create_frag_library.sh` the script to create the fragment libraries
-  - input: rna/dna depending of what nucleic acids you are working on, the `structures.json` is needed
+  - input: `structures.json`, and the type of nucleic acids you work on (rna/dna)
   - output: `fragments.json` and `fragments_clust.json`
+  - usage: ./create_frag_library.sh --rna/dna
 
 Some useful scripts:
 
-* `create_frag_library/npy2pdb.py` this script is converting the npy matrix into pdb files.
-  - input: the npy matrix, and the pdb template, corresponding to the atoms
-  - output: a string output containing all the lines corresponding to the pdb information, it can be cast into a pdb file
+* `create_frag_library/npy2pdb.py` converts an npy matrix of 3D coordinates into pdb files.
+  - input: the npy matrix, and a pdb template (with the same atoms in same order). Optional: an index or a list of indices of the structures to be converted into PDB.
+  - output: a multi-model pdb file
+  - usage: ./create_frag_library/npy2pdb.py filename.npy template.pdb [--list <list of indices>] [--index <integer>] > filename.pdb
 
-* `create_frag_library/pdb2npy.sh` this script convert the pdb files into a npy matrix
-  - input: a list of pdb file to convert to npy, --list, --outp the name of the matrix you will obtain
+* `create_frag_library/pdb2npy.py` converts pdb files into a npy matrix.
+  - input: a text file containing a list paths to the pdb files to be converted into npy 
   - output: a npy matrix
+  - usage: create_frag_library/pdb2npy.py filename.list --list --outp filename.npy
 
-* `create_frag_library/reduce.py` this script is reducing to coarse grained the inputs
+* `create_frag_library/reduce.py` this script reduces all-atom rna/dba pdb into ATTRACT coarse-grained representation
   - input:
   - output: 
 
