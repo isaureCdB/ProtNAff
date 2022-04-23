@@ -9,8 +9,8 @@ parser =argparse.ArgumentParser(description=__doc__,
                         formatter_class=argparse.RawDescriptionHelpFormatter)
 parser.add_argument('npy')
 parser.add_argument('template')
-parser.add_argument('--list', help = "list of structure indexes")
-parser.add_argument('--index', help = "structure indexe", type = int)
+parser.add_argument('--list', help = "list of structure indices")
+parser.add_argument('--index', help = "structure index", type = int)
 parser.add_argument('--insert', action = "store_true")
 args = parser.parse_args()
 ########################
