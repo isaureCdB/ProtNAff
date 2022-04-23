@@ -121,9 +121,9 @@ In the notebook, you can select and run custom filter and clustering methods amo
 The main protNAff scripts:
 
 * `create_database.sh` to create the `structures.json` file.
-  - input: a user-given list of pdb ids of NA-protein complexes, and the type of nucleic acids you work on (rna/dna)
+  - input: a user-given list of pdb ids of NA-protein complexes and the type of nucleic acids you work on (rna/dna). Optional: a threshold for NA-protein/cofactor contact distance'.
   - ouput: the `structures.json` file
-  - usage: ./create_database.sh <list of PDBs> --rna/dna
+  - usage: ./create_database.sh <list of PDBs> --rna/dna -t <float>
 
 * `create_frag_library.sh` the script to create the fragment libraries
   - input: `structures.json`, and the type of nucleic acids you work on (rna/dna)
