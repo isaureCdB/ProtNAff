@@ -47,7 +47,7 @@ The detailed information contained in the `structures.json` are:
 * Per nucleotide:
   - All H-bonds made with the protein, with for each H-bond (i) the amino-acid type and atom, (ii) the nucleotide sub-part (phosphate group/sugar/base), (iii) the H-bond distance, and (iv) the fact that 3DNA would consider the H-bond donor or acceptor as "questionable"
   - All H-bonds made with another nucleic acid, with (i) the position of the other nucleotide in the sequence (n-2, n-1, n+1, n+2 or other), (ii) the nucleotide sub-part, (iii) the H-bond distance, and (iv) the fact that 3DNA would consider the H-bond donor or acceptor as "questionable" according to DSSR;
-  - Total number of H-bonds with protein for each sub-part (phosphate group/sugar/base), with a 0.5 weighting for questionable H-bonds according to x3DNA;
+  - Total number of H-bonds with protein for each sub-part (phosphate group/sugar/base), with a 0.5 weighting for questionable H-bonds according to 3DNA;
   - Base-pairing types it is involved in;
   - Initial name of the residue in the PDB file (if canonized residue);
   - Minimal distance of each sub-part to the protein and to cofactors, if < 5 \AA;
@@ -65,18 +65,19 @@ The detailed information contained in the `structures.json` are:
   - If the fragment is a cluster prototype for the different clustering thresholds (0.2\AA, 1\AA ~and 3\AA ~in the current implementation);
   - Index of the cluster it belongs to, for the different thresholds.
 
-
-All those information can be used to filter the structures or the fragment depending of what you want.
-It is also possible tu use the 3DNA output directly, as we are doing in the `filter_hairpin.py`.
+All those information can be used and combined to filter the structures or the fragments and create a set suitable for a given application.
+It is also possible tu use the 3DNA outputs directly, as we are doing in the `filter_hairpin.py`.
 
 ### Creation of fragment libraries
 
-Using the sets of structure made in the previous step, it is possible to do fragment libraries.
-The clustering can be done using 2 methods. The first one is the method named "fastclust", and the second one which is more accurate but slower is the radius method.
+This step creates a 3D fragment library from the set of structures created in the previous step.
+The clustering creates clusters of fragments that are at a maximal RMSD from the cluster center. This can be done by two methods: 
+- "fastclust", which is fast but non deterministic (dependant on the fragments order) and does not minimize the total number of clusters
+- "radius", which is slow but deterministic and minimize the number of clusters.
 
 ### Statistics
 
-The statistics are completely up to the user. Nothing is provided excepted the examples from the paper in the notebook named below.
+ProtNAff allows to run all kinds of statistics on the structures database and on the fragment libraries. Examples of statistics from the protNAff paper are provided in the notebooks named below (*Testing and Examples* section).
 
 --------------------------------------------------------------------------
 ### Installation
