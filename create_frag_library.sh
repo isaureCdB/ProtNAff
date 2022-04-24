@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#Author Isaure Chauvot de Beauchene, CNRS, LORIA. 2018
-
 # provide the type of nucleic acids (dna or rna)
 source $MY_CONDA/etc/profile.d/conda.sh
 conda activate protnaff
