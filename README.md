@@ -1,11 +1,11 @@
 # User manual for ProtNAff
 
-Protein-bound Nucleic Acid filters and fragment libraries (ProtNAff) is a tool to create filters that select structures of Protein - Nucleic acids complexes from the PDB and to build libraries of protein-bound RNA fragments.
+Protein-bound Nucleic Acid filters and fragment libraries (protNAff) is a tool to create filters that select structures of Protein - Nucleic acids complexes from the PDB and to build libraries of protein-bound RNA fragments.
 
-This document explains how to use ProtNAff and what can be done with it.
+This document explains how to use protNAff and what can be done with it.
 
 --------------------------------------------------------------------------
-To sumarize, ProtNAff is a pipeline to:
+To summarize, protNAff is a pipeline to:
 --------------------------------------------------------------------------
 1. Clean-up and parse NA-protein structures from the PDB into ensembles of small information units in a single file.
 
@@ -15,23 +15,23 @@ To sumarize, ProtNAff is a pipeline to:
 
 4. Perform statistics on customised features of such libraries.
 
-Step 1 is necessary, steps 2 and 3 can be done independantly, step 4 can be done only after step 3.
+Step 1 is necessary, steps 2 and 3 can be done independently, step 4 can be done only after step 3.
 The output of step 1 (for the PDB at a certain time) can now be downloaded from https://zenodo.org/record/6475637#.YmK3MFxByV4 , allowing to do steps 2, 3 and/or 4 directly.
 
 ### Creation of the structures database (step 1)
 
-The first step is to create `structures.json`, a JSON containing informations obtained by parsing 3D structures downloaded from the PDB.
+The first step is to create `structures.json`, a JSON containing information obtained by parsing 3D structures downloaded from the PDB.
 The list of PDB entries to consider is provided by the user. It can be obtained by using the "advanced search" page of rcsb.org and selecting all structures that contain both protein and RNA/DNA, or a subset of those by using the available filters from RCSB (such as specific protein families, organism...). 
-The informations contained in the created database (structures.json) are either obtained by runing the dssr tool of 3DNA or computed by ProtNAff directly. Examples of usage of this database are given below.
+The information contained in the created database (structures.json) are either obtained by running the dssr tool of 3DNA or computed by protNAff directly. Examples of usage of this database are given below.
 
 ### Usage of filters (step 2)
 
 The filters are the most customizable part: you can create the filters you need.
-Examples of filter are given in the ProtNAff paper, and more examples are given in the `filters` folder. Especially, look at the
+Examples of filter are given in the protNAff paper, and more examples are given in the `filters` folder. Especially, look at the
 explanation_filters.ipynb notebook for a detailed explanation on how to build filters.
 
 Some filters are python scripts, such as `filter_no_modified.py`, which returns a JSON file, or
-`filter_ss.py`, which prints the single-stranded nucleotides per PDB id. Others are jupyter-notebooks, such as filtering-clustering.ipynb. The earliers must be runon your machine after installation of the proper conda environement, while the laters can be run through a collab session (see *INSTALLATION* section below).
+`filter_ss.py`, which prints the single-stranded nucleotides per PDB id. Others are jupyter-notebooks, such as filtering-clustering.ipynb. The earliers must be runon your machine after installation of the proper conda environment, while the laters can be run through a Colab session (see *INSTALLATION* section below).
 
 The detailed information contained in the `structures.json` are:
 
@@ -68,13 +68,13 @@ The detailed information contained in the `structures.json` are:
   - Index of the cluster it belongs to, for the different thresholds.
 
 All those information can be used and combined to filter the structures or the fragments and create a set suitable for a given application.
-It is also possible tu use the 3DNA outputs directly, as we are doing in the `filter_hairpin.py`.
+It is also possible to use the 3DNA outputs directly, as we are doing in the `filter_hairpin.py`.
 
 ### Creation of fragment libraries (step 3)
 
 This step creates a 3D fragment library from the set of structures created in the previous step.
 The clustering creates clusters of fragments that are at a maximal RMSD from the cluster center. This can be done by two methods: 
-- "fastclust", which is fast but non deterministic (dependant on the fragments order) and does not minimize the total number of clusters
+- "fastclust", which is fast but non deterministic (dependent on the fragments order) and does not minimize the total number of clusters
 - "radius", which is slow but deterministic and minimize the number of clusters.
 
 ### Statistics (step 4)
@@ -87,7 +87,7 @@ ProtNAff allows to run all kinds of statistics on the structures database and on
 
 Installation instructions are [here](./INSTALLATION.md)
 
-**Alternatively, you can run the ProtNAff filtering and clustering web server by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb).**
+**Alternatively, you can run the protNAff filtering and clustering web server by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb).**
 
 --------------------------------------------------------------------------
 ### Testing and Examples
@@ -115,7 +115,7 @@ the same figures as previously but for DNA instead of RNA.
 
 - The [filtering and clustering notebook](./filtering-clustering.ipynb) shows you how to perform custom filtering and clustering.
 In the notebook, you can select and run custom filter and clustering methods among the provided examples. You can also write your own filter or clustering method.
-**You can also run this notebook as a web server in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb). This does not require ProtNAff to be installed.**
+**You can also run this notebook as a web server in Google Colab by clicking [here](https://colab.research.google.com/github/isaureCdB/ProtNAff/blob/master/filtering-clustering.ipynb). This does not require protNAff to be installed.**
 
 
 ### Description of the main scripts
@@ -149,7 +149,7 @@ Some useful scripts:
 --------------------------------------------------------------------------
 ### Work in progress
 --------------------------------------------------------------------------
-The main idea of ProtNAff is to provide a highly versatile pipeline to cover as many usages as possible.
+The main idea of protNAff is to provide a highly versatile pipeline to cover as many usages as possible.
 This is intended to be a dynamic collaborative work:
 
 _ If you need a specific feature that you can't find or don't know how to add in the current pipeline, please contact us, and we will do our best to include it.
