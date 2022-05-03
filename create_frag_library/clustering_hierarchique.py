@@ -187,9 +187,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("values", help="The numpy matrix of values, should have \
     the shape (n,m,3)")
-    parser.add_argument("threshold", help="The width of the final clusters.")
+    parser.add_argument("threshold1", help="The width of the first final clusters.")
+    parser.add_argument("threshold2", help="The width of the second final clusters.")
     parser.add_argument("-c", "--cpu", help="The number of CPUS to use", dest="cpu")
-    parser.add_argument("-o", "--output", help="The base name for the outputs", dest="output")
+    parser.add_argument("-o", "--output", help="The base name for the motif", dest="output")
     args = parser.parse_args()
     i = 0
     values = np.load(args.values)
@@ -197,7 +198,8 @@ def main():
     m = values.shape[1]
     d = values.shape[2]
     count = values.shape[0]
-    t = float(args.threshold)
+    t = float(args.threshold1)
+    t2 = float(args.threshold2)
     matrix_rmsd = calculate_rmsd_matrix(values, int(args.cpu))
     # matrix_rmsd = np.load("matrix_rmsd_poster.npy")
     # np.save("matrix_rmsd_poster.npy", matrix_rmsd)
@@ -209,7 +211,7 @@ def main():
 
     possible_fusion = True
     copy_rmsd = np.copy(matrix_rmsd)
-    print(values_prototype.shape)
+
     while possible_fusion:
         tag = True
 
@@ -224,7 +226,7 @@ def main():
 
             x = minimum_indices % matrix_rmsd.shape[1]
             y = minimum_indices // matrix_rmsd.shape[1]
-            if copy_rmsd[x][y] > 2:
+            if copy_rmsd[x][y] > 2*t:
                 possible_fusion = False
                 print("End of clustering.")
                 break
@@ -255,9 +257,6 @@ def main():
                         copy_rmsd[ii,min_clust] = matrix_rmsd[ii, min_clust]
                         copy_rmsd[min_clust,ii] = matrix_rmsd[ii, min_clust]
                 tag = False
-
-                # np.save("matrix_rmsd_poster{}.npy".format(i), matrix_rmsd)
-                # np.save("values_poster{}.npy".format(i), values_prototype)
             else:
                 # Tester toutes les fusions possibles.
                 # Voir le gain possible en utilisant un seuil pour ne pas faire la fusion
@@ -266,24 +265,101 @@ def main():
                 if np.all((np.isnan(copy_rmsd))):
                     possible_fusion = False
 
-            # print(np.count_nonzero(~np.isnan(copy_rmsd)), np.nanmin(copy_rmsd))
-            # if i == 1000:
-            #    i = 0
-            #    np.save("matrix_rmsd_tmp.npy", matrix_rmsd)
-            #    np.save("values_poster_tmp.npy", values_prototype)
-            #    np.save("copy_rmsd_tmp.npy", copy_rmsd)
-            #    np.save("clusters_tmp.npy", clusters_frag)
         if np.all((np.isnan(copy_rmsd))):
             possible_fusion = False
-    clusters_frag = calculate_new_clusters(clusters_frag)
-    #print(clusters_frag)
-    #print(len(clusters_frag.keys()))
-    print(count)
-    values_prototype = values_prototype[list(clusters_frag.keys())]
-    print(values_prototype.shape)
-    np.save("{}".format(args.output), values_prototype)
-    np.save("{}_clusters".format(args.output), clusters_frag)
 
+
+    clusters_frag_1A = calculate_new_clusters(clusters_frag)
+
+    values_prototype_1A = values_prototype[list(clusters_frag.keys())]
+
+    np.save("{}-dr0.2r-clust{:.1f}-aa".format(args.output, t), values_prototype_1A)
+    np.save("{}_clusters".format(args.output), clusters_frag_1A)
+
+    res = []
+    for ii in range(1, len(list(clusters_frag_1A.keys()))+1):
+        string_res = "Cluster {} ->".format(ii)
+        for jj in clusters_frag_1A[list(clusters_frag_1A.keys())[ii-1]]:
+            string_res += " {}".format(jj+1)
+        res.append(string_res+'\n')
+    with open("{}-dr0.2r-clust{}".format(args.output, t), 'w') as ff:
+        for line in res:
+            ff.write(line)
+
+    possible_fusion = True
+
+    while possible_fusion:
+        tag = True
+
+        while not np.all((np.isnan(copy_rmsd))) and tag == True:
+            i += 1
+            try:
+                minimum_indices = np.nanargmin(copy_rmsd)
+            except ValueError:
+                possible_fusion = False
+                print("End of clustering.")
+                break
+
+            x = minimum_indices % matrix_rmsd.shape[1]
+            y = minimum_indices // matrix_rmsd.shape[1]
+            if copy_rmsd[x][y] > 2*t2:
+                possible_fusion = False
+                print("End of clustering.")
+                break
+            mean_prot = mean_prototype(values_prototype[x], values_prototype[y], 1, 1)
+            values_x = align_values_clusters(mean_prot, values[clusters_frag[x]])
+            values_y = align_values_clusters(mean_prot, values[clusters_frag[y]])
+            values_cluster = np.concatenate((values_x, values_y))
+
+            center, radius = run_calculation(values_cluster, int(args.cpu))
+            values_cluster.shape = (values_cluster.shape[0], values_cluster.shape[1]//d, d)
+            center.shape = (int(center.shape[0]//d), d)
+            smallest_fusion = check_fusion(values_cluster, center, t2)
+
+            if smallest_fusion:
+                count -= 1
+                # print("Nb clusters = ", count)
+                min_clust = min(x, y)
+                max_clust = max(x, y)
+                clusters_frag[min_clust] = clusters_frag[x] + clusters_frag[y]
+                clusters_frag[max_clust] = []
+                values_prototype[min_clust] = center
+                matrix_rmsd = calculate_new_rmsd(matrix_rmsd, min_clust, max_clust, \
+                                values_prototype)
+                copy_rmsd[max_clust] = None
+                copy_rmsd[:,max_clust] = None
+                for ii in range(values_prototype.shape[0]):
+                    if not np.isnan(matrix_rmsd[ii, min_clust]):
+                        copy_rmsd[ii,min_clust] = matrix_rmsd[ii, min_clust]
+                        copy_rmsd[min_clust,ii] = matrix_rmsd[ii, min_clust]
+                tag = False
+            else:
+                # Tester toutes les fusions possibles.
+                # Voir le gain possible en utilisant un seuil pour ne pas faire la fusion
+                copy_rmsd[x,y] = None
+                copy_rmsd[y,x] = None
+                if np.all((np.isnan(copy_rmsd))):
+                    possible_fusion = False
+
+        if np.all((np.isnan(copy_rmsd))):
+            possible_fusion = False
+
+    clusters_frag_3A = calculate_new_clusters(clusters_frag)
+
+    values_prototype_3A = values_prototype[list(clusters_frag.keys())]
+
+    np.save("{}-dr0.2r-clust{:.1f}-clust{:.1f}".format(args.output, t, t2), values_prototype_3A)
+    np.save("{}_clusters_3A".format(args.output), clusters_frag_3A)
+
+    res = []
+    for ii in range(1, len(list(clusters_frag_3A.keys()))+1):
+        string_res = "Cluster {} ->".format(ii)
+        for jj in clusters_frag_3A[list(clusters_frag_3A.keys())[ii-1]]:
+            string_res += " {}".format(jj+1)
+        res.append(string_res+'\n')
+    with open("{}-dr0.2r-clust{}-clust{}".format(args.output, t, t2), 'w') as ff:
+        for line in res:
+            ff.write(line)
 
 if __name__ == "__main__":
     main()

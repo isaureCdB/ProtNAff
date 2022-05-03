@@ -82,7 +82,7 @@ fi
 if [ "$clust_type" == "acc" ]; then
   if [ ! -s AAA-dr0.2r-clust1.0.npy ] ;then
     for m in `cat motifs.list`; do
-      python $SCRIPTS/clustering_hierarchique.py $m-aa-fit-clust${dr}.npy $c1 -c 4 -o $m-dr${dr}r-clust1.0-aa &
+      python $SCRIPTS/clustering_hierarchique.py $m-aa-fit-clust${dr}.npy $c1 $c2 -c 4 -o $m &
     done
     wait
   fi
@@ -93,12 +93,10 @@ for m in `cat motifs.list`; do
   $SCRIPTS/reduce_libraries.sh $m $dr $c1 # Convert to coarse-grained representation
 done
 
-if [ "$clust_type" == "fast" ]; then
 # # Assign each fragment to its clusters in the json file
-  python $SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
-    --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
-    --clustnames "clust$dr" "clust$c1" "clust$c2"
-fi
+python $SCRIPTS/assign_clusters.py ../fragments.json ../fragments_clust.json $na \
+  --clustfiles "aa-fit-clust$dr" "dr0.2r-clust$c1" "dr0.2r-clust$c1-clust$c2" \
+  --clustnames "clust$dr" "clust$c1" "clust$c2" --$clust_type
 
 ##########################################################################
 echo "-------------------------------- mutate back into all sequences"
