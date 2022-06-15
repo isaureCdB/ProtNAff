@@ -8,21 +8,21 @@ To install ProtNAff you need to be on Linux, it will not work on Windows and on 
 
 If you have a git version you can continue, else you need to install Git (https://git-scm.com/downloads)
 
-2. To clone the repository you can use this command (first go to the directory where you want to have ProtNAff):
+2. To clone the repository, use this command (first go to the directory where you want to have ProtNAff):
 
 `git clone https://github.com/isaureCdB/ProtNAff.git`
 
 This will create a ProtNAff folder. **Move into this folder.**
 
-3. You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environement to switch from python2 to python3.
+3. You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environements to switch from python2 to python3.
 
-When miniconda is installed you will be able to use both environement of ProtNAff, to do so you will need to lauch those lines into the ProtNAff folder:
+When miniconda is installed, you will be able to creat two environements of ProtNAff, by typing those lines in the ProtNAff folder:
 
 `conda env create -f protnaff_environment.yml`
 
 `conda env create -f attract_environment.yml`
 
-4. You need jq, on Debian you can run the following command:
+4. You need jq. On Debian you can run the following command:
 
 `sudo apt install jq`
 
@@ -34,22 +34,22 @@ executable, you have to add the directory on your PATH:
 echo 'export PATH=$PATH:$PWD' >> ~/.bashrc
 
 ProtNAff has been tested with x3dna-dssr v2.3.1 (2021jun01).
-Older versions of x3dna-dssr, in particular v1.7.2, do not work.
+Older versions of x3dna-dssr, in particular v1.7.2, are not compatible.
 
-6. To finish you need to add several variable of environement. To do so you have add them in your .bashrc.
-We created a bash file that will do it for you, run the following command:
+6. finaly, you need to add several variables of environement in your .bashrc.
+We created a bash file that will do it for you. Run the following command:
 
 `bash add_env_var.sh`
 
 7. Then you need to source your .bashrc or open a new terminal.
 
-8. The `example.ipynb` file is a jupyter notebook file, it will help you to understand how to use the tool.
-To run it you need to run 2 command lines into the example folder:
+8. The `example.ipynb` file is a jupyter notebook that will help you to understand how to use the tool.
+To run it, run those 2 command lines in the example folder:
 
 `conda activate protnaff`
 
 `jupyter notebook`
 
-When this is done a web page should open, it is the notebook, to execute a cell you have to press Ctrl+Enter.
+When this is done, the notebook should open in your browser. To execute a cell you have to press Ctrl+Enter.
 
 If you have any question, do not hesitate to contact us !
