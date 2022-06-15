@@ -46,7 +46,7 @@ echo "---------------------------- Download PDBs"
 mkdir -p brutPDBs
 cd brutPDBs
 # Download only files that have not yet been downloaded
-for i in `cat $pdbcodes|awk '{print toupper($0)}'`; do
+for i in `cat $wd/$pdbcodes|awk '{print toupper($0)}'`; do
     if [ ! -s $i.pdb ] && [ ! -s $i.pdb.bz2 ] ;then
       $PROTNAFF/create_database/pdb_download $i .
       if [ -f $i.pdb ]; then
