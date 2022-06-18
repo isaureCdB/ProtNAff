@@ -37,27 +37,16 @@ def calculate_rmsd_matrix(values, processor):
     pool = Pool(processor)
 
     result = pool.map(run_parallel, runargs)
-
-    # Concatenate the results into a matrix
-    matrix_tmp = np.zeros((n, n))
-    for jj in range(len(result)):
-        line = result[jj][0]
-        matrix_tmp[line, :] = result[jj][1]
-
-    # As we calculated only the upper triangle, we need to copy it to the lower one.
-    matrix_out = np.triu(matrix_tmp) + np.tril(matrix_tmp.T, 1)
-    np.fill_diagonal(matrix_out, None)
-    return matrix_out
+        
+    return np.concatenate([r[1] for r in result]).reshape(n, n)
+    
 
 def run_parallel(runarg):
     ref = runarg[0]
     coordinates = runarg[1]
     n = coordinates.shape[0]
     values_ref = coordinates[ref]
-    results = np.zeros(n)
-    # Calculating only the upper triangle
-    for ii in range(ref,n):
-        results[ii] = rmsdlib.fit(coordinates[ii], values_ref)[-1]
+    results = rmsdlib.multifit(coordinates, values_ref)[2]
     return ref, results
 
 def mean_prototype(prototype1, prototype2, size1, size2):
