@@ -38,7 +38,9 @@ def calculate_rmsd_matrix(values, processor):
 
     result = pool.map(run_parallel, runargs)
         
-    return np.concatenate([r[1] for r in result]).reshape(n, n)
+    matrix = np.concatenate([r[1] for r in result]).reshape(n, n)
+    matrix[np.diag_indices(n)] = np.nan
+    return matrix
     
 
 def run_parallel(runarg):
