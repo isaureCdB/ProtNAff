@@ -4,14 +4,13 @@ import json
 import sys
 
 """
-A filter to use in the benchmark script, it selects only ssRNA in interaction with protein.
+Select ssRNA in interaction with protein.
 """
 
 def ss_contact_filter(pdb_info, chain_id):
     """
-    Input: pdb_info, information of the pdb in json format
-           chain_id, the name of the RNA chain
-           length, the length of the sequence selected
+    Input: pdb_info: information of the pdb in json format
+           chain_id: the name of the RNA chain
     Output: nuclfrag, a set of nucleotide of interest
     """
 
