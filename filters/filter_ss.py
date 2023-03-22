@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import json
+import json, sys
 
 """
 Select only ssRNA of desired length 
