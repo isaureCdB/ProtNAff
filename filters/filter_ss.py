@@ -3,14 +3,17 @@
 import json
 
 """
-Select only ssRNA in interaction with protein.
+Select only ssRNA of desired length 
 """
+
+d = int(sys.argv[1]) # length of ssRNA to select
+structures = sys.argv[2] #structures.json
 
 def query_ss(pdb_info, chain_id, length):
     """
     Input: pdb_info: information of the pdb in json format
            chain_id: the name of the RNA chain
-           length: the length of the sequence selected
+           length: the length of the ssRNA
     Output: nuclfrag, a set of nucleotide of interest
     """
 
@@ -82,13 +85,13 @@ def keep_length(nuclfrag, length):
     return nuclfrag
 
 def main():
-    js = json.load(open("structures.json"))
-    print(query_ss(js["1B23"], "chain_R", 3))
-    # for pdb_id in js:
-    #     pdb_info = js[pdb_id]
-    #     for chain_id in pdb_info['nachains']:
-    #         nuclfrag = query_ss(pdb_info, chain_id, 5)
-    #         print("{} {} {}".format(pdb_id, chain_id, nuclfrag))
+    js = json.load(open(structures))
+    #print(query_ss(js["1B23"], "chain_R", 3))
+    for pdb_id in js:
+        pdb_info = js[pdb_id]
+        for chain_id in pdb_info['nachains']:
+            nuclfrag = query_ss(pdb_info, chain_id, d)
+            print("{} {} {}".format(pdb_id, chain_id, nuclfrag))
 
 if __name__ == '__main__':
     main()
