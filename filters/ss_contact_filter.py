@@ -39,8 +39,7 @@ def ss_contact_filter(pdb_info, chain_id):
 
 
 def main():
-    js = json.load(open(sys.argv[1]))
-    # js = json.load(open("/home/amoniot/Documents/libraries/nalib_oct2019_new/structures.json"))
+    js = json.load(open(sys.argv[1])) #structures.json
 
     for pdb_id in js:
         pdb_info = js[pdb_id]
