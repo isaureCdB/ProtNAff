@@ -3,14 +3,14 @@
 import json
 
 """
-A query to use in the benchmark script, it selects only ssRNA in interaction with protein.
+Select only ssRNA in interaction with protein.
 """
 
 def query_ss(pdb_info, chain_id, length):
     """
-    Input: pdb_info, information of the pdb in json format
-           chain_id, the name of the RNA chain
-           length, the length of the sequence selected
+    Input: pdb_info: information of the pdb in json format
+           chain_id: the name of the RNA chain
+           length: the length of the sequence selected
     Output: nuclfrag, a set of nucleotide of interest
     """
 
@@ -82,7 +82,7 @@ def keep_length(nuclfrag, length):
     return nuclfrag
 
 def main():
-    js = json.load(open("/home/amoniot/Documents/libraries/nalib_oct2019_new/structures.json"))
+    js = json.load(open("structures.json"))
     print(query_ss(js["1B23"], "chain_R", 3))
     # for pdb_id in js:
     #     pdb_info = js[pdb_id]
