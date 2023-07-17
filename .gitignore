@@ -1,3 +1,4 @@
 test/
 example/full_test
 **/*.pyc
+database/
