@@ -10,14 +10,15 @@ from nefertiti.functions.superimpose import superimpose, superimpose_array
 
 from collections import namedtuple
 
-Cluster = namedtuple("Cluster", ("pdb", "fragment_index", "rmsd", "size", "npdbs"))
+Cluster = namedtuple("Cluster", ("pdb", "fragment_index", "rmsd", "rmsd2", "size", "npdbs"))
 
 conformer_list = [] # all fragment indices that are "conformers" (primary and quaternary list, 
                     # quasi-unique list,
                     # and those tertiary that come from singletons)
 primary_list = []   # PDB code + fragment index
 secondary_list = [] # (primary) PDB code + (replacement) fragment index
-tertiary_list = []  # Cluster instances. "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement
+tertiary_list = []  # Cluster instances. "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement. 
+                    # "rmsd" is the RMSD between replacement and primary, "rmsd2" is the RMSD if the replacement is not used
 quaternary_list = [] # (primary) PDB code + (primary) fragment index + (replacement) fragment index + rmsd
 eliminated_list = []  # Cluster instances. "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement
 quasi_unique_list = []  # PDB code + primary fragment index + quasi-replacement fragment index + RMSD
@@ -134,6 +135,7 @@ def get_rmsd(cluster_nr):
     rmsd = _rmsd.get(cluster_nr)
     if rmsd is None:
         _, rmsd = superimpose_array(cluster_struc, cluster_struc[cluster_nr])
+        _rmsd[cluster_nr] = rmsd
     return rmsd
 
 # Determine quasi-unique clusters
@@ -154,7 +156,7 @@ for cluster_nr in tqdm(clus):
             elif c_ind == 1:
                 assert abs(rmsd[close_cluster] - r0) < 0.01 and close_cluster == cl
             is_sing, pdb_code2 = is_singleton[close_cluster]
-            if not is_sing or pdb_code2 == pdb_code:
+            if is_sing and pdb_code2 == pdb_code:
                 continue
             r = rmsd[close_cluster]
             break
@@ -217,9 +219,9 @@ for cluster_nr in clus:
             pdb_codes = sets_02[fr-1]
             if len(pdb_codes) > 1 or list(pdb_codes)[0] != pdb_code:
                 _, r = superimpose(cluster_coordinates[heart-1], cluster_coordinates[fr-1])
-                clust = Cluster(pdb=pdb_code, fragment_index=fr, rmsd=r, size=len(cluster), npdbs=len(s))
+                clust = Cluster(pdb=pdb_code, fragment_index=fr, size=len(cluster), npdbs=len(s), rmsd=r, rmsd2=closest[cluster_nr][1])
                 intra_cluster.add(fr)
-                tertiary_list.append(clust) 
+                tertiary_list.append(clust)
                 break
         else:
             raise Exception # can't happen for non-singleton
@@ -235,7 +237,7 @@ checkpoint3 = len(tertiary_list)
 for cluster_nr in clus:
     if not is_singleton[cluster_nr][0]:
         continue
-    nb, r  = closest[cluster_nr] 
+    nb, r  = closest[cluster_nr]
     if r > greenred_threshold:
         continue
     if is_singleton[nb][0]:
@@ -246,14 +248,16 @@ for cluster_nr in clus:
     s = set()
     for fr in nb_clust:
         s.update(sets_02[fr-1])
-    clust = Cluster(pdb=pdb_code, fragment_index=heart, rmsd=r, size=len(nb_clust), npdbs=len(s))
+    _, rmsd_repl = superimpose(cluster_coordinates[heart-1], cluster_coordinates[nb_clust[0]-1])
+    clust = Cluster(pdb=pdb_code, fragment_index=heart, rmsd=r, size=len(nb_clust), npdbs=len(s), rmsd2=None)
     eliminated_list.append(clust)
 
 print(f"{len(eliminated_list)} green singletons eliminated")    
+checkpoint_elim = len(eliminated_list)
 
 # Type II green singletons
 
-for cluster_nr in clus:
+for cluster_nr in tqdm(clus):
     if not is_singleton[cluster_nr][0]:
         continue
     nb, r  = closest[cluster_nr] 
@@ -269,12 +273,27 @@ for cluster_nr in clus:
     s = set()
     for fr in nb_clust:
         s.update(sets_02[fr-1])
-    item = (pdb_code, nb_clust[0], )
-    clust = Cluster(pdb=pdb_code, fragment_index=nb_clust[0], rmsd=r, size=len(nb_clust), npdbs=1)
-    tertiary_list.append(clust)
+    clust = Cluster(pdb=pdb_code, fragment_index=nb_clust[0], rmsd=r, size=len(nb_clust), npdbs=1, rmsd2=None)
+    if nb_clust[0] in [c[1] for c in primary_list]:
+        eliminated_list.append(clust)
+    else:
+        rmsds = get_rmsd(cluster_nr)
+        rmsds[cluster_nr] = 99999
+        rmsds[nb] = 99999
+        for c_ind, c_nr in enumerate(np.argsort(rmsds)):
+            is_sing, pdb_code2 = is_singleton[c_nr]
+            if is_sing and pdb_code2 == pdb_code:
+                continue
+            rmsd2 = rmsds[c_nr]
+            break
+        clust = clust._replace(rmsd2 = rmsd2)
+        tertiary_list.append(clust)
 
 print(f"{len(primary_list)-checkpoint} green singletons added to the primary list")
+if len(eliminated_list) > checkpoint_elim:
+    print(f"{len(eliminated_list)-checkpoint_elim} fragments eliminated (replacement already in primary list)")
 print(f"{len(tertiary_list)-checkpoint3} fragments added to the tertiary list")
+
 checkpoint = len(primary_list)
 checkpoint3 = len(tertiary_list)
 
@@ -327,6 +346,10 @@ with open(outfile_pattern + "-secondary.list", "w") as f:
 
 with open(outfile_pattern + "-tertiary.list", "w") as f:
     for cluster in sorted(tertiary_list, key= lambda c: c.pdb):
+        print(cluster.pdb, cluster.fragment_index, "{:.3f}".format(cluster.rmsd), "{:.3f}".format(cluster.rmsd2), cluster.size, cluster.npdbs, file=f)
+
+with open(outfile_pattern + "-eliminated.list", "w") as f:
+    for cluster in sorted(eliminated_list, key= lambda c: -c.rmsd):
         print(cluster.pdb, cluster.fragment_index, "{:.3f}".format(cluster.rmsd), cluster.size, cluster.npdbs, file=f)
 
 with open(outfile_pattern + "-quaternary.list", "w") as f:

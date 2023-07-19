@@ -24,8 +24,8 @@ Then, classify a cluster as "red" or "green"  based on the RMSD towards the clos
 
 ### Main procedure
 
-The goal is to produce several cluster lists for docking. Trans-modeling uses only the primary list. For cis-modeling, elements from the primary list are replaced by elements from the secondary list, tertiary list, quaternary list, or the quasi-unique list, in order to make the docking blind, i.e. not using the conformation of the PDB that is being modeled. In cis-modeling, for the PDB that is being modeled, the secondary list is always being used. One may choose to use the other lists, or one may choose to simply remove the cluster if the cluster heart comes from the PDB that is being modeled.
-The lists do not contain any coordinates, only indices from fragments.json. There is a master.list that contains all fragment indices from all lists (eliminating duplicates) except intra-cluster replacements (secondary list and part of the tertiary) and a master.npy containing their coordinates. There is a intracluster pair list and a intracluster.npy with the coordinates of the intracluster replacement.
+The goal is to produce several cluster lists for docking. Trans-modeling uses only the primary list. For cis-modeling, elements from the primary list are replaced and supplemented by elements from the secondary list, tertiary list, quaternary list, and/or the quasi-unique list, in order to make the docking blind, i.e. not using the conformation of the PDB that is being modeled. In cis-modeling, for the PDB that is being modeled, the secondary list is always being used. One may choose to use one or more of the other lists, or one may choose to simply remove the cluster if the cluster heart comes from the PDB that is being modeled.
+The lists do not contain any coordinates, only indices from fragments.json. There is a conformer.list that contains all fragment indices from all lists (eliminating duplicates) except intra-cluster replacements (secondary list and part of the tertiary) and a conformer.npy containing their coordinates. There is a intracluster pair list and a intracluster.npy with the coordinates of the intracluster replacement.
 
 The clusters are classified as:
 
@@ -40,10 +40,11 @@ The clusters are classified as:
 In this case, it is imperative to have a replacement available for cis-modeling.
 Add the fragment index (from fragments.json) to the primary list.
 Identify the PDB code of the cluster heart. Identify the cluster member closest to the heart with a different PDB code. Add the fragment index of the cluster member to the secondary list.
+It is possible that the cluster heart has multiple PDB codes, as it is a 0.2A cluster. In that case, no replacement is necessary (0 A or \<0.2A is not considered different).
 
 ## Green non-singletons
 
-The same as for red singletons, but add to the tertiary list instead. The tertiary list also contains the RMSD, the cluster size (at the 0.2 A level), and the number of PDB codes.
+The same as for red singletons, but add to the tertiary list instead. The tertiary list also contains the RMSD towards the replacement, the replacement cluster size (at the 0.2 A level), the number of PDB codes in the replacement, and the discard RMSD (the RMSD if the replacement is not used).
 Using the tertiary list is optional (you can just discard this cluster with no replacement).
 
 ## Type I green singletons
