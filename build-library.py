@@ -16,7 +16,7 @@ conformer_list = [] # all fragment indices that are "conformers" (primary and qu
                     # quasi-unique list,
                     # and those tertiary that come from singletons)
 primary_list = []   # PDB code + fragment index
-secondary_list = [] # (primary) PDB code + (replacement) fragment index
+secondary_list = [] # (primary) PDB code + primary fragment index + replacement fragment index
 tertiary_list = []  # Cluster instances. "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement. 
                     # "rmsd" is the RMSD between replacement and primary, "rmsd2" is the RMSD if the replacement is not used
 quaternary_list = [] # (primary) PDB code + (primary) fragment index + (replacement) fragment index + rmsd
@@ -187,7 +187,7 @@ for cluster_nr in clus:
         for fr in clusters_final[cluster_nr]:
             pdb_codes = sets_02[fr-1]
             if len(pdb_codes) > 1 or list(pdb_codes)[0] != pdb_code:
-                secondary_list.append((pdb_code, fr)) #primary pdb code!
+                secondary_list.append((pdb_code, heart, fr)) #primary pdb code!
                 intra_cluster.add(fr)                
                 break
         else:
@@ -313,7 +313,7 @@ for cluster_nr in clus:
 print(f"{len(quaternary_list)} fragments added to the quaternary list")
 
 conformer_list = set([c[1] for c in primary_list])
-for pdb_code, fragment_index in secondary_list:
+for pdb_code, _, fragment_index in secondary_list:
     intra_cluster_list.append(fragment_index)
 for clust in tertiary_list:
     fragment_index = clust.fragment_index
@@ -342,8 +342,8 @@ with open(outfile_pattern + ".list", "w") as f:
             print(fragment_index, pdb_code, file=f)
 
 with open(outfile_pattern + "-secondary.list", "w") as f:
-    for pdb_code, fragment_index in secondary_list:
-        print(pdb_code, fragment_index, file=f)
+    for pdb_code, fragment_index1, fragment_index2 in secondary_list:
+        print(pdb_code, fragment_index1, fragment_index2, file=f)
 
 with open(outfile_pattern + "-tertiary.list", "w") as f:
     for cluster in sorted(tertiary_list, key= lambda c: c.pdb):
