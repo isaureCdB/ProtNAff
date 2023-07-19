@@ -323,7 +323,8 @@ for clust in tertiary_list:
         intra_cluster_list.append(fragment_index)
 for pdb_code, fragment_index0, fragment_index, r in quaternary_list:
     conformer_list.add(fragment_index)
-for pdb_code, fragment_index0, fragment_index, r in quasi_unique_list:
+for pdb_code, cluster_index0, cluster_index, r in quasi_unique_list:
+    fragment_index = clusters_final[cluster_index][0]
     conformer_list.add(fragment_index)
 
 conformer_list = sorted(list(set(conformer_list)))
