@@ -1,21 +1,21 @@
 import numpy as np
-import sys
+import os
 import argparse
 p = argparse.ArgumentParser()
 
 p.add_argument("library_pattern", help="""e.g. X=library/CAC-lib. Assumes the existence of:
-- X.list
-- X-conformer.list X-conformer.npy
-- X-intracluster.list, X-intracluster.npy
-- X-secondary.list, X-tertiary.list, X-quaternary.list, X-quasi-unique.list"""
+X.list 
+X-conformer.list X-conformer.npy 
+X-intracluster.list X-intracluster.npy 
+X-secondary.list X-tertiary.list X-quaternary.list X-quasi-unique.list"""
 )
-p.add_argument("pdb_code", help="PDB code from the library that is to be replaced")
+p.add_argument("pdb_code", help="PDB code that is to be replaced in the library")
 p.add_argument("output_coordinates", help="Output coordinates for the modified library")
 p.add_argument("--max-rmsd", default=1.5, type=float, help="Maximum RMSD to add from the quaternary list. Fragments with a higher RMSD are considered unmodelable.")
 p.add_argument("--min-rmsd", default=0.7, type=float, help="Minimum RMSD to consider for replacement from the tertiary list. Fragments with a lower RMSD are considered already good enough without replacement")
 p.add_argument("--min-improvement", default=0.2, type=float, help="Minimum RMSD improvement for replacement from the tertiary list.")
 p.add_argument("--quasi-unique", default=False, action="store_true", help="Consider quasi-unique replacements for unmodelable fragments. This will make the docking not fully blind")
-p.add_argument("--conformers", help="Conformer indices (in X-conformer.list, starting from 0) for each modified library structure")
+p.add_argument("--write-conformers", help="Write conformer indices (in X-conformer.list, starting from 0) for each modified library structure")
 
 args = p.parse_args()
 X = args.library_pattern
@@ -63,7 +63,7 @@ with open(X+".list") as f:
         elif secondary.get(frag) is not None:
             frag2 = secondary[frag]
             c = intracluster.index(frag2)
-            coors.append(c)
+            coors.append(intracluster_coors[c])
             conformer_list.append(conf)
             nrepl2 += 1
             nelim1 += 1
@@ -153,3 +153,29 @@ if nrepl4 > 0:
 
 if nrepl_quasi > 0:
     print(f"{nrepl_quasi} structures added from the quasi-unique list")
+
+dest = args.output_coordinates
+if not dest.endswith(".npy"):
+    dest += ".npy"
+if not (nelim1 or nrepl2 or nrepl3 or nrepl4 or nrepl_quasi):
+    print("No modifications were made")
+    src = X + ".npy"
+    src2 = os.path.abspath(src)
+    if os.path.exists(dest):
+        os.remove(dest)
+    try:
+        os.link(src, dest)
+        txt = "Hardlink"
+    except OSError:
+        os.symlink(src2, dest)
+        txt = "Symbolic link"
+    print(f"{txt} created: {dest} => {src}")
+else:
+    coors = np.concatenate(coors)
+    np.save(dest, coors)
+    print(f"Write modified library coordinates to {dest}")
+if args.write_conformers:
+    print(f"Write conformer indices (in {X}-conformer.list) to {args.write_conformers}")
+    with open(args.write_conformers, "w") as f:
+        for conf in conformer_list:
+            print(conf, file=f)
