@@ -171,7 +171,7 @@ if not (nelim1 or nrepl2 or nrepl3 or nrepl4 or nrepl_quasi):
         txt = "Symbolic link"
     print(f"{txt} created: {dest} => {src}")
 else:
-    coors = np.concatenate(coors)
+    coors = np.stack(coors)
     np.save(dest, coors)
     print(f"Write modified library coordinates to {dest}")
 if args.write_conformers:

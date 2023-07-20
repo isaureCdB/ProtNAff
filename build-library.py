@@ -340,6 +340,7 @@ with open(outfile_pattern + ".list", "w") as f:
             print(fragment_index, file=f)
         else:
             print(fragment_index, pdb_code, file=f)
+np.save(outfile_pattern + ".npy", cluster_coordinates[np.array([f[1] for f in primary_list])-1])
 
 with open(outfile_pattern + "-secondary.list", "w") as f:
     for pdb_code, fragment_index1, fragment_index2 in secondary_list:
@@ -355,7 +356,7 @@ with open(outfile_pattern + "-eliminated.list", "w") as f:
 
 with open(outfile_pattern + "-quaternary.list", "w") as f:
     for pdb_code, fragment_index1, fragment_index2, r in sorted(quaternary_list, key = lambda c: -c[3]):
-        print(pdb_code, fragment_index2, "{:.3f}".format(r), file=f)
+        print(pdb_code, fragment_index1, fragment_index2, "{:.3f}".format(r), file=f)
 
 with open(outfile_pattern + "-quaternary.stats", "w") as f:
     print("#PDB chain model resid rmsd", file=f)
