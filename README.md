@@ -93,7 +93,16 @@ Installation instructions are [here](./INSTALLATION.md)
 ### Testing and Examples
 --------------------------------------------------------------------------
 
-There are several notebooks to help you to understand ProtNAff:
+There are several notebooks to help you to understand ProtNAff.
+In order to launch one, do:
+
+```bash
+
+conda activate protnaff
+jupyter console NOTEBOOK-FILE.ipynb
+```
+
+List of notebooks:
 
 - The [example notebook](./example/example.ipynb) helps
 you create a small database and your first fragment library. At the
