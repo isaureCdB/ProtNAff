@@ -3,7 +3,6 @@ dr=$2
 cut=$3
 
 d=`dirname "$0"`
-source $MY_CONDA/etc/profile.d/conda.sh
 echo "Convert $m library into coarse-grained"
 
 sed 's/conf/confr/' $m-clust${cut}-aa.list > $m-clust${cut}\r.list
