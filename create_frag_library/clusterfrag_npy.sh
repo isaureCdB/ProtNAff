@@ -5,8 +5,6 @@ cut2=$4 # Large clustering cutoff (2.0)
 
 d=`dirname "$0"`
 
-source $MY_CONDA/etc/profile.d/conda.sh
-conda activate protnaff
 set -u -e
 
 # Cluster fragments by RMSD.
