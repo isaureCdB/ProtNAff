@@ -16,11 +16,9 @@ This will create a ProtNAff folder. **Move into this folder.**
 
 3. You will also need miniconda3 (https://docs.conda.io/en/latest/miniconda.html), as you will use several environements to switch from python2 to python3.
 
-When miniconda is installed, you will be able to creat two environements of ProtNAff, by typing those lines in the ProtNAff folder:
+When miniconda is installed, you will be able to creat the environment of ProtNAff, by typing the following line in the ProtNAff folder:
 
 `mamba env create -f protnaff_environment.yml`
-
-`mamba env create -f attract_environment.yml`
 
 If you don't have `mamba` installed, you can replace it with `conda`, but this may be slower.
 

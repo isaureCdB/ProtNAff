@@ -1,8 +1,0 @@
-name: attract
-channels:
-  - schrodinger
-dependencies:
-  - python==2.7.*
-  - pdb2pqr
-  - numpy
-  - scipy
