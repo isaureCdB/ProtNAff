@@ -2,3 +2,4 @@ test/
 example/full_test
 **/*.pyc
 database/
+data_paper/

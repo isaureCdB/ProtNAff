@@ -18,15 +18,13 @@ This will create a ProtNAff folder. **Move into this folder.**
 
 When miniconda is installed, you will be able to creat two environements of ProtNAff, by typing those lines in the ProtNAff folder:
 
-`conda env create -f protnaff_environment.yml`
+`mamba env create -f protnaff_environment.yml`
 
-`conda env create -f attract_environment.yml`
+`mamba env create -f attract_environment.yml`
 
-4. You need jq. On Debian you can run the following command:
+If you don't have `mamba` installed, you can replace it with `conda`, but this may be slower.
 
-`sudo apt install jq`
-
-5. ProtNAff needs x3dna-dssr to work. You will find the tool on this page:
+4. ProtNAff needs x3dna-dssr to work. You will find the tool on this page:
 http://innovation.columbia.edu/technologies/CU20391, to open correctly the web page you need to be on
 chrome. You will ask for a licence, it may take few days to obtain it. When you will have download the
 executable, you have to add the directory on your PATH:
@@ -36,14 +34,14 @@ echo 'export PATH=$PATH:$PWD' >> ~/.bashrc
 ProtNAff has been tested with x3dna-dssr v2.3.1 (2021jun01).
 Older versions of x3dna-dssr, in particular v1.7.2, are not compatible.
 
-6. finaly, you need to add several variables of environement in your .bashrc.
+5. Finally, you need to add several variables of environement in your .bashrc.
 We created a bash file that will do it for you. Run the following command:
 
 `bash add_env_var.sh`
 
-7. Then you need to source your .bashrc or open a new terminal.
+6. Then you need to source your .bashrc or open a new terminal.
 
-8. The `example.ipynb` file is a jupyter notebook that will help you to understand how to use the tool.
+7. The `example.ipynb` file is a jupyter notebook that will help you to understand how to use the tool.
 To run it, run those 2 command lines in the example folder:
 
 `conda activate protnaff`
