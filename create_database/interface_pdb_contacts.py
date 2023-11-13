@@ -10,30 +10,29 @@ import Bio
 from Bio.PDB import *
 import numpy as np
 from scipy.spatial import cKDTree as KDTree
-from scipy.sparse import dok_matrix
 import re, os, json, sys
 from collections import defaultdict
 import argparse
 
-if Bio.__version__ != '1.70':
-    print("ERROR: you need Biopython version 1.70", file=sys.stderr)
-    sys.exit()
 
 class MySelect(Select):
     def __init__(self, model_toselect, res_toselect):
-        self.res_toselect = set([id(r) for r in res_toselect])
+        self.res_toselect = [r for r in res_toselect]
         self.model_toselect = model_toselect
         Select.__init__(self)
+    
     def accept_residue(self, residue):
-        if id(residue) in self.res_toselect:
-            return 1
-        else:
-            return 0
+        for res in self.res_toselect:
+            if res == residue:
+                return 1        
+        return 0
+        
     def accept_model(self, model):
-        if model is self.model_toselect:
+        if model == self.model_toselect:
             return 1
         else:
             return 0
+    
     def accept_atom(self, atom):
         if atom.get_id()[0]=="H":
             return 0
