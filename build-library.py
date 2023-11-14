@@ -17,10 +17,12 @@ conformer_list = [] # all fragment indices that are "conformers" (primary and qu
                     # and those tertiary that come from singletons)
 primary_list = []   # PDB code + fragment index
 secondary_list = [] # (primary) PDB code + primary fragment index + replacement fragment index
-tertiary_list = []  # Cluster instances. "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement. 
+tertiary_list = []  # Cluster instances + primary list index (starting from 1) to replace. 
+                    # "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement. 
                     # "rmsd" is the RMSD between replacement and primary, "rmsd2" is the RMSD if the replacement is not used
 quaternary_list = [] # (primary) PDB code + (primary) fragment index + (replacement) fragment index + rmsd
-eliminated_list = []  # Cluster instances. "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement
+eliminated_list = []  # Cluster instances + primary list index (starting from 1) it is redundant with (0 if no such primary list index). 
+                      # "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement
 quasi_unique_list = []  # PDB code + primary fragment index + quasi-replacement fragment index + RMSD
 intra_cluster_list = [] # non-"conformers", coming from the secondary list and the tertiary list from non-singletons
 
@@ -221,7 +223,7 @@ for cluster_nr in clus:
                 _, r = superimpose(cluster_coordinates[heart-1], cluster_coordinates[fr-1])
                 clust = Cluster(pdb=pdb_code, fragment_index=fr, size=len(cluster), npdbs=len(s), rmsd=r, rmsd2=closest[cluster_nr][1])
                 intra_cluster.add(fr)
-                tertiary_list.append(clust)
+                tertiary_list.append((clust, len(primary_list)-1))
                 break
         else:
             raise Exception # can't happen for non-singleton
@@ -250,7 +252,7 @@ for cluster_nr in clus:
         s.update(sets_02[fr-1])
     _, rmsd_repl = superimpose(cluster_coordinates[heart-1], cluster_coordinates[nb_clust[0]-1])
     clust = Cluster(pdb=pdb_code, fragment_index=heart, rmsd=r, size=len(nb_clust), npdbs=len(s), rmsd2=None)
-    eliminated_list.append(clust)
+    eliminated_list.append((clust, -1))
 
 print(f"{len(eliminated_list)} green singletons eliminated")    
 checkpoint_elim = len(eliminated_list)
@@ -274,8 +276,9 @@ for cluster_nr in tqdm(clus):
     for fr in nb_clust:
         s.update(sets_02[fr-1])
     clust = Cluster(pdb=pdb_code, fragment_index=nb_clust[0], rmsd=r, size=len(nb_clust), npdbs=1, rmsd2=None)
-    if nb_clust[0] in [c[1] for c in primary_list]:
-        eliminated_list.append(clust)
+    prims = [c[1] for c in primary_list]
+    if nb_clust[0] in prims:        
+        eliminated_list.append((clust, prims.index(nb_clust[0])))
     else:
         rmsds = get_rmsd(cluster_nr)
         rmsds[cluster_nr] = 99999
@@ -287,7 +290,7 @@ for cluster_nr in tqdm(clus):
             rmsd2 = rmsds[c_nr]
             break
         clust = clust._replace(rmsd2 = rmsd2)
-        tertiary_list.append(clust)
+        tertiary_list.append((clust, len(primary_list)-1))
 
 print(f"{len(primary_list)-checkpoint} green singletons added to the primary list")
 if len(eliminated_list) > checkpoint_elim:
@@ -315,7 +318,7 @@ print(f"{len(quaternary_list)} fragments added to the quaternary list")
 conformer_list = set([c[1] for c in primary_list])
 for pdb_code, _, fragment_index in secondary_list:
     intra_cluster_list.append(fragment_index)
-for clust in tertiary_list:
+for clust, _ in tertiary_list:
     fragment_index = clust.fragment_index
     if fragment_index not in intra_cluster:
         conformer_list.add(fragment_index)
@@ -347,12 +350,12 @@ with open(outfile_pattern + "-secondary.list", "w") as f:
         print(pdb_code, fragment_index1, fragment_index2, file=f)
 
 with open(outfile_pattern + "-tertiary.list", "w") as f:
-    for cluster in sorted(tertiary_list, key= lambda c: c.pdb):
-        print(cluster.pdb, cluster.fragment_index, "{:.3f}".format(cluster.rmsd), "{:.3f}".format(cluster.rmsd2), cluster.size, cluster.npdbs, file=f)
+    for cluster, primary_index in sorted(tertiary_list, key= lambda c: c[0].pdb):
+        print(cluster.pdb, primary_index+1, cluster.fragment_index, "{:.3f}".format(cluster.rmsd), "{:.3f}".format(cluster.rmsd2), cluster.size, cluster.npdbs, file=f)
 
 with open(outfile_pattern + "-eliminated.list", "w") as f:
-    for cluster in sorted(eliminated_list, key= lambda c: -c.rmsd):
-        print(cluster.pdb, cluster.fragment_index, "{:.3f}".format(cluster.rmsd), cluster.size, cluster.npdbs, file=f)
+    for cluster, primary_index in sorted(eliminated_list, key= lambda c: -c[0].rmsd):
+        print(cluster.pdb, primary_index+1, cluster.fragment_index, "{:.3f}".format(cluster.rmsd), cluster.size, cluster.npdbs, file=f)
 
 with open(outfile_pattern + "-quaternary.list", "w") as f:
     for pdb_code, fragment_index1, fragment_index2, r in sorted(quaternary_list, key = lambda c: -c[3]):

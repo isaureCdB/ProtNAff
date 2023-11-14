@@ -79,9 +79,10 @@ with open(X+"-tertiary.list") as f:
         ll = l.split()
         if ll[0] != pdb_code:
             continue
-        new_frag = int(ll[1])
-        new_rmsd = float(ll[2])
-        old_rmsd = float(ll[3])
+        primary_index = int(ll[1])
+        new_frag = int(ll[2])
+        new_rmsd = float(ll[3])
+        old_rmsd = float(ll[4])
         if old_rmsd < args.min_rmsd:
             continue
         if old_rmsd - new_rmsd < args.min_improvement:
