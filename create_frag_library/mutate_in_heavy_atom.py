@@ -97,18 +97,18 @@ The shape will be the same as the input data, but with one extra atom for each G
     for nuc1, nuc2 in zip(args.input_sequence, args.output_sequence):
         size = sizes[nuc1]
         output_size = sizes[nuc2]
-        if nuc1 != nuc2:
-            if (nuc1, nuc2) not in (("A", "G"), ("C", "U")):
-                err(f"Cannot mutate {nuc1} to {nuc2}")
-            for frag in range(len(inp)):
-                curr_inp = inp[frag, offset:offset+size]
-                curr_outp = outp[frag, output_offset:output_offset+output_size]
+        for frag in range(len(inp)):
+            curr_inp = inp[frag, offset:offset+size]
+            curr_outp = outp[frag, output_offset:output_offset+output_size]
+            if nuc1 != nuc2:
+                if (nuc1, nuc2) not in (("A", "G"), ("C", "U")):
+                    err(f"Cannot mutate {nuc1} to {nuc2}")
                 if (nuc1, nuc2) == ("A", "G"):
                     mutate_AtoG(curr_inp, curr_outp)
                 elif (nuc1, nuc2) == ("C", "U"):
                     curr_outp[:] = curr_inp # equivalent atoms in the same order
-                else:
-                    curr_outp[:] = curr_inp  # no change
+            else:
+                curr_outp[:] = curr_inp  # no change
         offset += size
         output_offset += output_size
 
