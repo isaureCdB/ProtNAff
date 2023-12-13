@@ -107,6 +107,8 @@ The shape will be the same as the input data, but with one extra atom for each G
                     mutate_AtoG(curr_inp, curr_outp)
                 elif (nuc1, nuc2) == ("C", "U"):
                     curr_outp[:] = curr_inp # equivalent atoms in the same order
+                else:
+                    curr_outp[:] = curr_inp  # no change
         offset += size
         output_offset += output_size
 
