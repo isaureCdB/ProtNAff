@@ -28,9 +28,14 @@ for m1 in A C; do
               }'
             )
             echo $m $mut
-            python3 ../../create_frag_library/mutate_in_heavy_atom.py $m $mut $m-lib.npy $mut-lib.npy
-            python3 ../../create_frag_library/mutate_in_heavy_atom.py $m $mut $m-lib-conformer.npy $mut-lib-conformer.npy
-            python3 ../../create_frag_library/mutate_in_heavy_atom.py $m $mut $m-lib-intracluster.npy $mut-lib-intracluster.npy
+            for f in '.npy' '-conformer.npy' '-intracluster.npy'; do
+              python3 ../../create_frag_library/mutate_in_heavy_atom.py $m $mut $m-lib$f $mut-lib$f
+              echo 
+            done
+            for f in '.list' '-conformer.list' '-intracluster.list' '-secondary.list' '-tertiary.list' '-quaternary.list' '-quasi-unique.list'; do
+              rm -f $mut-lib$f
+              ln -s $m-lib$f $mut-lib$f
+            done
           done
         done
       done      
