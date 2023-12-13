@@ -9,3 +9,5 @@ dependencies:
   - statsmodels
   - matplotlib
   - jq
+  - tqdm
+  - opt_einsum
