@@ -1,6 +1,8 @@
 """ See build-library.md for documentation
 
 Also print out fragment stats (PDB code, PDB chain, resid) + rmsd for every red and quasi-unique singleton
+
+All fragment indices refer to clust02npy and start from 1
 """
 import sys
 import numpy as np
@@ -17,7 +19,7 @@ conformer_list = [] # all fragment indices that are "conformers" (primary and qu
                     # and those tertiary that come from singletons)
 primary_list = []   # PDB code + fragment index
 secondary_list = [] # (primary) PDB code + primary fragment index + replacement fragment index
-tertiary_list = []  # Cluster instances + primary list index (starting from 1) to replace. 
+tertiary_list = []  # Cluster instances + primary list to replace. 
                     # "pdb" refers to primary PDB code. "size"/"npdbs" refer to replacement. 
                     # "rmsd" is the RMSD between replacement and primary, "rmsd2" is the RMSD if the replacement is not used
 quaternary_list = [] # (primary) PDB code + (primary) fragment index + (replacement) fragment index + rmsd
