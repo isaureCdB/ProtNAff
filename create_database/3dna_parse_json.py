@@ -4,38 +4,54 @@
 import sys, json, os
 from collections import defaultdict
 import copy
-'''
+
+"""
 "is_broken" in "nts" of 3dna jsonoutput indicates a break in the chain
 => This could be used instead of distance-based script for break detection
 (But use distance-based if you skip 3dna-analysis)
 
 !!! Compatible with x3dna-dssr v2.3.1 (2021jun01) !!!
-'''
-#TODO: add bulges and intraloop
+"""
+# TODO: add bulges and intraloop
+
 
 def pp(*x):
     for i in x[:-1]:
-        print(i, file=sys.stderr, end=' ')
+        print(i, file=sys.stderr, end=" ")
     print(x[-1], file=sys.stderr)
 
-def parse_nts(j):
-    nts = [ j[x].split(".") for x in ["nt1","nt2"] ]
-    resint = [ int(x[4]) for x in nts ]
-    c = [ x[2] for x in nts ]
-    resid = [ x[4] for x in nts ]
+
+def _parse_ntlist(ntlist):
+    nts = [x.split(".") for x in ntlist]
+    resint = [int(x[4]) for x in nts]
+    c = [x[2] for x in nts]
+    resid = [x[4] for x in nts]
     return nts, resid, resint, c
 
+
+def parse_ntlist(ntlist):
+    ntlist2 = ntlist.split(",")
+    return _parse_ntlist(ntlist2)
+
+
+def parse_nts(j):
+    ntlist = [j[x] for x in ["nt1", "nt2"]]
+    return _parse_ntlist(ntlist)
+
+
 def dump_indiv(f, struct):
-    json.dump(f, open("3dna/3dna_%s.json"%struct, "w"), indent = 2, sort_keys=True)
+    json.dump(f, open("3dna/3dna_%s.json" % struct, "w"), indent=2, sort_keys=True)
+
 
 def testpathjson(jsonfile):
     if os.path.exists(jsonfile):
-            #print >> sys.stderr, dictname +" = json.load(open(""+jsonfile+""))"
+        # print >> sys.stderr, dictname +" = json.load(open(""+jsonfile+""))"
         dictname = json.load(open(jsonfile))
     else:
         dictname = {}
-        #exec( dictname + "= {}" )
+        # exec( dictname + "= {}" )
     return dictname
+
 
 def map_indices(struct, c):
     # convert residues indexing:
@@ -43,10 +59,14 @@ def map_indices(struct, c):
     # n2 = in "interface_protein" and in xxxX-1.mapping
     # n3 = in 3dna and in xxxX-1-iniparse-aa.mapping
     dict_n3to1, dict_n2to3, dict_n2to1 = {}, {}, {}
-    for l in open("cleanPDB/%s%s-1.mapping"%(struct, c)):   #outp from aareduce.py in parse_*.sh
+    for l in open(
+        "cleanPDB/%s%s-1.mapping" % (struct, c)
+    ):  # outp from aareduce.py in parse_*.sh
         ll = l.split()
         dict_n2to1[ll[1]] = ll[0]
-    for l in open("cleanPDB/%s%s-1-iniparse-aa.mapping"%(struct, c)): #outp from aareduce.py in parse_*.sh
+    for l in open(
+        "cleanPDB/%s%s-1-iniparse-aa.mapping" % (struct, c)
+    ):  # outp from aareduce.py in parse_*.sh
         ll = l.split()
         dict_n2to3[ll[0]] = ll[1]
         dict_n3to1[ll[1]] = dict_n2to1[ll[0]]
@@ -57,85 +77,105 @@ def map_indices(struct, c):
     #
     return firstres, lastres, dict_n3to1, dict_n2to3
 
+
 def map_missing(d, cc, dict_n2to3):
     if "missing_atoms" in d:
         if cc in d["missing_atoms"]:
             m = d["missing_atoms"][cc]
             new = {}
-            for resi in m.keys():       # resi = "res_1"
-                i = resi.split("_")[1]    # i = "1"
+            for resi in m.keys():  # resi = "res_1"
+                i = resi.split("_")[1]  # i = "1"
                 if i in dict_n2to3.keys():
-                    new["res_%s"%dict_n2to3[i]] = m[resi]
+                    new["res_%s" % dict_n2to3[i]] = m[resi]
             d["missing_atoms"][cc] = new
     return d
+
 
 def map_interf(d, cc, dict_n3to1):
     if cc not in d["interface_protein"]["model_1"]:
         d["interface_protein"]["model_1"][cc] = []
     interf = d["interface_protein"]["model_1"][cc]  # n1 {B: {"20A": {interface} }}
-    dict_n1to3 = { "res_"+v:"res_"+k for k,v in dict_n3to1.items()} # {B: {"20A": "1"}}
+    dict_n1to3 = {
+        "res_" + v: "res_" + k for k, v in dict_n3to1.items()
+    }  # {B: {"20A": "1"}}
     new_interf = {}
     if len(interf) == 0:
         return new_interf
     for i in sorted(interf.keys()):
         if i not in dict_n1to3.keys():
             continue
-        new_interf[ dict_n1to3[i] ] =  interf[i]
+        new_interf[dict_n1to3[i]] = interf[i]
     return new_interf
 
+
 def initialise_all(d, js):
-    d["mapping"] = {"chain_"+c:{} for c in chains}
-    d["breaks"] = {"chain_"+c:[] for c in chains}
-    d["ss"] = {"chain_"+c:{} for c in chains}
+    d["mapping"] = {"chain_" + c: {} for c in chains}
+    d["breaks"] = {"chain_" + c: [] for c in chains}
+    d["ss"] = {"chain_" + c: {} for c in chains}
     #
-    keys = ["hbonds","nonPairs","pairs","stems","hairpins","junctions","ssSegments"]
+    keys = [
+        "hbonds",
+        "nonPairs",
+        "pairs",
+        "stems",
+        "hairpins",
+        "junctions",
+        "ssSegments",
+    ]
     for k in keys:
         if k not in js:
             js[k] = []
     #
-    outputs = ["bptype", "intraNA_hb", "stacking", "ss", "NAprot_hb"] # +"breaks"
+    outputs = ["bptype", "intraNA_hb", "stacking", "ss", "NAprot_hb"]  # +"breaks"
     for k in outputs:
         if k not in d:
-            d[k] = { "chain_"+c:{} for c in chains}
+            d[k] = {"chain_" + c: {} for c in chains}
     return d, js
+
 
 def initialise_chain(d, c, m, dict_n3to1):
     global codenames
-    #pp("initialise_chain %c"%c)
+    # pp("initialise_chain %c"%c)
     for l, r in enumerate(dict_n3to1):
-        cc, rr = "chain_"+c, "res_"+r
-        d["ss"][cc][rr] = ["S", l+1, len(dict_n3to1)]
+        cc, rr = "chain_" + c, "res_" + r
+        d["ss"][cc][rr] = ["S", l + 1, len(dict_n3to1)]
     return d
+
 
 def update_intraNA(d_cc, rr, code, n, dist, AccDonn):
     # distinguish hbond of nucl n1 with nucl n2 at position [n1-2, n1-1, other, n1+1, n1+2]
-    if rr not in d_cc :
+    if rr not in d_cc:
         d_cc[rr] = {}
     if code not in d_cc[rr]:
         d_cc[rr][code] = {}
     if n not in d_cc[rr][code]:
         d_cc[rr][code][n] = []
-    #questionable AccDonn/acceptor according to x3dna ?
+    # questionable AccDonn/acceptor according to x3dna ?
     q = 1 if AccDonn == "questionable" else 0
     d_cc[rr][code][n].append((dist, q))
     return d_cc
 
-def update_stacking(d_cc, rr, n):
+
+def update_stacking(d, cc, rr, n):
     # distinguish hbond of nucl n1 with nucl n2 in [n-2, n-1, other, n+1, n+2]
-    if rr not in d_cc :
+    if cc not in d:
+        d[cc] = {}
+    d_cc = d[cc]
+    if rr not in d_cc:
         d_cc[rr] = {}
     d_cc[rr][n] = 1
-    return d_cc
+
 
 def update_NAprot(d_cc, rr, code, aa_name, aa_atname, dist, AccDonn):
-    if rr not in d_cc :
+    if rr not in d_cc:
         d_cc[rr] = {}
     if code not in d_cc[rr]:
         d_cc[rr][code] = []
-    #questionable AccDonn/acceptor ?
+    # questionable AccDonn/acceptor ?
     q = 1 if AccDonn == "questionable" else 0
     d_cc[rr][code].append((aa_name, aa_atname, dist, q))
     return d_cc
+
 
 def hb_sum(d_hb):
     d_sum = {}
@@ -152,29 +192,34 @@ def hb_sum(d_hb):
                 d_sum[c][res][part] = s
     return d_sum
 
+
 def check_breaks(js, c):
     breaks = []
-    cc = "chain_"+c
-    if "dbn" not in js.keys(): return breaks
-    if cc not in js["dbn"].keys(): return breaks
+    cc = "chain_" + c
+    if "dbn" not in js.keys():
+        return breaks
+    if cc not in js["dbn"].keys():
+        return breaks
     bseq = js["dbn"][cc]["bseq"].strip()
-    nts = [ jj for jj in js["nts"] if jj["chain_name"] == c]
-    nt_id = [ int(x["nt_id"].split(".")[4]) for x in nts ]
+    nts = [jj for jj in js["nts"] if jj["chain_name"] == c]
+    nt_id = [int(x["nt_id"].split(".")[4]) for x in nts]
     for nr, n in enumerate(nt_id):
         if bseq[nr] == "&":
             breaks.append(n)
             if len(bseq) > nr:
-                bseq = bseq[:nr] + bseq[nr+1:]
-                #if len(breaks) > 0 : pp((c, "breaks", breaks))
+                bseq = bseq[:nr] + bseq[nr + 1 :]
+                # if len(breaks) > 0 : pp((c, "breaks", breaks))
     return breaks
 
-def EX_check_breaks(js, c): #changed on 18/09/2018
+
+def EX_check_breaks(js, c):  # changed on 18/09/2018
     # those are breaks in the backbone. Does not account for missing residues
     # such as those excised by aareduce
-    nts = [ jj for jj in js["nts"] if jj["chain_name"] == c]
+    nts = [jj for jj in js["nts"] if jj["chain_name"] == c]
     breaks = [n["nt_resnum"] for n in nts if n["is_broken"]]
-    #if len(breaks) > 0 : pp((c, "breaks", breaks))
+    # if len(breaks) > 0 : pp((c, "breaks", breaks))
     return breaks
+
 
 def weight_hbond(dist, bydist=True, AccDonn=0):
     # Weight the Hbond by its atom-atom distance
@@ -193,6 +238,7 @@ def weight_hbond(dist, bydist=True, AccDonn=0):
         value *= 0.5
     return value
 
+
 def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
     global chains, protchains
     for j in js_hbond:
@@ -202,24 +248,29 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
         # !!! some nt are not in the main chains (e.g mono-nucleotides) !!!
         # Then they are not in residues, as j[x].split("@")[1][2] != "R"
         # Ex of atom description by x3dna: "atom2_id": "N6@.M.RA.8.",
-        atoms = [ j[x].split("@") for x in ["atom1_id", "atom2_id"]]
-        residues = [ at[1].split(".") for at in atoms]
-        nt_indices = [ xr for (xr, x) in enumerate(residues) if x[3][0] == prefix and x[2] in chains]
-        aa_indices = [ xr for (xr, x) in enumerate(residues) if x[2] in protchains ]
-        res = [ residues[i] for i in nt_indices]
-        aa = [ residues[i] for i in aa_indices]
-        if len(res) == 0: continue
+        atoms = [j[x].split("@") for x in ["atom1_id", "atom2_id"]]
+        residues = [at[1].split(".") for at in atoms]
+        nt_indices = [
+            xr
+            for (xr, x) in enumerate(residues)
+            if x[3][0] == prefix and x[2] in chains
+        ]
+        aa_indices = [xr for (xr, x) in enumerate(residues) if x[2] in protchains]
+        res = [residues[i] for i in nt_indices]
+        aa = [residues[i] for i in aa_indices]
+        if len(res) == 0:
+            continue
         if j["residue_pair"] == "nt:nt":
-            if len(res) != 2: #hbond with another nucleic acid type
+            if len(res) != 2:  # hbond with another nucleic acid type
                 continue
             # 2 nucl in correct nucleic acid type
-            at = [ a[0].split(".")[0] for a in atoms ]
-            c = [x[1] for x in res ]
-            cc = [ "chain_"+x[2] for x in res ]
-            resint = [ int(x[4]) for x in res ]
-            rr  = [ "res_%i"%resint[i] for i in [0, 1]]
-            resname = [ x[3] for x in res ]
-            for (a, b) in [(0, 1), (1, 0)]:
+            at = [a[0].split(".")[0] for a in atoms]
+            c = [x[1] for x in res]
+            cc = ["chain_" + x[2] for x in res]
+            resint = [int(x[4]) for x in res]
+            rr = ["res_%i" % resint[i] for i in [0, 1]]
+            resname = [x[3] for x in res]
+            for a, b in [(0, 1), (1, 0)]:
                 # get the nucleotide part involved in the hbond
                 part = dictcode[at[a]]
                 code = codenames[part]
@@ -227,28 +278,39 @@ def get_hbonds(js_hbond, d_NAprot_hb, d_intraNA_hb):
                 n = "other"
                 if c[0] == c[1] and c[0] in chains:
                     # neighbors nucl in same chain
-                    dist_nucl = resint[b]-resint[a]
+                    dist_nucl = resint[b] - resint[a]
                     if abs(dist_nucl) <= 2:
                         n = neighbors[dist_nucl + 2]
-                d_intraNA_hb[cc[a]] = update_intraNA(d_intraNA_hb[cc[a]], rr[a], code, n, j["distance"], j["donAcc_type"])
+                d_intraNA_hb[cc[a]] = update_intraNA(
+                    d_intraNA_hb[cc[a]], rr[a], code, n, j["distance"], j["donAcc_type"]
+                )
         elif j["residue_pair"] == "nt:aa" or j["residue_pair"] == "aa:nt":
             # !!! can be j["residue_pair"] == "nt:misc" (unknown?)
             try:
                 at = atoms[nt_indices[0]]
-                cc, rr = "chain_"+res[0][2], "res_"+res[0][4]
+                cc, rr = "chain_" + res[0][2], "res_" + res[0][4]
                 atname = at[0]
                 part = dictcode[atname]
                 code = codenames[part]
                 aa_at = atoms[aa_indices[0]]
                 aa_atname = aa_at[0] if aa_at[0] in ["N", "O"] else "sc"
                 aa_name = aa_at[1].split(".")[3]
-                d_NAprot_hb[cc] = update_NAprot(d_NAprot_hb[cc], rr, code, aa_name, aa_atname, j["distance"], j["donAcc_type"])
+                d_NAprot_hb[cc] = update_NAprot(
+                    d_NAprot_hb[cc],
+                    rr,
+                    code,
+                    aa_name,
+                    aa_atname,
+                    j["distance"],
+                    j["donAcc_type"],
+                )
             except:
                 print(j)
                 print(atoms)
                 print(aa_indices)
                 raise
     return d_NAprot_hb, d_intraNA_hb
+
 
 def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
     # the interaction is an H-bond
@@ -258,50 +320,90 @@ def get_nonPairs_hbonds(j_nonPairs, d_intraNA_hb):
         if not "-" in hbond:
             # weird "hbonds" have * as separator instead of -
             continue
-        at = [ hbond.split("(")[0].split("[")[0].split("-")[0], hbond.split("-")[1].split("(")[0].split("[")[0] ]
+        at = [
+            hbond.split("(")[0].split("[")[0].split("-")[0],
+            hbond.split("-")[1].split("(")[0].split("[")[0],
+        ]
         for x in ind_in_chains:
             part = dictcode[at[x]]
             code = codenames[part]
-            cc = "chain_"+c[x]
-            rr = "res_"+resid[x]
-            #intraNA_hb[resid[a]-1].keys() = ["sug", "ph", "base"]
-            #codenames = {1:"ph", 2:"sug", 3:"base"}
+            cc = "chain_" + c[x]
+            rr = "res_" + resid[x]
+            # intraNA_hb[resid[a]-1].keys() = ["sug", "ph", "base"]
+            # codenames = {1:"ph", 2:"sug", 3:"base"}
             d_intraNA_hb[cc] = update_intraNA(d_cc, rr, code, neighbors[pos[x]], 1, 0)
     return d_intraNA_hb
 
-def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
-    # stacking and nonpairing H-bonds:
-    # TODO: check the chain of the stacking residue. Cf 1CVJ chainsP_res5 - chainM_res7
-    for j in js_nonPairs:
-        # non-paired interacting pairs of nt
-        #if "hbonds_desc" in list(j.keys()):
-        #   d_intraNA_hb = get_nonPairs_hbonds(j, d_intraNA_hb)
-        if "stacking" in list(j.keys()):
-            nts, resid, resint, c = parse_nts(j)
-            ind_in_chains = [ x for x in range(2) if c[x] in chains]
-            cc = ["chain_"+x for x in c]
-            rr = ["res_" + x for x in resid]
+
+def get_stacks(j_stacks):
+    # stacking interaction, not necessary nucleotides
+    for stacking in j_stacks:
+        nts, resid, resint, c = parse_ntlist(stacking["nts_long"])
+        resnames = [x[3] for x in nts]
+        for offset in range(len(c) - 1):
+
+            oc = c[offset : offset + 2]
+            oresid = resid[offset : offset + 2]
+            oresint = resint[offset : offset + 2]
+            cc = ["chain_" + x for x in oc]
+            rr = ["res_" + x for x in oresid]
             # position in the 5-nb vector of the nucleotide
             # pos = 2 : per default, it is not a neighbors
             pos = [2, 2]
-            if c[0] in chains and c[1] == c[0]:
-                if abs(resint[0]-resint[1]) <= 2:
+            if oc[0] in chains and oc[1] == oc[0]:
+                if abs(oresint[0] - oresint[1]) <= 2:
                     # the nucl are neighbors in the same chain
-                    pos = [resint[1] - resint[0] + 2, resint[0] - resint[1] + 2 ]
-                    update_stacking(d["stacking"][cc[0]], rr[0], neighbors[pos[0]])
-                    update_stacking(d["stacking"][cc[1]], rr[1], neighbors[pos[1]])
+                    pos = [oresint[1] - oresint[0] + 2, oresint[0] - oresint[1] + 2]
+                    update_stacking(d["stacking"], cc[0], rr[0], neighbors[pos[0]])
+                    update_stacking(d["stacking"], cc[1], rr[1], neighbors[pos[1]])
             else:
-                for x in ind_in_chains:
-                    update_stacking(d["stacking"][cc[x]], rr[x], "other")
+                if oc[0] in chains:
+                    update_stacking(d["stacking"], cc[0], rr[0], resnames[offset + 1])
+                if oc[1] in chains and offset + 2 == len(c):
+                    update_stacking(d["stacking"], cc[1], rr[1], resnames[offset])
+
+
+def get_nonPairs(js_nonPairs, d_intraNA_hb, d_stacking):
+    # stacking and nonpairing H-bonds, nucleotides only:
+    # TODO: check the chain of the stacking residue. Cf 1CVJ chainsP_res5 - chainM_res7
+    for j in js_nonPairs:
+        # non-paired interacting pairs of nt
+        # if "hbonds_desc" in list(j.keys()):
+        #   d_intraNA_hb = get_nonPairs_hbonds(j, d_intraNA_hb)
+        if "stacking" not in list(j.keys()):
+            d["stacking"] = {}
+        nts, resid, resint, c = parse_nts(j)
+        resnames = [x[3] for x in nts]
+        for offset in range(len(c) - 1):
+
+            oc = c[offset : offset + 2]
+            oresid = resid[offset : offset + 2]
+            oresint = resint[offset : offset + 2]
+            cc = ["chain_" + x for x in oc]
+            rr = ["res_" + x for x in oresid]
+            # position in the 5-nb vector of the nucleotide
+            # pos = 2 : per default, it is not a neighbors
+            pos = [2, 2]
+            if oc[0] in chains and oc[1] == oc[0]:
+                if abs(oresint[0] - oresint[1]) <= 2:
+                    # the nucl are neighbors in the same chain
+                    pos = [oresint[1] - oresint[0] + 2, oresint[0] - oresint[1] + 2]
+                    update_stacking(d["stacking"], cc[0], rr[0], neighbors[pos[0]])
+                    update_stacking(d["stacking"], cc[1], rr[1], neighbors[pos[1]])
+            else:
+                if oc[0] in chains:
+                    update_stacking(d["stacking"], cc[0], rr[0], resnames[offset + 1])
+                if oc[1] in chains and offset + 2 == len(c):
+                    update_stacking(d["stacking"], cc[1], rr[1], resnames[offset])
     return d_intraNA_hb, d_stacking
+
 
 def get_pairs(js_pairs, d_ss, d_bptype):
     for j in js_pairs:
         nts, resid, resint, c = parse_nts(j)
         for i in [0, 1]:
-            cc = "chain_"+c[i]
-            rr = "res_"+resid[i]
-            print(cc, rr)
+            cc = "chain_" + c[i]
+            rr = "res_" + resid[i]
             if c[i] in chains:
                 if cc not in d_bptype:
                     d_bptype[cc] = {}
@@ -316,137 +418,164 @@ def get_pairs(js_pairs, d_ss, d_bptype):
                     d_ss[cc][rr][0] = "D"
     return d_ss, d_bptype
 
+
 def get_hairpins(js_hairpins, d_ss):
     for j in js_hairpins:
-        nts = [ x.split(".") for x in j["nts_long"].split(",") ]
+        nts = [x.split(".") for x in j["nts_long"].split(",")]
         for nr, n in enumerate(nts):
             c = nts[nr][2]
             resid = int(nts[nr][4])
-            if nr==0 or nr==len(nts)-1:
-                d_ss["chain_%s"%c]["res_%i"%resid] = ["D", 0, 0]
+            if nr == 0 or nr == len(nts) - 1:
+                d_ss["chain_%s" % c]["res_%i" % resid] = ["D", 0, 0]
             else:
-                d_ss["chain_%s"%c]["res_%i"%resid] = ["L", nr+1, j["num_nts"]-2]
+                d_ss["chain_%s" % c]["res_%i" % resid] = ["L", nr + 1, j["num_nts"] - 2]
     return d_ss
+
 
 def get_junctions(js_junctions, d_ss):
     for j in js_junctions:
         for jj in j["bridges"]:
-            nts = [ x.split(".") for x in jj["nts_long"].split(",") ]
+            nts = [x.split(".") for x in jj["nts_long"].split(",")]
             l = jj["num_nts"]
             for nr, n in enumerate(nts):
-                if len(n) < 2 : continue
+                if len(n) < 2:
+                    continue
                 resid, resint, c = n[4], int(n[4]), n[2]
-                d_ss["chain_"+c]["res_%i"%resint] = ["J", nr , l]
+                d_ss["chain_" + c]["res_%i" % resint] = ["J", nr, l]
     return d_ss
 
+
 def get_ss(js_ssSegments, d_ss):
-    #TODO : distinguish T from full-ss NA
+    # TODO : distinguish T from full-ss NA
     for j in js_ssSegments:
-        nts = [ x.split(".") for x in j["nts_long"].split(",") ]
+        nts = [x.split(".") for x in j["nts_long"].split(",")]
         c = nts[1][1]
-        if c not in chains: continue
+        if c not in chains:
+            continue
         l = j["num_nts"]
         for nr, n in enumerate(nts):
             resid, resint, c = n[4], n[4], n[2]
-            d_ss["chain_"+c]["res_%i"%resint] = ["S", nr + 1 , l]
-            if int(resint)+1 in d["breaks"]["chain_"+c]:
-                d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
+            d_ss["chain_" + c]["res_%i" % resint] = ["S", nr + 1, l]
+            if int(resint) + 1 in d["breaks"]["chain_" + c]:
+                d_ss["chain_" + c]["res_%i" % resint] = ["T", l - nr, l]
         if int(nts[-1][3]) == lastres:
-            #3'-term ssSegments
+            # 3'-term ssSegments
             resint = nts[-1][3]
             nr = len(nts)
-            d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
+            d_ss["chain_" + c]["res_%i" % resint] = ["T", l - nr, l]
         if int(nts[1][3]) == firstres:
-            #5'-term ssSegments
+            # 5'-term ssSegments
             resint = nts[1][3]
             nr = 0
-            d_ss["chain_"+c]["res_%i"%resint] = ["T", l - nr , l]
+            d_ss["chain_" + c]["res_%i" % resint] = ["T", l - nr, l]
 
-chainsmodels = json.load(open(sys.argv[1])) # excise.json
-outfile = sys.argv[2]                       # structures.json
+
+chainsmodels = json.load(open(sys.argv[1]))  # excise.json
+outfile = sys.argv[2]  # structures.json
 out = testpathjson(outfile)
-na = sys.argv[3]                            # "NA" or "dna"
+na = sys.argv[3]  # "NA" or "dna"
 
-if True: # for editing purpose
-    ph = ["P","O1P", "O2P","OP1", "OP2", "O5'", "C5'"]
+if True:  # for editing purpose
+    ph = ["P", "O1P", "O2P", "OP1", "OP2", "O5'", "C5'"]
     sug = ["C4'", "C3'", "C2'", "C1'", "O2'", "O4'", "O3'"]
-    base = ["N1","C2","N2","O2","N3","N4","O4","C4","C5","N6","C6","O6","N7","C7","C8","N9"]
+    base = [
+        "N1",
+        "C2",
+        "N2",
+        "O2",
+        "N3",
+        "N4",
+        "O4",
+        "C4",
+        "C5",
+        "N6",
+        "C6",
+        "O6",
+        "N7",
+        "C7",
+        "C8",
+        "N9",
+    ]
     resnames = ["RG", "RC", "RA", "RU"]
     prefix = "R"
     if na == "dna":
         prefix = "D"
         resnames = ["DG", "DC", "DA", "DT"]
         sug = ["C4'", "C3'", "C2'", "C1'", "O4'", "O3'"]
-    code = {1:ph, 2:sug, 3:base}
-    codenames = {1:"ph", 2:"sug", 3:"base"}
-    dbn = {
-        "(" : "1",
-        "." : "0",
-        ")" : "1"
-        }
+    code = {1: ph, 2: sug, 3: base}
+    codenames = {1: "ph", 2: "sug", 3: "base"}
+    dbn = {"(": "1", ".": "0", ")": "1"}
     neighbors = ["n-2", "n-1", "other", "n+1", "n+2"]
 
 dictcode = defaultdict(lambda: 0)
-for a in range(1,4):
+for a in range(1, 4):
     for b in code[a]:
         dictcode[b] = a
 #
-    #intraNA_hb  = Nb of NA-NA H-bond for each nmap part (sug, ph, base)
-    #NAprot_hb_sum = Nb of NA-NA/prot Hb for each nmap part
-    #NAprot_hb  = list of NA-NA/prot Hb for each nmap part
-    #intraNA_hb["res_"+resid[a]].keys() = ["sug", "ph", "base"]
-    #loops: {L : hairpinloop, J : jonction, B : Bulge, I : intraloop}
-    #
-    # position in the 5-nb vector of the nucleotide:
-    # {1: {"base": [0, 0, 1, 0, 0], "ph": [0, 0, 0, 0, 0], "sug": [0, 0, 0, 0, 0]},
+# intraNA_hb  = Nb of NA-NA H-bond for each nmap part (sug, ph, base)
+# NAprot_hb_sum = Nb of NA-NA/prot Hb for each nmap part
+# NAprot_hb  = list of NA-NA/prot Hb for each nmap part
+# intraNA_hb["res_"+resid[a]].keys() = ["sug", "ph", "base"]
+# loops: {L : hairpinloop, J : jonction, B : Bulge, I : intraloop}
+#
+# position in the 5-nb vector of the nucleotide:
+# {1: {"base": [0, 0, 1, 0, 0], "ph": [0, 0, 0, 0, 0], "sug": [0, 0, 0, 0, 0]},
 
 # Nb of interactions with nt at  position [i-2, i-1, other, i+1, i+2]
 vect = list(range(5))
 for struct in sorted(chainsmodels.keys()):
-    if struct in out.keys(): # structure already in the output
-        pp("%s already in outp"%struct)
+    if struct != "1B7F":  ###
         continue
-    #try:
+    if struct in out.keys():  # structure already in the output
+        pp("%s already in outp" % struct)
+        continue
+    # try:
     d = chainsmodels[struct]
     # get data from x3dna output
-    inp = "3dna/%s-1-dssr.json"%struct #output from 3dna-dssr
+    inp = "3dna/%s-1-dssr.json" % struct  # output from 3dna-dssr
     if not os.path.exists(inp) and os.stat(inp).st_size == 0:
-        print("%s does not exist"%inp)
+        print("%s does not exist" % inp)
         continue
     try:
         js = json.load(open(inp))
     except:
         continue
     # initialise dictionary for the current structure
-    chains = d["nachains"]  #list of IDs for rna/dna chains
+    chains = d["nachains"]  # list of IDs for rna/dna chains
     protchains = d["protchains"]
     d, js = initialise_all(d, js)
     for c in chains:
         try:
-            pp("%s_%s"%(struct, c))
-            cc="chain_"+c
+            pp("%s_%s" % (struct, c))
+            cc = "chain_" + c
 
             firstres, lastres, dict_n3to1, dict_n2to3 = map_indices(struct, c)
 
-            d["mapping"][cc] = dict_n3to1 # {"1": "20A"}
+            d["mapping"][cc] = dict_n3to1  # {"1": "20A"}
 
-            for m in range(1, d["Nmodels"]+1): # for each model
+            for m in range(1, d["Nmodels"] + 1):  # for each model
                 d = map_missing(d, cc, dict_n2to3)
                 d["interface_protein"]["model_1"][cc] = map_interf(d, cc, dict_n3to1)
                 d["breaks"][cc] += check_breaks(js, c)
                 d = initialise_chain(d, c, m, dict_n3to1)
         except:
-            pp("ERROR1 in %s_%s"%(struct, c))
-    d["NAprot_hb"], d["intraNA_hb"],  = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
+            pp("ERROR1 in %s_%s" % (struct, c))
+    (
+        d["NAprot_hb"],
+        d["intraNA_hb"],
+    ) = get_hbonds(js["hbonds"], d["NAprot_hb"], d["intraNA_hb"])
     d["NAprot_hb_sum"] = hb_sum(d["NAprot_hb"])
-    d["intraNA_hb"], d["stacking"] = get_nonPairs(js["nonPairs"], d["intraNA_hb"], d["stacking"])
+    d["intraNA_hb"], d["stacking"] = get_nonPairs(
+        js["nonPairs"], d["intraNA_hb"], d["stacking"]
+    )
+    get_stacks(js["stacks"])
     d["ss"], d["bptype"] = get_pairs(js["pairs"], d["ss"], d["bptype"])
     d["ss"] = get_hairpins(js["hairpins"], d["ss"])
     d["ss"] = get_junctions(js["junctions"], d["ss"])
     out[struct] = d
-    #except:
+    # except:
     #    pp("ERROR2 in %s"%struct)
     #    pass
 
-json.dump(out, open(outfile, "w"), indent = 2, sort_keys = True)
+json.dump(out, open(outfile, "w"), indent=2, sort_keys=True)
 print("done", file=sys.stderr)

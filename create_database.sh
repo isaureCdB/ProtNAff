@@ -30,7 +30,7 @@ done
 
 shift "$((OPTIND - 1))"
 # provide a list of PDB codes of structures to parse
-pdbcodes=$1
+pdbcodes=$(python -c 'import sys,os;print(os.path.realpath(sys.argv[1]))' $1)
 
 # provide the type of nucleic acids (dna or rna)
 na=$2
