@@ -524,8 +524,6 @@ for a in range(1, 4):
 # Nb of interactions with nt at  position [i-2, i-1, other, i+1, i+2]
 vect = list(range(5))
 for struct in sorted(chainsmodels.keys()):
-    if struct != "1B7F":  ###
-        continue
     if struct in out.keys():  # structure already in the output
         pp("%s already in outp" % struct)
         continue
