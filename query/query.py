@@ -1,9 +1,6 @@
 import numpy as np
 import json
 
-fragments = np.load("fragments_clust-aa_missing.npy")
-chaindata = json.load(open("chainsmodel_frag_light.json"))
-
 # "mapping": from numerical string to numerical string
 chainschema = {
     "*pdbcode": [
@@ -137,6 +134,9 @@ def query(chaindata, chainschema, frags, func, name, part=None, pos=None):
 Example: Do the single-stranded fragments interact more with the base than with sugar or phosphate
  compared to double-stranded ?
 """
+
+# load fragments from fragments_clust.npy
+# load chaindata from structures.json
 
 frag = fragments[0]
 variables = {
