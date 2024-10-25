@@ -20,4 +20,10 @@ python3 ../create_frag_library/assign_clusters.py ../database/fragments_clust.js
 # convert fragments_clust to npy format
 python3 json2npy.py ../database/fragments_clust.json ../database/fragments_clust.npy
 
+# terminality analysis:
+cd database/trilib
+python3 ../../compute-cluster-terminality.py  ../fragments_clust.npy ../structures.json clust0.2A
+python3 ../../compute-cluster-terminality.py  ../fragments_clust.npy ../structures.json clust0.5A
+python3 ../../compute-cluster-terminality.py  ../fragments_clust.npy ../structures.json clust1A
+
 query with chaindata=structures.json and frag=fragments_clust.npy (loaded)

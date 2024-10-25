@@ -18,7 +18,7 @@ chainschema = {
         ("interface_protein", {"*model": {"?*chain": {"?*res": {"?*part": None}}}}),
         ("fragments", {"*model": {"*chain": [[]]}}),
         ("hetnames", {}),
-        "sequence",
+        ("sequence", {"*chain": None}),
         ("ss", {"*chain": {"*res": []}}),
         ("missing_atoms", {"?*chain": []}),
         ("stacking", {"?*chain": {"?*res": {"?*pos": None}}}),
@@ -62,10 +62,13 @@ def _query(data, schema, variables):
         return data
     starkey, optional = query_schema_star(schema)
     if starkey is not None:
-        if optional:
-            subkey = variables[starkey[2:]]
-        else:
-            subkey = variables[starkey[1:]]
+        try:
+            if optional:
+                subkey = variables[starkey[2:]]
+            else:
+                subkey = variables[starkey[1:]]
+        except KeyError:
+            return data
         try:
             subdata = data[subkey]
         except KeyError:
@@ -100,7 +103,7 @@ def query_one_frag(chaindata, chainschema, frag, name, part=None, pos=None):
         "name": name,
         "model": frag["model"],
         "pdbcode": frag["structure"].decode(),
-        "chain": frag["chain"].decode(),
+        "chain": "chain_" + frag["chain"].decode(),
     }
     if part is not None:
         variables["part"] = part
@@ -110,7 +113,7 @@ def query_one_frag(chaindata, chainschema, frag, name, part=None, pos=None):
     for n in range(3):
         variables.update(
             {
-                "res": str(frag["indices"][n]),
+                "res": "res_" + str(frag["indices"][n]),
             }
         )
         q = query_one_res(chaindata, chainschema, variables)
