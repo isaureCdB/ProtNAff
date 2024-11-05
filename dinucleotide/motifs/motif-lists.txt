@@ -1,11 +1,13 @@
 AA12.list comes from aptamers, except 7MLX and 8DP3 (which are both AA1 and AA2)
 AC1.list comes from Pumilio, except 1F7U and 1F7V, which are tRNA synthetase
-AC2.list comes from sex-lethal (2x), Lin28-let (4x) and Ybox protein (2x)
-CA1.list has a wide diversity
+AC2.list comes from sex-lethal (2x), Lin28A-let (4x) and Ybox protein (2x) (it includes 1B7F).
+   UPDATE: Although 4QQB contains sex-lethal, the protein that interfaces with RNA is NOT sex-lethal.
+   Instead, it contains a cold-shock domain, like the Ybox structures and Lin28A.
+CA1.list has a wide diversity (UPDATE: not really, it is all the U1A spliceosomal protein...)
 CA2456.list comes from Pumilio, except 1RGO (CA2,CA5) and 4M59/4OE1 (CA2,CA5,CA6)
 CA3 is specific for Cas9
 
-CA1 (90 members) and AC2 (8 members) are the interesting ones. 
-CA1 is present in ~5 % of all RNA-binding PDBs, AC2 in ~0.5%
+CA1 (68 members) and AC2 (8 members) are the interesting ones. UPDATE: only AC2
+CA1 is present in ~3-4 % of all RNA-binding PDBs, AC2 in ~0.5%
 The CA1 dinucleotide conformer is 80-90% specific for double stacking
 For AC2, it is more like 15%.
