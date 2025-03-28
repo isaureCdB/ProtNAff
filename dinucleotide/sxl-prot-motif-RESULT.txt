@@ -1,0 +1,140 @@
+['1B7F', 'P', 'RG', '4', 'RU', '5', 'A', 'TYR', '214', 'PHE', '256']
+
+Can be inferred from unbound: 0.182 A in 3SXL (3sxl_dom2.npy A TYR 214 PHE 256)
+
+(This is also true for a cold-shock domain:
+['4QQB', 'C', 'RA', '12', 'RC', '13', 'Y', 'PHE', '31', 'PHE', '20']
+
+Can be inferred from unbound: RMSD=0.09A (6y6e A PHE 122 PHE 111)
+)
+
+Analysis at the seqsig level: (sequence signature: 15 residues + 15 residues surrounding the stacking aromatics)
+    80 % sequence identity for redundancy, gap-nongap counts as half an identity
+
+There are 70 unique RRM domains in the ProtNAff PDB list  (1819 PDBs)
+
+    22 domains have no double aromatics (Phe/Tyr/Trp/His), 
+    41 domains have (n, n+1) stacking
+        Those 41 domains have 32 unique seqsigs.
+
+    7 domains (minus 1) have double aromatics but NOT (n,n+1) stacking 
+    (seqsig-vs-master-aligment). These are true negatives 
+
+true negatives: 
+
+P11940 domain 1: 1CVJ, 4F02  (domain 2 has double stacking, domain 3 is not in the PDB)
+  domain 1 double-stacks, but n-n+2
+Q99383 domain 1 and 2: 2CJK, 2KM8 (NMR structures)
+Q8I3T5: 2N7C (NMR structure)
+Q4G0J3: 4WKR (La domain)
+P05455: 1YTY, 1ZH5, 2VOD. 2VON, 2VOO, 2VOP (La domain)
+Q00425 domain 1: 6FQR, 6GX6
+
+These true negatives are 7 domains (but 1 is not in PDB) => 6. 
+
+
+For the 32 unique RRM seqsigs, look at instance with closest RMSD:
+
+<0.2A: 5 of them, 0 other true positives, 11 incorrect. No non-stacking RRM.
+    Includes Sxl itself at 0.086 A (different hit than 1B7F chain A)
+
+
+<0.3A: 16 of them, 1 other true positive, 47 incorrect, of which 3 non-stacking RRM
+    non-stacking RRM are P05455 (0.244 A, La domain) and Q8I3T5 (0.276 A) and Q99383 domain 1 (0.299 A)
+    Other true positive is RRM7 (2MKK)
+
+<0.4A: 26 of them, 2 other true positives, 145 incorrect, of which 4 non-stacking RRMs
+    new non-stacking RRM:Q99383 domain 2 (0.330 A)
+    new TP: 1C0A/1IL2, OB-fold nucleic acid binding domain (0.317 A) (ASPARTYL-TRNA SYNTHETASE)
+
+<0.5A: 31 (out of 32) of them, 8 other true positives, 277 incorrect, of which 4 non-stacking RRM
+    Missing out: 2KM8 A RA 9 RU 10 B TYR 29 PHE (0.921 A)
+    Of the 6 new TP:
+    
+    Cold-shock domain 1 of B7Z0E2 is found at 0.429 A
+    (RNA-binding protein Unr, 4QQB chain Y Phe 31 Phe 20) 
+    
+    Cold-shock domain of Q8K3Y3 is found at 0.429 A
+    (Lin-28 homolog, 3TRZ/3TS0/3TS2/5UDZ chain U Phe 73 Phe 55)
+
+    2MKI: RRM7 domain
+
+    Cold-shock domain of P67809 is found at 0.451 A
+    (YB1 protein, 5YTS[/T/V/X],6A6J[/L],6KTC,6KUG,7F3I[/J/K/L])
+    Phe 85 - Phe 74 or Phe 65 - Phe 54 or Phe 35 - Phe 24 or Phe 120 - Phe 109 
+
+    Cold-shock domain of P32081 (3PF4 chain B, Phe 27 Phe 17) is found at 0.460 A
+    Cold shock protein CspB
+    (note: in 3PF4, there is another double stacking Phe 17 Trp 8, this is at 0.587 A. 4QQB doesn't have it.)
+
+    Cold-shock domain 7 of B7Z0E2 is found at 0.471 A
+    7ZHH, chain A, Phe 34 Phe 23
+
+Q4G0J3 and P11940 domain 1 (1CVJ) are beyond 0.5 A (0.512 A and 0.571 A).
+That covers all false negatives, because P11940 domain 2 is not in the PDB.
+
+========================
+
+Structural discrimination of binding and non-binding: inconclusive.
+overall: 32 vs 6  (84 %)
+< 0.5A, 31 vs 4   (89 %)
+> 0.5A, 1 vs 2    (33 %)
+
+No significant lower RMSD value for stacking RRMs (Mann-Whitney U, p=0.18 one tailed).
+Removing the 32th RMSD doesn't change things.
+
+***TODO1: To investigate bias for double-stacking RRMs in the PDB:***
+ProtNAff PDB has 35/38 double-aromatic domains within 0.5 A of 1B7F Tyr214-Phe256.
+To be precise: for 35/38, there is at least one such instance in the ProtNAff PDB
+
+
+(1) Getvalues for *all* instances. Check that stdev/max are not too high for the 35.
+    In that case, unbound prediction works, since many instances are in fact unbound.
+    (Combine with anecdotal evidence above)
+(2) Investigate this on AlphaFold models of the same domains:
+    Similar (inconclusive) separation between the 32 and the 6?
+(3) Investigate this on a random subset of AlphaFold models of double-aromatic RRMs,
+  with a sequence identity matrix histogram similar to the 32 and 7.
+    Similar partitioning (35 vs 3) for <0.5A and >0.5A?
+
+If (1) is true and (2) is true and (3) is false (more >0.5A, i.e. PDB has bias), then running the search
+on the entire AlphaFold proteome is useful. 
+If not, considering all double-aromatic RRMs to be double stacking is the best we can do.
+****************
+
+TODO2 (DONE):
+Run the same analysis on n-n+2 stacking, using 1CVJ (P11940) 13-82 as an example.
+
+XOX stacking is more rare, with 764 instances instead of 4046 for XX (n - n+1).
+PABP (1CVJ) is the only RRM that has it.
+
+A search against PABP (1CVJ 13-82) finds only itself, and one remote hit at 0.97A.
+False positives is: nothing <0.2A, 7 <0.3A, 37 <0.4A, 115 <0.5A.
+False positive RRMs is: nothing <0.2A, 2 <0.3A, 12 <0.4A, 23 <0.5A. 
+Among the 7 false positives <0.3A, only the 2 RRMs do double-stacking.
+Conclusion: no evidence to detect XOX from structure, at least not using 1CVJ.
+
+/TODO2
+
+TODO3:
+Show that a dendrogram of seqsig identity or overall sequence identity does not capture stacking or non-stacking
+
+TODO4 (for other paper):
+Analysis on the RNA side, show that cold shock domains dinuc are <1A of 1B7F dinuc,
+
+Use camembert result (camembert-dinucleotide.out, motifs/AC2.list):
+For dinucleotide AC, 1B7F is close to around 20 double-stacking dinucleotides in 8 PDBs.
+Those PDBs are cold-shock domains and NOT RRMs!
+
+In general the binding mode is not conserved (unlike Pumilio), with >1A confs.
+========================
+
+
+
+
+========================
+
+speculative-double-stack.pse: 
+  could bind when double strand is broken?
+    - 7Y7Q chain A  Phe 535  Phe 615  (Pymol numbering)
+    - 1YTY (P05455 RRM) chain A Tyr 114 Tyr 155

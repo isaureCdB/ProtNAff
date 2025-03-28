@@ -1,0 +1,73 @@
+No (n - n+1) double stacking P11940:13_82
+Has (n - n+1) double stacking, P11940:101_168
+No (n - n+1) double stacking P11940:193_261
+Not two aromatics P26378:53_123
+Has (n - n+1) double stacking, P26378:139_204
+Not two aromatics Q60900:41_111
+Has (n - n+1) double stacking, Q60900:127_190
+Not two aromatics Q15717:22_92
+Has (n - n+1) double stacking, Q15717:108_174
+Has (n - n+1) double stacking, Q15717:246_314
+Has (n - n+1) double stacking, P08199:310_378
+Not two aromatics P08199:399_460
+Not two aromatics P08199:488_554
+Has (n - n+1) double stacking, Q92879:19_84
+Has (n - n+1) double stacking, Q92879:110_174
+Has (n - n+1) double stacking, Q92879:403_472
+Has (n - n+1) double stacking, O95319:43_111
+Has (n - n+1) double stacking, O95319:134_198
+Not two aromatics P49960:43_109
+Has (n - n+1) double stacking, P49960:119_188
+Not two aromatics P49960:212_282
+Not two aromatics P19339:127_197
+Has (n - n+1) double stacking, P19339:213_274
+Not two aromatics P26599:186_249
+Not two aromatics P26599:458_518
+Has (n - n+1) double stacking, P09651:16_82
+Has (n - n+1) double stacking, P09651:107_168
+Has (n - n+1) double stacking, P26368:151_224
+Has (n - n+1) double stacking, P26368:261_330
+Not two aromatics Q07955:123_184
+No (n - n+1) double stacking Q99383:162_223
+No (n - n+1) double stacking Q99383:245_313
+Has (n - n+1) double stacking, Q61474:23_90
+Has (n - n+1) double stacking, Q61474:111_177
+Has (n - n+1) double stacking, P22626:23_87
+Has (n - n+1) double stacking, P22626:114_174
+Not two aromatics Q13148:106_164
+Has (n - n+1) double stacking, Q13148:193_241
+Has (n - n+1) double stacking, P09012:12_82
+Has (n - n+1) double stacking, Q06AA4:12_82
+Not two aromatics P52597:114_181
+Not two aromatics P52597:293_356
+Has (n - n+1) double stacking, P43332:9_79
+No (n - n+1) double stacking Q8I3T5:10_77
+Has (n - n+1) double stacking, P08579:9_79
+Not two aromatics Q12849:253_319
+Has (n - n+1) double stacking, P38159:10_80
+Not two aromatics F1LQ48:103_152
+Not two aromatics Q01130:17_86
+Has (n - n+1) double stacking, P0DJD3:10_79
+Not two aromatics P62995:122_190
+Has (n - n+1) double stacking, P25299:20_90
+Has (n - n+1) double stacking, P84103:12_76
+No (n - n+1) double stacking Q4G0J3:127_188
+Has (n - n+1) double stacking, Q9H0Z9:36_93
+Has (n - n+1) double stacking, Q9NWB1:120_186
+Has (n - n+1) double stacking, O00425:4_68
+Not two aromatics O00425:85_150
+Not two aromatics Q9Y5S9:75_144
+Has (n - n+1) double stacking, O45189:37_94
+Has (n - n+1) double stacking, P08621:105_174
+Has (n - n+1) double stacking, G5EEW7:103_169
+No (n - n+1) double stacking P05455:113_178
+Has (n - n+1) double stacking, Q64368:42_108
+Has (n - n+1) double stacking, P07910:18_80
+Has (n - n+1) double stacking, Q93062:26_87
+Has (n - n+1) double stacking, P38996:332_388
+Not two aromatics Q389P7:196_255
+Not two aromatics Q16630:83_152
+Has (n - n+1) double stacking, P53617:341_396
+
+41 double stackings, 32 unique seqsigs, write to rrm-doublestack-seqsigs.list
+7 double aromatics without double stackings, 7 unique seqsigs, write to rrm-nonstack-seqsigs.list

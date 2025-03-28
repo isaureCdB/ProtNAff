@@ -1,0 +1,40 @@
+python3 search-double-stacking-motif.py double-stacking-sorted.out 4
+['1B7F', 'P', 'RG', '4', 'RU', '5', 'A', 'TYR', '214', 'PHE', '256']
+3sxl_dom2.npy A TYR 214 PHE 256 0.182
+
+ python3 search-double-stacking-motif.py double-stacking-sorted.out 2462
+['4QQB', 'C', 'RA', '12', 'RC', '13', 'Y', 'PHE', '31', 'PHE', '20']
+6y6e A PHE 122 PHE 111 0.090
+
+ipython3 -i evaluate-double-stacking-predictions.py double-stacking-sorted.out 4 double-stacking-sorted-seqsig.txt 
+
+In[12]: len(unbound_positive_indices)
+Out[12]: 0
+
+
+In [8]: len({k:v for k,v in false_positive_seqsigs.items() if v < 0.2})
+Out[8]: 14
+
+In [11]: len({k:v for k,v in found_motif_indices.items() if v < 0.2})
+Out[11]: 12
+
+In[13]: len({k: v for k, v in found_motif_indices.items() if v < 0.4})
+Out[13]: 42
+
+In[14]: len({k: v for k, v in false_positive_seqsigs.items() if v < 0.4})
+Out[14]: 190
+
+In[15]: len({k: v for k, v in false_positive_seqsigs.items() if v < 0.3})
+Out[15]: 56
+
+In[16]: len({k: v for k, v in found_motif_indices.items() if v < 0.3})
+Out[16]: 27
+
+In[17]: len({k: v for k, v in false_positive_seqsigs.items() if v < 0.5})
+Out[17]: 382
+
+In[18]: len({k: v for k, v in found_motif_indices.items() if v < 0.5})
+Out[18]: 60
+
+In [19]: len(found_motif_indices), len(false_positive_seqsigs)
+Out[19]: (84, 14036)

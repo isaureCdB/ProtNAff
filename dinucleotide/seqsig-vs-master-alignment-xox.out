@@ -1,0 +1,73 @@
+Has XOX double stacking, P11940:13_82
+No XOX double stacking P11940:101_168
+No XOX double stacking P11940:193_261
+Not two aromatics P26378:53_123
+No XOX double stacking P26378:139_204
+Not two aromatics Q60900:41_111
+No XOX double stacking Q60900:127_190
+Not two aromatics Q15717:22_92
+No XOX double stacking Q15717:108_174
+No XOX double stacking Q15717:246_314
+No XOX double stacking P08199:310_378
+Not two aromatics P08199:399_460
+Not two aromatics P08199:488_554
+No XOX double stacking Q92879:19_84
+No XOX double stacking Q92879:110_174
+No XOX double stacking Q92879:403_472
+No XOX double stacking O95319:43_111
+No XOX double stacking O95319:134_198
+Not two aromatics P49960:43_109
+No XOX double stacking P49960:119_188
+Not two aromatics P49960:212_282
+Not two aromatics P19339:127_197
+No XOX double stacking P19339:213_274
+Not two aromatics P26599:186_249
+Not two aromatics P26599:458_518
+No XOX double stacking P09651:16_82
+No XOX double stacking P09651:107_168
+No XOX double stacking P26368:151_224
+No XOX double stacking P26368:261_330
+Not two aromatics Q07955:123_184
+No XOX double stacking Q99383:162_223
+No XOX double stacking Q99383:245_313
+No XOX double stacking Q61474:23_90
+No XOX double stacking Q61474:111_177
+No XOX double stacking P22626:23_87
+No XOX double stacking P22626:114_174
+Not two aromatics Q13148:106_164
+No XOX double stacking Q13148:193_241
+No XOX double stacking P09012:12_82
+No XOX double stacking Q06AA4:12_82
+Not two aromatics P52597:114_181
+Not two aromatics P52597:293_356
+No XOX double stacking P43332:9_79
+No XOX double stacking Q8I3T5:10_77
+No XOX double stacking P08579:9_79
+Not two aromatics Q12849:253_319
+No XOX double stacking P38159:10_80
+Not two aromatics F1LQ48:103_152
+Not two aromatics Q01130:17_86
+No XOX double stacking P0DJD3:10_79
+Not two aromatics P62995:122_190
+No XOX double stacking P25299:20_90
+No XOX double stacking P84103:12_76
+No XOX double stacking Q4G0J3:127_188
+No XOX double stacking Q9H0Z9:36_93
+No XOX double stacking Q9NWB1:120_186
+No XOX double stacking O00425:4_68
+Not two aromatics O00425:85_150
+Not two aromatics Q9Y5S9:75_144
+No XOX double stacking O45189:37_94
+No XOX double stacking P08621:105_174
+No XOX double stacking G5EEW7:103_169
+No XOX double stacking P05455:113_178
+No XOX double stacking Q64368:42_108
+No XOX double stacking P07910:18_80
+No XOX double stacking Q93062:26_87
+No XOX double stacking P38996:332_388
+Not two aromatics Q389P7:196_255
+Not two aromatics Q16630:83_152
+No XOX double stacking P53617:341_396
+
+1 XOX stackings, 1 unique seqsigs, write to rrm-xox-seqsigs.list
+47 double aromatics without XOX stackings, 38 unique seqsigs, write to rrm-nonxox-seqsigs.list

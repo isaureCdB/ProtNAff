@@ -3,3 +3,4 @@ example/full_test
 **/*.pyc
 database/
 data_paper/
+dinucleotide/double-stacking-sorted-descriptors-rmsds.npy
